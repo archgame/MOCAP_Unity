@@ -30,11 +30,7 @@ public class Controls : MonoBehaviour
     private void Update()
     {
         //quit application
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Quit Application");
-            Application.Quit();
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) { Debug.Log("Quit Application"); Application.Quit(); }
 
         //increase trail render time
         float tempTime = TrailRenderTime;
@@ -49,19 +45,13 @@ public class Controls : MonoBehaviour
         }
 
         //toggle body renderer on and off
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (BodyRenderer != null)
-            {
-                BodyRenderer.enabled = !BodyRenderer.enabled;
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
 
         //bake trail renderer as mesh
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            BakeTrailRenderers();
-        }
+        if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderers(); }
+
+        //delete drawing
+        if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderers(); }
     }
 
     private void UpdateTrailRenderers()
@@ -74,11 +64,7 @@ public class Controls : MonoBehaviour
 
     private void BakeTrailRenderers()
     {
-        //delete any existing children
-        foreach (Transform child in parent.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
+        DeleteBakeTrailRenderers();
 
         //bake trail renderer and add to parent
         foreach (TrailRenderer trail in TrailRenderers)
@@ -100,6 +86,15 @@ public class Controls : MonoBehaviour
 
             //add to parent
             go.transform.parent = parent.transform;
+        }
+    }
+
+    private void DeleteBakeTrailRenderers()
+    {
+        //delete any existing children
+        foreach (Transform child in parent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
         }
     }
 }
