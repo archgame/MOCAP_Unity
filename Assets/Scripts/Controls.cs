@@ -8,6 +8,8 @@ public class Controls : MonoBehaviour
 
     public TrailRenderer[] TrailRenderers;
 
+    public SkinnedMeshRenderer BodyRenderer;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -36,6 +38,15 @@ public class Controls : MonoBehaviour
         {
             TrailRenderTime = tempTime;
             UpdateTrailRenderers();
+        }
+
+        //toggle body renderer on and off
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (BodyRenderer != null)
+            {
+                BodyRenderer.enabled = !BodyRenderer.enabled;
+            }
         }
     }
 
