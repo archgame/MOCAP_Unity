@@ -8,6 +8,8 @@ public class Controls : MonoBehaviour
 
     public TrailRenderer[] TrailRenderers;
 
+    public ParticleSystem[] ParticleSystems;
+
     public SkinnedMeshRenderer BodyRenderer;
 
     private GameObject parent;
@@ -18,13 +20,26 @@ public class Controls : MonoBehaviour
         //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
 
+        //get all particle systems
+        ParticleSystems = FindObjectsOfType<ParticleSystem>();
+
         //create parent transform for bake trail renderers
         parent = new GameObject();
         parent.transform.parent = this.gameObject.transform;
         parent.name = "Parent";
+        parent.transform.localPosition = Vector3.zero;
     }
 
     private float _timeIncrement = 0.01f;
+    private bool _trailRendererEnabled = true;
+
+    /*/
+    Up/Down: Increase/Decrease Trace Length
+    B: turn off body renderer
+    Space: Bake Trail Renders
+    X: Delete Baked Trail Renderers
+    P: Toggle Particles/Trail Renderers
+    //*/
 
     // Update is called once per frame
     private void Update()
@@ -52,6 +67,39 @@ public class Controls : MonoBehaviour
 
         //delete drawing
         if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderers(); }
+
+        //toggle trail renderer and particle systems
+        if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(); }
+
+        //rotate parent
+        float rot = 20;
+        parent.transform.Rotate(this.transform.up * rot * Time.deltaTime);
+        parent.transform.Rotate(this.transform.forward * rot * Time.deltaTime);
+        parent.transform.Rotate(this.transform.right * rot * Time.deltaTime);
+    }
+
+    private void ToggleTrailRendererParticleSystem()
+    {
+        bool trailOn = true;
+        bool particleOn = false;
+        _trailRendererEnabled = !_trailRendererEnabled;
+        if (_trailRendererEnabled)
+        {
+            trailOn = false;
+            particleOn = true;
+        }
+
+        //toggle trail renderers
+        foreach (TrailRenderer trail in TrailRenderers)
+        {
+            trail.enabled = !trail.enabled;
+        }
+
+        //toggle particle systems
+        foreach (ParticleSystem system in ParticleSystems)
+        {
+            system.enableEmission = !system.enableEmission;
+        }
     }
 
     private void UpdateTrailRenderers()
