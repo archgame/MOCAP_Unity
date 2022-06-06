@@ -10,10 +10,18 @@ public class Controls : MonoBehaviour
 
     public SkinnedMeshRenderer BodyRenderer;
 
+    private GameObject parent;
+
     // Start is called before the first frame update
     private void Start()
     {
+        //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
+
+        //create parent transform for bake trail renderers
+        parent = new GameObject();
+        parent.transform.parent = this.gameObject.transform;
+        parent.name = "Parent";
     }
 
     private float _timeIncrement = 0.01f;
@@ -48,6 +56,12 @@ public class Controls : MonoBehaviour
                 BodyRenderer.enabled = !BodyRenderer.enabled;
             }
         }
+
+        //bake trail renderer as mesh
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            BakeTrailRenderers();
+        }
     }
 
     private void UpdateTrailRenderers()
@@ -55,6 +69,37 @@ public class Controls : MonoBehaviour
         foreach (TrailRenderer trail in TrailRenderers)
         {
             trail.time = TrailRenderTime;
+        }
+    }
+
+    private void BakeTrailRenderers()
+    {
+        //delete any existing children
+        foreach (Transform child in parent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        //bake trail renderer and add to parent
+        foreach (TrailRenderer trail in TrailRenderers)
+        {
+            //bake mesh
+            Mesh bakedMesh = new Mesh();
+            trail.BakeMesh(bakedMesh);
+
+            // Recalcultate the bounding volume of the mesh from the vertices.
+            bakedMesh.RecalculateBounds();
+            //Debug.Log("Baked mesh bounds: " + bakedMesh.bounds.ToString());
+
+            // Adding MeshCollider and assigning the bakedMesh.
+            GameObject go = new GameObject();
+            MeshFilter meshFilter = go.AddComponent<MeshFilter>();
+            meshFilter.mesh = bakedMesh;
+            MeshRenderer renderer = go.AddComponent<MeshRenderer>();
+            renderer.material = trail.material;
+
+            //add to parent
+            go.transform.parent = parent.transform;
         }
     }
 }
