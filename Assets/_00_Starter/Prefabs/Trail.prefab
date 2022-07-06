@@ -53,7 +53,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e418b1cd463fdf3439674ca68baa7759, type: 2}
+  - {fileID: 2100000, guid: df3e525537cd1074484e2227c6025b26, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -74,7 +74,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 4
+  m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -82,8 +82,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.08659181
-        value: 0.069205806
+        time: 0
+        value: 0.054870605
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -91,22 +91,31 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.43575937
-        value: 0.06288147
-        inSlope: 0.0000770088
-        outSlope: 0.0000770088
+        time: 0.20867492
+        value: 0.079272754
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 1
+        outWeight: 0
       - serializedVersion: 3
-        time: 0.5921687
-        value: 0.050308228
-        inSlope: -0.081876874
-        outSlope: -0.081876874
+        time: 0.48508206
+        value: 0.0365995
+        inSlope: 0.4889669
+        outSlope: 0.4889669
         tangentMode: 0
         weightedMode: 0
-        inWeight: 1
+        inWeight: 0.43877545
+        outWeight: 0.25700286
+      - serializedVersion: 3
+        time: 0.9728996
+        value: 0
+        inSlope: -0.24545461
+        outSlope: -0.24545461
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.29411754
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -143,7 +152,7 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 3
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
