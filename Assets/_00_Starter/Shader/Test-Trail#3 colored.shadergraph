@@ -1608,7 +1608,7 @@
     },
     "m_Name": "Color 2",
     "m_DefaultReferenceName": "Color_76e2031a16274cceb8c7dff4dc81f483",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_endColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -1620,7 +1620,7 @@
         "b": 0.8962264060974121,
         "a": 0.0
     },
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
@@ -2082,7 +2082,7 @@
     },
     "m_Name": "Color 1",
     "m_DefaultReferenceName": "Color_b254c6f556e34cd493385da35501dddf",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_startColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -2094,7 +2094,7 @@
         "b": 0.14796188473701478,
         "a": 0.0
     },
-    "m_ColorMode": 0
+    "m_ColorMode": 1
 }
 
 {
