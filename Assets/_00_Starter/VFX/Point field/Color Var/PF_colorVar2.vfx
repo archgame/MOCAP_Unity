@@ -20,7 +20,7 @@ MonoBehaviour:
     x: -2236
     y: -452
     width: 5128
-    height: 3033
+    height: 3027
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6297,7 +6297,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661615957}
   - {fileID: 8926484042661615958}
-  m_UIPosition: {x: 941, y: 1537}
+  m_UIPosition: {x: 941, y: 1561}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -7339,7 +7339,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":0.07585368305444718,"b":0.0,"a":1.0},"time":0.07058823853731156},{"color":{"r":0.1944594830274582,"g":0.6792452931404114,"b":0.0865076556801796,"a":1.0},"time":0.2823529541492462},{"color":{"r":0.8509804010391235,"g":0.6086971163749695,"b":0.19607843458652497,"a":1.0},"time":0.48529791831970217},{"color":{"r":0.3847009539604187,"g":0.8584905862808228,"b":0.7154247164726257,"a":1.0},"time":0.6823529601097107},{"color":{"r":0.5,"g":0.5,"b":0.5,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":0.2058899849653244},{"alpha":1.0,"time":0.8970626592636108},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":0.07585368305444718,"b":0.0,"a":1.0},"time":0.07058823853731156},{"color":{"r":0.18543028831481934,"g":1.0,"b":0.0,"a":1.0},"time":0.2823529541492462},{"color":{"r":0.8509804010391235,"g":0.6086971163749695,"b":0.19607843458652497,"a":1.0},"time":0.48529791831970217},{"color":{"r":0.3847009539604187,"g":0.8584905862808228,"b":0.7154247164726257,"a":1.0},"time":0.6823529601097107},{"color":{"r":0.5,"g":0.5,"b":0.5,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":0.2058899849653244},{"alpha":1.0,"time":0.8970626592636108},{"alpha":1.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: Color
@@ -7939,7 +7939,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661616559}
   - {fileID: 8926484042661616560}
-  m_UIPosition: {x: 2468, y: 2147}
+  m_UIPosition: {x: 2468, y: 2141}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
