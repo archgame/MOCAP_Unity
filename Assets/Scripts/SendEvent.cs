@@ -64,7 +64,6 @@ public class SendEvent : MonoBehaviour
         }
 
 
-
         if (vfxSwirlV1.isActiveAndEnabled)
         {
             Vector3 relativeLoc = GameObject.Find("mixamorig1:LeftHand").transform.position - GameObject.Find("mixamorig1:Hips").transform.position;
@@ -93,10 +92,10 @@ public class SendEvent : MonoBehaviour
             vfxColorV2.SetFloat("handHipDist", relativeLoc.magnitude);
             Vector3 Velocity = (GameObject.Find("mixamorig1:LeftLeg").transform.position - lastPosition) / Time.deltaTime;
             lastPosition = GameObject.Find("mixamorig1:LeftLeg").transform.position;
-
-            if (Velocity.magnitude >= 15 )
+            //Debug.Log("velo =" + Velocity.magnitude);//
+            if (Velocity.magnitude >= 5 )
             {
-                //Debug.Log("velo =" + Velocity.magnitude);//
+
                 vfxColorV2.SendEvent("Wave");
             }
         }
