@@ -169,6 +169,11 @@ MonoBehaviour:
   effects:
   - {fileID: 1627656517}
   - {fileID: 1422166143}
+--- !u!137 &137422117 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 2051160040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &152824565
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,9 +637,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   address: 127.0.0.1
-  port: 7003
+  port: 7002
   socketType: 1
-  actorID: 0
+  actorID: 1
   connectToAxis: 1
   useNewRig: 1
   enableHipMove: 1
@@ -750,7 +755,7 @@ MonoBehaviour:
   TrailRenderTime: 2
   TrailRenderers: []
   ParticleSystems: []
-  BodyRenderer: {fileID: 0}
+  BodyRenderer: {fileID: 137422117}
 --- !u!1001 &239284996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2667,7 +2672,7 @@ MonoBehaviour:
   - {fileID: 2147463207}
   - {fileID: 695081025}
   effects: []
-  velocity: 0
+  velocity: []
 --- !u!4 &847999952 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7810477542379119794, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
@@ -3211,6 +3216,11 @@ Transform:
   m_Father: {fileID: 1154045282}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1344967073 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 221137398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1350974716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4379,7 +4389,7 @@ MonoBehaviour:
   TrailRenderTime: 2
   TrailRenderers: []
   ParticleSystems: []
-  BodyRenderer: {fileID: 0}
+  BodyRenderer: {fileID: 1344967073}
 --- !u!1 &1783525142
 GameObject:
   m_ObjectHideFlags: 0
