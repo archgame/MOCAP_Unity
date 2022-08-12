@@ -26,7 +26,7 @@ public class VisualEventManager : MonoBehaviour
     }
     private void Update()
     {
-        if (isVelocityOver(0))
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             VelocityThreshold?.Invoke();
             //Debug.Log("Event Invoked");

@@ -27,16 +27,12 @@ public class DataSubscription : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Velocity(0, avatar0[1]);
     }
 
     public float Velocity(int avatarIndex, GameObject rig)
     {
-        if (lastPosition[avatarIndex] == Vector3.zero){ velocity = 0; }
-        else
-        {
-            velocity[avatarIndex] = ((rig.transform.position - lastPosition[0]) / Time.deltaTime).magnitude;
-        }
+        velocity[avatarIndex] = ((rig.transform.position - lastPosition[0]) / Time.deltaTime).magnitude;
         lastPosition[avatarIndex] = rig.transform.position;
         return velocity[avatarIndex];
     }
