@@ -9,7 +9,7 @@ public class GetLocationToShader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mtl = GetComponent<MeshRenderer>().sharedMaterial;
+        mtl = GetComponent<MeshRenderer>().material;
     }
 
     // Update is called once per frame

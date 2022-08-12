@@ -11062,7 +11062,7 @@ MonoBehaviour:
   - link:
     - context: {fileID: 8926484042661616780}
       slotIndex: 0
-  eventName: ShootingStar
+  eventName: ShootStar
 --- !u!114 &8926484042661616907
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -92,7 +92,7 @@ public class SendEvent : MonoBehaviour
             vfxColorV2.SetFloat("handHipDist", relativeLoc.magnitude);
             Vector3 Velocity = (GameObject.Find("mixamorig1:LeftLeg").transform.position - lastPosition) / Time.deltaTime;
             lastPosition = GameObject.Find("mixamorig1:LeftLeg").transform.position;
-            //Debug.Log("velo =" + Velocity.magnitude);//
+            //Debug.Log("velo =" + Velocity.magnitude);
             if (Velocity.magnitude >= 5 )
             {
 

@@ -44,5 +44,5 @@ Material:
     - Color_bc12aac5af3c4d94876a0921e3187277: {r: 0.4339623, g: 0.3582236, b: 0.3582236, a: 0}
     - Color_ec970acb2a3c48ba8f886a7746afb2ca: {r: 0.8962264, g: 0.5284354, b: 0.5284354, a: 0}
     - Vector3_b2e21136d69e49f081af3368445a25ae: {r: 0, g: 0, b: 0, a: 0}
-    - _targetLocation: {r: 0.9587075, g: 0.62021625, b: -0.7030107, a: 0}
+    - _targetLocation: {r: 4.0825663, g: 0.9341617, b: -1.0967462, a: 0}
   m_BuildTextureStacks: []
