@@ -1,24 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Controls : MonoBehaviour
 {
     public float TrailRenderTime = 2.0f;
 
     public TrailRenderer[] TrailRenderers;
+    private List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
+    private List<TrailRenderer> avatar1Trails = new List<TrailRenderer>();
 
     public ParticleSystem[] ParticleSystems;
 
-    public SkinnedMeshRenderer BodyRenderer;
+    //public SkinnedMeshRenderer BodyRenderer;
+    private GameObject[] mesh ;
+    private bool[] renderOn;
 
     private GameObject parent;
+
+    public GameObject[] gridPlane;
+
+    //UI elements
+    public GameObject dataSource;
+    private DataSubscription data;
+    public GameObject eventManager;
+    public Dropdown dropDown;
+    public InputField thresholdInput;
+
 
     // Start is called before the first frame update
     private void Start()
     {
         //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
+        foreach (TrailRenderer trail in TrailRenderers){
+            if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)){ avatar0Trails.Add(trail); }
+            else { avatar1Trails.Add(trail); }
+        }
+
+        mesh = GameObject.FindGameObjectsWithTag("CH36");
+        renderOn = new bool[] { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled, mesh[1].GetComponent<SkinnedMeshRenderer>().enabled };
+        //Debug.Log("Mesh list has " + mesh.Length + "Elements");
+
 
         //get all particle systems
         ParticleSystems = FindObjectsOfType<ParticleSystem>();
@@ -28,6 +53,11 @@ public class Controls : MonoBehaviour
         parent.transform.parent = this.gameObject.transform;
         parent.name = "Parent";
         parent.transform.localPosition = Vector3.zero;
+
+        //get DataSubscriber
+        data = dataSource.GetComponent<DataSubscription>();
+
+        
     }
 
     private float _timeIncrement = 0.01f;
@@ -35,10 +65,16 @@ public class Controls : MonoBehaviour
 
     /*/
     Up/Down: Increase/Decrease Trace Length
-    B: turn off body renderer
+    V: turn off Avatar0 body renderer
+    B: turn off Avatar1 body renderer
     Space: Bake Trail Renders
     X: Delete Baked Trail Renderers
-    P: Toggle Particles/Trail Renderers
+    O: Avatar0 Toggle Particles/Trail Renderers
+    P: Avatar1 Toggle Particles/Trail Renderers
+    G: Avatar0 Toggle Grid
+    H: Avatar1 Toggle Grid
+    Dropdown menu = Select body parts to trigger colorburst
+    Input Field = Set speed threshold to trigger colorburst (default 3.25)
     //*/
 
     // Update is called once per frame
@@ -60,7 +96,11 @@ public class Controls : MonoBehaviour
         }
 
         //toggle body renderer on and off
-        if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
+        //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
+
+        if (Input.GetKeyDown(KeyCode.V)) { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled = !renderOn[0]; renderOn[0] = !renderOn[0]; }
+        if (Input.GetKeyDown(KeyCode.B)) { mesh[1].GetComponent<SkinnedMeshRenderer>().enabled = !renderOn[1]; renderOn[1] = !renderOn[1]; }
+
 
         //bake trail renderer as mesh
         if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderers(); }
@@ -69,16 +109,25 @@ public class Controls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderers(); }
 
         //toggle trail renderer and particle systems
-        if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(); }
+        if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
+        if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(avatar1Trails); }
+
+        //toggle grid
+        if (Input.GetKeyDown(KeyCode.G)) { gridPlane[0].SetActive(!gridPlane[0].activeInHierarchy);  } 
+        if (Input.GetKeyDown(KeyCode.H)) { gridPlane[1].SetActive(!gridPlane[1].activeInHierarchy);  }
 
         //rotate parent
         float rot = 20;
         parent.transform.Rotate(this.transform.up * rot * Time.deltaTime);
         parent.transform.Rotate(this.transform.forward * rot * Time.deltaTime);
         parent.transform.Rotate(this.transform.right * rot * Time.deltaTime);
+
+        //update numbers from UI
+        data.rigNumber = dropDown.value;
+        eventManager.GetComponent<VisualEventManager>().threshold = int.Parse(thresholdInput.text);
     }
 
-    private void ToggleTrailRendererParticleSystem()
+    /*private void ToggleTrailRendererParticleSystem()
     {
         bool trailOn = true;
         bool particleOn = false;
@@ -92,7 +141,34 @@ public class Controls : MonoBehaviour
         //toggle trail renderers
         foreach (TrailRenderer trail in TrailRenderers)
         {
-            trail.enabled = !trail.enabled;
+            //trail.enabled = !trail.enabled;
+            trail.enabled = trailOn;
+        }
+
+        //toggle particle systems
+        foreach (ParticleSystem system in ParticleSystems)
+        {
+            system.enableEmission = !system.enableEmission;
+        }
+    }*/
+
+    private void ToggleTrailRendererParticleSystem(List<TrailRenderer> trails)
+    {
+        bool trailOn = true;
+        bool particleOn = false;
+        _trailRendererEnabled = !_trailRendererEnabled;
+        if (_trailRendererEnabled)
+        {
+            trailOn = false;
+            particleOn = true;
+        }
+
+        //toggle trail renderers
+        foreach (TrailRenderer trail in trails)
+        {
+            //trail.enabled = !trail.enabled;
+            trail.enabled = trailOn;
+            Debug.Log("Trail status is " + trailOn);
         }
 
         //toggle particle systems
@@ -145,4 +221,5 @@ public class Controls : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
+
 }

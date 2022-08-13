@@ -5,8 +5,9 @@ using UnityEngine.VFX;
 
 public class EventSubscription : MonoBehaviour
 {
+    //Each effect's index needs to be assgned respectively in the Functions
     public VisualEffect[] effects;
-    // Start is called before the first frame update
+
     void Start()
     {
         //putting this at Start() won't re-enable VFX event after disabled during gameplay
