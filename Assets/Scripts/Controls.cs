@@ -28,6 +28,7 @@ public class Controls : MonoBehaviour
     public GameObject eventManager;
     public Dropdown dropDown;
     public InputField thresholdInput;
+    public InputField accumuTimeLimit;
 
 
     // Start is called before the first frame update
@@ -74,7 +75,7 @@ public class Controls : MonoBehaviour
     G: Avatar0 Toggle Grid
     H: Avatar1 Toggle Grid
     Dropdown menu = Select body parts to trigger colorburst
-    Input Field = Set speed threshold to trigger colorburst (default 3.25)
+    Input Field = Set speed threshold to trigger colorburst
     //*/
 
     // Update is called once per frame
@@ -124,7 +125,9 @@ public class Controls : MonoBehaviour
 
         //update numbers from UI
         data.rigNumber = dropDown.value;
-        eventManager.GetComponent<VisualEventManager>().threshold = int.Parse(thresholdInput.text);
+        eventManager.GetComponent<VisualEventManager>().threshold = float.Parse(thresholdInput.text);
+        eventManager.GetComponent<VisualEventManager>().accumTime = float.Parse(accumuTimeLimit.text);
+
     }
 
     /*private void ToggleTrailRendererParticleSystem()

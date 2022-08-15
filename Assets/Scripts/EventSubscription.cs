@@ -11,7 +11,7 @@ public class EventSubscription : MonoBehaviour
     void Start()
     {
         //putting this at Start() won't re-enable VFX event after disabled during gameplay
-        VisualEventManager.VelocityThreshold += PassVfxShootStar;
+        VisualEventManager.AccumalatedSpeed += PassVfxShootStar;
         Debug.Log("ShootStar Subscribed");
 
         VisualEventManager.VelocityThreshold += PassVfxWave;
