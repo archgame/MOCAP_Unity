@@ -169,6 +169,7 @@ MonoBehaviour:
   effects:
   - {fileID: 1708803778}
   - {fileID: 1422166143}
+  - {fileID: 115483596}
 --- !u!1 &69770011
 GameObject:
   m_ObjectHideFlags: 0
