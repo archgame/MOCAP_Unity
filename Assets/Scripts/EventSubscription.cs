@@ -14,8 +14,11 @@ public class EventSubscription : MonoBehaviour
         VisualEventManager.AccumalatedSpeed += PassVfxShootStar;
         Debug.Log("ShootStar Subscribed");
 
-        VisualEventManager.VelocityThreshold += PassVfxWave;
+        VisualEventManager.VelocityThreshold0 += PassVfxWave;
         Debug.Log("Wave Subscribed");
+
+        VisualEventManager.VelocityThreshold1 += PassVfxWave2;
+        Debug.Log("Wave2 Subscribed");
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class EventSubscription : MonoBehaviour
         }
         else
         {
-            VisualEventManager.VelocityThreshold -= PassVfxShootStar;
+            VisualEventManager.AccumalatedSpeed -= PassVfxShootStar;
             Debug.Log("ShootStar Unsubscribed");
         }
     }
@@ -50,7 +53,20 @@ public class EventSubscription : MonoBehaviour
         }
         else
         {
-            VisualEventManager.VelocityThreshold -= PassVfxShootStar;
+            VisualEventManager.VelocityThreshold0 -= PassVfxShootStar;
+            Debug.Log("Wave Unsubscribed");
+        }
+    }
+
+    private void PassVfxWave2()
+    {
+        if (effects[2].isActiveAndEnabled)
+        {
+            PassVfxEvent(effects[2], "Wave");
+        }
+        else
+        {
+            VisualEventManager.VelocityThreshold1 -= PassVfxShootStar;
             Debug.Log("Wave Unsubscribed");
         }
     }
