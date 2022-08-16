@@ -5,7 +5,9 @@ using UnityEngine;
 public class GetLocationToShader : MonoBehaviour
 {
     private Material mtl;
-    public GameObject Anchor0;
+    public GameObject[] Anchors;
+    public string[] paramNames;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,12 +17,14 @@ public class GetLocationToShader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 loc1;
-        loc1 = Anchor0.transform.position;
-        CenterGrid(loc1);
+        for(int i = 0; i < Anchors.Length; i++)
+        {
+            if (Anchors[i] != null && paramNames[i] != null) { mtl.SetVector(paramNames[i], Anchors[i].transform.position); }
+            else Debug.Log("Anchor or Param " + i + "not assigned");
+        }
     }
 
-    private void CenterGrid(Vector3 center1)
+    private void CenterGrid(string parameter, Vector3 center1)
     {
         mtl.SetVector("_targetALocation", center1);
     }

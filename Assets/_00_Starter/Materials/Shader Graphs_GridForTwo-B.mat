@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_GridForTwo
-  m_Shader: {fileID: -6465566751694194690, guid: 97b951a0f56e06a47ac822575c086889, type: 3}
+  m_Name: Shader Graphs_GridForTwo-B
+  m_Shader: {fileID: -6465566751694194690, guid: fdd1cc7bbf5594b4bafa0118e632f667, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,10 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _SampleTexture2D_274486f910524a999d1d80843123ce40_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 8b23c9e3952e246c180a8080104ae60b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_f65a39b5a1aa4dd48a45cf9f610743be_Texture_1:
         m_Texture: {fileID: 2800000, guid: 8b23c9e3952e246c180a8080104ae60b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -43,8 +39,6 @@ Material:
     m_Colors:
     - Color_bc12aac5af3c4d94876a0921e3187277: {r: 1, g: 1, b: 1, a: 1}
     - Color_ec970acb2a3c48ba8f886a7746afb2ca: {r: 0.745283, g: 0.32694018, b: 0.32694018, a: 0}
-    - Vector3_54d8918dc8ef4e569d3bf80bcc51aa4d: {r: 0, g: 0, b: 0, a: 0}
     - _targetALocation: {r: 6, g: 8, b: 0, a: 0}
-    - _targetBLocation: {r: 0, g: 0, b: 0, a: 0}
-    - _targetLocation: {r: 6, g: 8, b: 0, a: 0}
+    - _targetBLocation: {r: 6, g: 8, b: 3, a: 0}
   m_BuildTextureStacks: []
