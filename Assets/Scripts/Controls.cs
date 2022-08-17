@@ -14,6 +14,13 @@ public class Controls : MonoBehaviour
 
     public ParticleSystem[] ParticleSystems;
 
+    //camera control
+    public GameObject mainCam;
+    public GameObject subCam;
+    private float xRot;
+    private float yRot;
+
+
     //public SkinnedMeshRenderer BodyRenderer;
     private GameObject[] mesh ;
     private bool[] renderOn;
@@ -65,7 +72,16 @@ public class Controls : MonoBehaviour
     private bool _trailRendererEnabled = true;
 
     /*/
-    Up/Down: Increase/Decrease Trace Length
+    Tab: Camera Switch
+    Plan View camera:
+        Q:Zoom in
+        E:Zoom out
+    Perspective camera
+        WSAD: Move front/back/left/right
+        Q:Up
+        E:Down
+        
+    Up/Down arrow: Increase/Decrease Trace Length
     V: turn off Avatar0 body renderer
     B: turn off Avatar1 body renderer
     Space: Bake Trail Renders
@@ -76,11 +92,36 @@ public class Controls : MonoBehaviour
     H: Avatar1 Toggle Grid
     Dropdown menu = Select body parts to trigger colorburst
     Input Field = Set speed threshold to trigger colorburst
+    
     //*/
 
     // Update is called once per frame
     private void Update()
     {
+        //camera control
+        if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
+        if(mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false)
+        {
+            if (Input.GetKey(KeyCode.Q)) { mainCam.transform.Translate(5 * Vector3.up * Time.deltaTime, Space.World); }
+            if (Input.GetKey(KeyCode.E)) { mainCam.transform.Translate(5 * Vector3.down * Time.deltaTime, Space.World); }
+        }
+        else if(mainCam.activeInHierarchy == false && subCam.activeInHierarchy == true)
+        {
+            if (Input.GetMouseButton(1)) {
+                subCam.transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f,Space.World);
+                subCam.transform.Rotate(Input.GetAxis("Mouse Y"), 0f, 0f, Space.World);
+                Vector3 rotation = new Vector3 (subCam.transform.localEulerAngles.x,subCam.transform.localEulerAngles.y,0f);
+                subCam.transform.rotation = Quaternion.Euler(rotation);}
+            if (Input.GetKey(KeyCode.Q)) { subCam.transform.Translate(3 * Vector3.up * Time.deltaTime ); }
+            if (Input.GetKey(KeyCode.E)) { subCam.transform.Translate(3 * Vector3.down * Time.deltaTime); }
+            if (Input.GetKey(KeyCode.W)) { subCam.transform.Translate(3 * Vector3.forward * Time.deltaTime); }
+            if (Input.GetKey(KeyCode.S)) { subCam.transform.Translate(3 * Vector3.back * Time.deltaTime); }
+            if (Input.GetKey(KeyCode.A)) { subCam.transform.Translate(3 * Vector3.left * Time.deltaTime); }
+            if (Input.GetKey(KeyCode.D)) { subCam.transform.Translate(3 * Vector3.right * Time.deltaTime); }
+        }
+
+
+
         //quit application
         if (Input.GetKeyDown(KeyCode.Escape)) { Debug.Log("Quit Application"); Application.Quit(); }
 
@@ -155,6 +196,11 @@ public class Controls : MonoBehaviour
         }
     }*/
 
+    private void cameraSwitch()
+    {
+        mainCam.SetActive(!mainCam.activeInHierarchy);
+        subCam.SetActive(!subCam.activeInHierarchy);
+    }
     private void ToggleTrailRendererParticleSystem(List<TrailRenderer> trails)
     {
         bool trailOn = true;
