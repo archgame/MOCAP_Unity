@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class Controls : MonoBehaviour
 {
@@ -17,8 +18,6 @@ public class Controls : MonoBehaviour
     //camera control
     public GameObject mainCam;
     public GameObject subCam;
-    private float xRot;
-    private float yRot;
 
 
     //public SkinnedMeshRenderer BodyRenderer;
@@ -27,15 +26,12 @@ public class Controls : MonoBehaviour
 
     private GameObject parent;
 
-    public GameObject[] gridPlane;
-
     //UI elements
     public GameObject dataSource;
     private DataSubscription data;
     public GameObject eventManager;
     public Dropdown dropDown;
     public InputField thresholdInput;
-    public InputField accumuTimeLimit;
 
 
     // Start is called before the first frame update
@@ -65,6 +61,7 @@ public class Controls : MonoBehaviour
         //get DataSubscriber
         data = dataSource.GetComponent<DataSubscription>();
 
+
         
     }
 
@@ -80,6 +77,7 @@ public class Controls : MonoBehaviour
         WSAD: Move front/back/left/right
         Q:Up
         E:Down
+        Click Right Mouse Button: Move mouse to rotate camera
         
     Up/Down arrow: Increase/Decrease Trace Length
     V: turn off Avatar0 body renderer
@@ -88,10 +86,9 @@ public class Controls : MonoBehaviour
     X: Delete Baked Trail Renderers
     O: Avatar0 Toggle Particles/Trail Renderers
     P: Avatar1 Toggle Particles/Trail Renderers
-    G: Avatar0 Toggle Grid
-    H: Avatar1 Toggle Grid
     Dropdown menu = Select body parts to trigger colorburst
     Input Field = Set speed threshold to trigger colorburst
+    Slider: Set Swirl star track length
     
     //*/
 
@@ -154,9 +151,6 @@ public class Controls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
         if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(avatar1Trails); }
 
-        //toggle grid
-        if (Input.GetKeyDown(KeyCode.G)) { gridPlane[0].SetActive(!gridPlane[0].activeInHierarchy);  } 
-        if (Input.GetKeyDown(KeyCode.H)) { gridPlane[1].SetActive(!gridPlane[1].activeInHierarchy);  }
 
         //rotate parent
         float rot = 20;
@@ -167,7 +161,6 @@ public class Controls : MonoBehaviour
         //update numbers from UI
         data.rigNumber = dropDown.value;
         eventManager.GetComponent<VisualEventManager>().threshold = float.Parse(thresholdInput.text);
-        eventManager.GetComponent<VisualEventManager>().accumTime = float.Parse(accumuTimeLimit.text);
 
     }
 

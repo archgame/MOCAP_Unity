@@ -7,12 +7,11 @@ public class EventSubscription : MonoBehaviour
 {
     //Each effect's index needs to be assgned respectively in the Functions
     public VisualEffect[] effects;
+    public GameObject[] grids;
 
     void Start()
     {
         //putting this at Start() won't re-enable VFX event after disabled during gameplay
-        VisualEventManager.AccumalatedSpeed += PassVfxShootStar;
-        Debug.Log("ShootStar Subscribed");
 
         VisualEventManager.VelocityThreshold0 += PassVfxWave;
         Debug.Log("Wave Subscribed");
@@ -33,7 +32,7 @@ public class EventSubscription : MonoBehaviour
         vfx.SendEvent(eventName);
         //Debug.Log(eventName + "sent");
     }
-    private void PassVfxShootStar()
+    /*private void PassVfxShootStar()
     {
         if (effects[0].isActiveAndEnabled)
         {
@@ -44,18 +43,14 @@ public class EventSubscription : MonoBehaviour
             VisualEventManager.AccumalatedSpeed -= PassVfxShootStar;
             Debug.Log("ShootStar Unsubscribed");
         }
-    }
+    }*/
     private void PassVfxWave()
     {
         if (effects[1].isActiveAndEnabled)
         {
             PassVfxEvent(effects[1], "Wave");
         }
-        else
-        {
-            VisualEventManager.VelocityThreshold0 -= PassVfxShootStar;
-            Debug.Log("Wave Unsubscribed");
-        }
+
     }
 
     private void PassVfxWave2()
@@ -64,10 +59,6 @@ public class EventSubscription : MonoBehaviour
         {
             PassVfxEvent(effects[2], "Wave");
         }
-        else
-        {
-            VisualEventManager.VelocityThreshold1 -= PassVfxShootStar;
-            Debug.Log("Wave Unsubscribed");
-        }
+        
     }
 }

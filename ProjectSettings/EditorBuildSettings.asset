@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_00_Starter/Levels/00_MocapStreamerKatie.unity
     guid: 2c151c4fd2701d24daf8f499c585384c
-  - enabled: 0
+  - enabled: 1
     path: Assets/_00_Starter/Levels/00_MocapStreamerWahei.unity
     guid: 450604545883288499393356a9263933
-  - enabled: 1
+  - enabled: 0
     path: Assets/_00_Starter/Levels/00_MocapStreamerDancePractice.unity
     guid: eab128d715e50b14eaf45a8f94f638f8
   m_configObjects: {}

@@ -39,7 +39,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - _handDistAf: 0.87265944
+    - _handDistBf: 0.42730767
     m_Colors:
     - Color_bc12aac5af3c4d94876a0921e3187277: {r: 1, g: 1, b: 1, a: 1}
     - Color_ec970acb2a3c48ba8f886a7746afb2ca: {r: 0.745283, g: 0.32694018, b: 0.32694018, a: 0}

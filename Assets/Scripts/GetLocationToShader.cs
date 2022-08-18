@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GetLocationToShader : MonoBehaviour
@@ -7,6 +8,7 @@ public class GetLocationToShader : MonoBehaviour
     private Material mtl;
     public GameObject[] Anchors;
     public string[] paramNames;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +26,4 @@ public class GetLocationToShader : MonoBehaviour
         }
     }
 
-    private void CenterGrid(string parameter, Vector3 center1)
-    {
-        mtl.SetVector("_targetALocation", center1);
-    }
 }

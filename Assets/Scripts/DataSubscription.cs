@@ -11,9 +11,13 @@ public class DataSubscription : MonoBehaviour
 
     //declare vfx
     public VisualEffect[] effects;
+    public GameObject[] grids;
+    [SerializeField] private Vector2[] handDistV2;
+    [SerializeField] private Material[] mtl;
 
     //declare velocity parameter
     private Vector3[] lastPosition;
+    private Vector3[] lastPosition2;
     public float[] velocity;
     public int rigNumber = 5;
 
@@ -24,7 +28,10 @@ public class DataSubscription : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
+        mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
         lastPosition = new Vector3[] { Vector3.zero, Vector3.zero };
+        lastPosition2 = new Vector3[] { Vector3.zero, Vector3.zero };
     }
 
     // Update is called once per frame
@@ -42,6 +49,21 @@ public class DataSubscription : MonoBehaviour
         //subscribtions
         effects[0].SetFloat("handHipDist", dist[0]);
         effects[1].SetFloat("handHipDist", dist[1]);
+        mtl[0].SetFloat("_handDistAf", dist[0]);
+        mtl[0].SetFloat("_handDistBf", dist[1]);
+        handDistV2[0] = new Vector2(dist[0], dist[0]);
+        handDistV2[1] = new Vector2(dist[1], dist[1]);
+        mtl[1].SetVector("_handDistA", handDistV2[0]);
+        mtl[1].SetVector("_handDistB", handDistV2[1]);
+
+
+        float a = VelocityFloat(0, avatar0[5]); float b = VelocityFloat(1, avatar1[5]);
+        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f,a/2));
+        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b / 2));
+        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.5f, a / 2));
+        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b / 2));
+
+
 
     }
 
@@ -49,6 +71,16 @@ public class DataSubscription : MonoBehaviour
     {
         velocity[avatarIndex] = ((rig.transform.position - lastPosition[avatarIndex]) / Time.deltaTime).magnitude;
         lastPosition[avatarIndex] = rig.transform.position;
+        //Debug.Log("Velocity=" + velocity[avatarIndex]);
+    }
+
+
+    private float VelocityFloat(int avatarIndex, GameObject rig)
+    {
+        float velo;
+        velo = ((rig.transform.position - lastPosition2[avatarIndex]) / Time.deltaTime).magnitude;
+        lastPosition2[avatarIndex] = rig.transform.position;
+        return velo; 
         //Debug.Log("Velocity=" + velocity[avatarIndex]);
     }
 
