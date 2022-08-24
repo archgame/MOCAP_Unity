@@ -26,12 +26,20 @@ public class Controls : MonoBehaviour
 
     private GameObject parent;
 
+    //for trailmesh into stars
+    private GameObject trailMesh;
+    public VisualEffect trailStars;
+    public bool trailStarsEnabled = false;
+    public Material starMtl;
+
     //UI elements
     public GameObject dataSource;
     private DataSubscription data;
     public GameObject eventManager;
     public Dropdown dropDown;
     public InputField thresholdInput;
+    public Toggle trailToMeshTogg;
+
 
 
     // Start is called before the first frame update
@@ -58,11 +66,19 @@ public class Controls : MonoBehaviour
         parent.name = "Parent";
         parent.transform.localPosition = Vector3.zero;
 
+        //create parent transform for bake trail renderers into stars
+        trailMesh = new GameObject();
+        trailMesh.transform.parent = this.gameObject.transform;
+        trailMesh.name = "trailMesh";
+        trailMesh.transform.localPosition = Vector3.zero;
+
+        trailToMeshTogg.isOn = false;
+
+
         //get DataSubscriber
         data = dataSource.GetComponent<DataSubscription>();
 
 
-        
     }
 
     private float _timeIncrement = 0.01f;
@@ -160,7 +176,57 @@ public class Controls : MonoBehaviour
 
         //update numbers from UI
         data.rigNumber = dropDown.value;
-        eventManager.GetComponent<VisualEventManager>().threshold = float.Parse(thresholdInput.text);
+        if(thresholdInput.text != "0")
+        { eventManager.GetComponent<VisualEventManager>().threshold = float.Parse(thresholdInput.text); }
+        else
+        { eventManager.GetComponent<VisualEventManager>().threshold = 20; }
+
+        //Debug.Log("0");
+
+        //turn trailmesh into stars
+        trailStarsEnabled = trailToMeshTogg.isOn;
+        if (trailStarsEnabled)
+        {
+            trailStars.gameObject.SetActive(true);
+            /*if (trailMesh.GetComponent<MeshFilter>() != null && trailMesh.GetComponent<MeshRenderer>() != null)
+            {
+                Destroy(trailMesh.GetComponent<MeshFilter>()); Destroy(trailMesh.GetComponent<MeshRenderer>());
+            }*/
+            //trailMesh.GetComponent<MeshFilter>().mesh.Clear();
+            BakeStarTrailRenderers();
+            Debug.Log(trailMesh.GetComponentsInChildren<MeshFilter>().Length);
+            MeshFilter[] meshFilters = trailMesh.GetComponentsInChildren<MeshFilter>();
+            CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+            int i = 1;
+            while (i < meshFilters.Length)
+            {
+                combine[i].mesh = meshFilters[i].mesh;
+                //combine[i].transform = Matrix4x4.TRS(meshFilters[i].transform.localPosition, meshFilters[i].transform.localRotation, meshFilters[i].transform.localScale);
+                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+                meshFilters[i].gameObject.SetActive(false);
+                i++;
+            }
+            trailMesh.SetActive(true);
+            if (trailMesh.GetComponent<MeshFilter>() == null)
+            {
+                trailMesh.AddComponent<MeshFilter>();
+               //trailMesh.AddComponent<MeshRenderer>();
+            }
+            trailMesh.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+            //trailMesh.GetComponent<MeshRenderer>().material = starMtl;
+            foreach(Transform child in trailMesh.transform)
+            {
+                child.GetComponent<MeshFilter>().mesh.Clear();
+                GameObject.Destroy(child.gameObject); }
+            trailStars.SetMesh("_spawnMesh", trailMesh.GetComponent<MeshFilter>().mesh);
+
+            /*trailMesh.transform.GetComponent<MeshFilter>().mesh = new Mesh();
+            trailMesh.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+            trailMesh.transform.gameObject.SetActive(true);
+            Debug.Log(trailMesh.GetComponent<MeshFilter>().mesh.name);*/
+            //trailStars.SetMesh("_spawnMesh", trailMesh.GetComponent<MeshFilter>().mesh);
+        }
+        
 
     }
 
@@ -214,10 +280,10 @@ public class Controls : MonoBehaviour
         }
 
         //toggle particle systems
-        foreach (ParticleSystem system in ParticleSystems)
+        /*foreach (ParticleSystem system in ParticleSystems)
         {
             system.enableEmission = !system.enableEmission;
-        }
+        }*/
     }
 
     private void UpdateTrailRenderers()
@@ -252,6 +318,32 @@ public class Controls : MonoBehaviour
 
             //add to parent
             go.transform.parent = parent.transform;
+        }
+    }
+
+    private void BakeStarTrailRenderers()
+    {
+        Debug.Log("Method start");
+        //bake trail renderer and add to parent
+        foreach (TrailRenderer trail in TrailRenderers)
+        {
+            //bake mesh
+            Mesh bakedMesh = new Mesh();
+            trail.BakeMesh(bakedMesh);
+
+            // Recalcultate the bounding volume of the mesh from the vertices.
+            bakedMesh.RecalculateBounds();
+            //Debug.Log("Baked mesh bounds: " + bakedMesh.bounds.ToString());
+
+            // Adding MeshCollider and assigning the bakedMesh.
+            GameObject go = new GameObject();
+            MeshFilter meshFilter = go.AddComponent<MeshFilter>();
+            meshFilter.mesh = bakedMesh;
+            MeshRenderer renderer = go.AddComponent<MeshRenderer>();
+            renderer.material = trail.material;
+
+            //add to parent
+            go.transform.parent = trailMesh.transform;
         }
     }
 

@@ -45,14 +45,14 @@ public class VisualEventManager : MonoBehaviour
         if (rigVelocity[0] >= threshold && timer1 >= interval)
         {
             VelocityThreshold0?.Invoke();
-            Debug.Log("Event Invoked, Speed = " + rigVelocity[0] + "interval = " + timer1);
+            //Debug.Log("Event Invoked, Speed = " + rigVelocity[0] + "interval = " + timer1);
             timer1 = 0;
         }
 
         if (rigVelocity[1] >= threshold && timer2 >= interval)
         {
             VelocityThreshold1?.Invoke();
-            Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
+           // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
             timer2 = 0;
         }
 

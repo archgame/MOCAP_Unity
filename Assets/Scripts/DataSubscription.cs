@@ -44,7 +44,7 @@ public class DataSubscription : MonoBehaviour
 
         //distance calc 
         dist[0] = Distance(avatar0[2], avatar0[3]);
-        dist[1] = Distance(avatar1[2], avatar1[3]);
+        dist[1] = Distance(avatar0[2], avatar1[2]);
 
         //subscribtions
         effects[0].SetFloat("handHipDist", dist[0]);
