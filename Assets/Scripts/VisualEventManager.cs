@@ -33,8 +33,8 @@ public class VisualEventManager : MonoBehaviour
         data = dataSource.GetComponent<DataSubscription>();
 
         //acquire velocity data from DataSubscriber
-        rigVelocity[0] = data.velocity[0];
-        rigVelocity[1] = data.velocity[1];
+        rigVelocity[0] = data.rigSpeed[0];
+        rigVelocity[1] = data.rigSpeed[1];
 
 
 
