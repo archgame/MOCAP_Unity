@@ -26,4 +26,9 @@ public class GridTransition : MonoBehaviour
         }
 
     }
+
+    public void setTransition()
+    {
+        transition = true;
+    }
 }

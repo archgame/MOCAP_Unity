@@ -30,6 +30,7 @@ namespace HSVPickerExamples
             {
                 startPicker.CurrentColor = Color1;
             }
+
             //Gradient end color setup
             endPicker.onValueChanged.AddListener(color =>
             {

@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using System;
+using Unity.Mathematics;
 
 public class DataSubscription : MonoBehaviour
 {
     public class Avatar
     {
         public int avatarIndex;
-        public BodyRigs head, hip, leftHand, rightHand, leftFoot, rightFoot; 
+        public BodyRigs head, hip, leftHand, rightHand, leftFoot, rightFoot;
+        public bool isJump;
+        public float jumpCount = 0;
         public Avatar(int avatarIndex, BodyRigs head, BodyRigs hip, BodyRigs leftHand, BodyRigs rightHand, BodyRigs leftFoot, BodyRigs rightFoot)
         {
             this.avatarIndex = avatarIndex;
@@ -33,7 +37,10 @@ public class DataSubscription : MonoBehaviour
         public Vector3 position;
         public Vector3 lastPosition;
         public Vector3 velocity;
+        public Quaternion lastRotation;
+        public Quaternion rotation;
         public float speed;
+        public float rotationSpeed;
         public BodyRigs(GameObject rig)
         {
             this.rig = rig;
@@ -45,12 +52,10 @@ public class DataSubscription : MonoBehaviour
     //declare avatars, avatar[]= {head, hip, left hand, right hand, left foot, right foot}
     public GameObject[] avat0;
     public GameObject[] avat1;
-    private Avatar avatar0;
-    private Avatar avatar1;
-    private BodyRigs[] avat0Rigs;
-    private BodyRigs[] avat1Rigs;
-    public int rigNumber;
-    public float[] rigSpeed = new float[] {0f,0f};
+    public Avatar avatar0;
+    public Avatar avatar1;
+    /*public BodyRigs[] avat0Rigs ;
+    public BodyRigs[] avat1Rigs ;*/
 
     //declare vfx
     public VisualEffect[] effects;
@@ -62,20 +67,22 @@ public class DataSubscription : MonoBehaviour
     public float[] dist;
 
 
+
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         //Construct  the Avatar Class 
         avatar0 = new Avatar(0, new BodyRigs(avat0[0]), new BodyRigs(avat0[1]), new BodyRigs(avat0[2]), new BodyRigs(avat0[3]), new BodyRigs(avat0[4]), new BodyRigs(avat0[5]));
         avatar1 = new Avatar(1, new BodyRigs(avat1[0]), new BodyRigs(avat1[1]), new BodyRigs(avat1[2]), new BodyRigs(avat1[3]), new BodyRigs(avat1[4]), new BodyRigs(avat1[5]));
-        avat0Rigs = new BodyRigs[] { avatar0.head, avatar0.hip, avatar0.leftHand, avatar0.rightHand, avatar0.leftFoot, avatar0.rightFoot };
-        avat1Rigs = new BodyRigs[] { avatar1.head, avatar1.hip, avatar1.leftHand, avatar1.rightHand, avatar1.leftFoot, avatar1.rightFoot };
-        rigSpeed[0] = avat0Rigs[rigNumber].speed;
-        rigSpeed[1] = avat1Rigs[rigNumber].speed;
-
-
+        /*
+        avat0Rigs = {avatar0.head, avatar0.hip, avatar0.leftHand, avatar0.rightHand, avatar0.leftFoot, avatar0.rightFoot };
+        avat1Rigs = {avatar1.head, avatar1.hip, avatar1.leftHand, avatar1.rightHand, avatar1.leftFoot, avatar1.rightFoot };
+        */
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
         mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
+        
+
+
     }
 
     // Update is called once per frame
@@ -84,6 +91,19 @@ public class DataSubscription : MonoBehaviour
         //velocity calc
         RigsVelocity(avatar0);
         RigsVelocity(avatar1);
+
+        //rotation speed calc
+        RigsRotation(avatar0);
+        RigsRotation(avatar1);
+
+        //jumping defition
+        isFootHigherThanCalf(avatar0);
+        isFootHigherThanCalf(avatar1);
+
+        //TrailStar initial speed
+        effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);
+        effects[4].SetVector3("VelocityA", avatar0.rightHand.velocity);
+
 
         //distance calc 
         dist[0] = Distance(avat0[2], avat0[3]);
@@ -100,13 +120,19 @@ public class DataSubscription : MonoBehaviour
         mtl[1].SetVector("_handDistB", handDistV2[1]);
 
 
-        /* set swirl strength to work with speed
-        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f,a/2));
-        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b / 2));
-        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.5f, a / 2));
-        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b / 2));
-        */
+        //set swirl strength to work with speed
+        float a = math.min(avatar0.hip.rotationSpeed, 4000f);
+        float b = math.min(avatar1.hip.rotationSpeed, 4000f);
+        a = math.remap(100f, 1000f, 0.5f, 4f, a);
+        b = math.remap(100f, 1000f, 0.5f, 4f, b);
+        //effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f,a));
+        //effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b ));
+        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.5f, a ));
+        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b ));
 
+        //set jump with size
+        grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
+        grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
 
     }
 
@@ -125,10 +151,28 @@ public class DataSubscription : MonoBehaviour
             bodyRig.velocity = (bodyRig.rig.transform.position - bodyRig.lastPosition) / Time.deltaTime;
             bodyRig.lastPosition = bodyRig.rig.transform.position;
             bodyRig.speed = bodyRig.velocity.magnitude;
-            Debug.Log("Speed for avatar" + avat.avatarIndex + "'s " + bodyRig.name + " is " + bodyRig.speed);
+            //Debug.Log("Speed for avatar" + avat.avatarIndex + "'s " + bodyRig.name + " is " + bodyRig.speed);
         }
     }
 
+    private void RigsRotation(Avatar avat)
+    {
+        //calc speed and write to class per Avatar
+        RotateCalc(avat.head);
+        RotateCalc(avat.hip);
+        //Debug.Log("Speed for avatar" + avat.avatarIndex + "'s hip" + " is " + avat.hip.rotationSpeed);
+        RotateCalc(avat.leftHand);
+        RotateCalc(avat.rightHand);
+        RotateCalc(avat.leftFoot);
+        RotateCalc(avat.rightFoot);
+        //method to calc each rig's speed and write into its class
+        void RotateCalc(BodyRigs bodyRig)
+        {
+            bodyRig.rotationSpeed = (bodyRig.rig.transform.rotation.eulerAngles - bodyRig.lastRotation.eulerAngles).magnitude / Time.deltaTime;
+            bodyRig.lastRotation = bodyRig.rig.transform.rotation;
+            
+        }
+    }
 
 
     private float Distance(GameObject a, GameObject b)
@@ -136,4 +180,15 @@ public class DataSubscription : MonoBehaviour
         float distance = Vector3.Distance(a.transform.position, b.transform.position);
         return distance;
     }
+
+    
+    private void isFootHigherThanCalf(Avatar avat)
+    {
+        if (avat.leftFoot.rig.transform.position.y >= 0.25f && avat.rightFoot.rig.transform.position.y >= 0.25f) {
+            avat.isJump = true;
+        }
+        else avat.isJump = false;
+
+    }
+    
 }
