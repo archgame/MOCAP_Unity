@@ -22,9 +22,12 @@ public class VisualEventManager : MonoBehaviour
     private float[] rigSpeed = new float[] {0,0};
 
     //decalre jump action parameter
-    private float jumpTimeThreshold = 0.8f;
+    [SerializeField]private float jumpTimeThreshold = 0.3f;
     private float jumpTimer0 = 0f;
     private float jumpTimer1 = 0f;
+
+    //declare grids
+
 
     //declare spin trigger parameter
     private float spinTimer0 = 0f;
@@ -51,10 +54,10 @@ public class VisualEventManager : MonoBehaviour
         //jump
         if(data.avatar0.isJump == true) {
             jumpTimer0 += Time.deltaTime;
-            Debug.Log("Jumptime1 is " + jumpTimer0);
+            //Debug.Log("Jumptime1 is " + jumpTimer0);
             if (jumpTimer0 > jumpTimeThreshold) {
                 data.avatar0.jumpCount += 1;
-                Debug.Log("Jumped " + data.avatar0.jumpCount + " times");
+                //Debug.Log("Jumped " + data.avatar0.jumpCount + " times");
                 //passEvent(effects[0], "Wave");
                 data.avatar0.isJump = false;
                 jumpTimer0 = 0;

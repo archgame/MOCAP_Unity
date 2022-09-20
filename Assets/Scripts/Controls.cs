@@ -31,6 +31,9 @@ public class Controls : MonoBehaviour
     public GameObject mainCam;
     public GameObject subCam;
 
+    //grids
+    public GameObject[] grids;
+    public float timerStart;
 
     //public SkinnedMeshRenderer BodyRenderer;
     private GameObject[] mesh ;
@@ -239,6 +242,15 @@ public class Controls : MonoBehaviour
 
         //Debug.Log("0");
 
+        if (grids[0].activeInHierarchy) {
+            timerStart += Time.deltaTime;
+            if(timerStart >= 60f && grids[0].transform.position.y <= 3) {
+                grids[0].transform.Translate(Vector3.up * 0.5f * Time.deltaTime);
+                timerStart = 121f;
+            }
+
+        }
+
         //turn trailmesh into stars
         trailStarsEnabled = trailToMeshTogg.isOn;
         if (trailStarsEnabled)
@@ -290,6 +302,10 @@ public class Controls : MonoBehaviour
     {
         mainCam.SetActive(!mainCam.activeInHierarchy);
         subCam.SetActive(!subCam.activeInHierarchy);
+    }
+    private void CameraControl()
+    {
+
     }
     private void ToggleTrailRendererParticleSystem(List<TrailRenderer> trails)
     {
@@ -443,14 +459,19 @@ public class Controls : MonoBehaviour
 
     private void translateBakedTrail(GameObject trailParent, GameObject target, float spd)
     {
+
         
         foreach (Transform child in trailParent.transform) {
+            
             Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
-            
-            child.transform.Translate(spd * Time.deltaTime * direction.normalized);
+            Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 3f));
+            child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized ));
+            float intensity = Mathf.PingPong(Time.time, 4f);
+            intensity = 2f - intensity;
+            child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
             //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
-            
-            
+
+
         }
 
         

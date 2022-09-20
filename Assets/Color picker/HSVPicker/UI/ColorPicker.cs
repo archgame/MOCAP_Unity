@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 namespace HSVPicker
 {
     public class ColorPicker : MonoBehaviour

@@ -3338,7 +3338,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Cylinder, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.10000000149011612,"height":19.459999084472658}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.5,"height":19.459999084472658}'
     m_Space: 0
   m_Property:
     name: Cylinder
@@ -3574,7 +3574,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 30
     m_Space: 2147483647
   m_Property:
     name: Bounce
@@ -3707,7 +3707,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Cylinder, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.10000000149011612,"height":23.06999969482422}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.5,"height":23.06999969482422}'
     m_Space: 0
   m_Property:
     name: Cylinder
@@ -3943,7 +3943,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 30
     m_Space: 2147483647
   m_Property:
     name: Bounce
@@ -7776,7 +7776,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615833}
   - {fileID: 8926484042661615896}
   dataType: 0
-  capacity: 9000
+  capacity: 3000
   stripCapacity: 16
   particlePerStripCount: 16
   m_Space: 0
@@ -9475,7 +9475,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Cylinder, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.10000000149011612,"height":19.459999084472658}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.30000001192092898,"height":19.459999084472658}'
     m_Space: 0
   m_Property:
     name: Cylinder
@@ -9711,7 +9711,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 30
     m_Space: 2147483647
   m_Property:
     name: Bounce
@@ -9844,7 +9844,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Cylinder, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.10000000149011612,"height":23.06999969482422}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":0.0,"z":0.0},"radius":0.30000001192092898,"height":23.06999969482422}'
     m_Space: 0
   m_Property:
     name: Cylinder
@@ -10080,7 +10080,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 30
     m_Space: 2147483647
   m_Property:
     name: Bounce

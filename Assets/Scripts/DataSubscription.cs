@@ -29,6 +29,21 @@ public class DataSubscription : MonoBehaviour
             this.rightFoot = rightFoot;
             this.rightFoot.name = "Right Foot";
         }
+        
+        //declare indexer for easier assign
+        BodyRigs this[int index]
+        {
+            get {
+                switch (index) {
+                    case 0: return this.head;
+                    case 1: return this.hip;
+                    case 2: return this.leftHand;
+                    case 3: return this.rightHand;
+                    case 4: return this.leftFoot;
+                    case 5: return this.rightFoot;
+                    default: throw new IndexOutOfRangeException("Index");}
+                }
+        }
     }
     public class BodyRigs
     {
@@ -74,14 +89,11 @@ public class DataSubscription : MonoBehaviour
         //Construct  the Avatar Class 
         avatar0 = new Avatar(0, new BodyRigs(avat0[0]), new BodyRigs(avat0[1]), new BodyRigs(avat0[2]), new BodyRigs(avat0[3]), new BodyRigs(avat0[4]), new BodyRigs(avat0[5]));
         avatar1 = new Avatar(1, new BodyRigs(avat1[0]), new BodyRigs(avat1[1]), new BodyRigs(avat1[2]), new BodyRigs(avat1[3]), new BodyRigs(avat1[4]), new BodyRigs(avat1[5]));
-        /*
-        avat0Rigs = {avatar0.head, avatar0.hip, avatar0.leftHand, avatar0.rightHand, avatar0.leftFoot, avatar0.rightFoot };
-        avat1Rigs = {avatar1.head, avatar1.hip, avatar1.leftHand, avatar1.rightHand, avatar1.leftFoot, avatar1.rightFoot };
-        */
+
+
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
         mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
         
-
 
     }
 
@@ -108,7 +120,6 @@ public class DataSubscription : MonoBehaviour
         //distance calc 
         dist[0] = Distance(avat0[2], avat0[3]);
         dist[1] = Distance(avat0[2], avat1[2]);
-
         //subscribtions
         effects[0].SetFloat("handHipDist", dist[0]);
         effects[1].SetFloat("handHipDist", dist[1]);
@@ -131,6 +142,7 @@ public class DataSubscription : MonoBehaviour
         effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b ));
 
         //set jump with size
+        
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
 
@@ -150,6 +162,7 @@ public class DataSubscription : MonoBehaviour
         void VelocityCalc(BodyRigs bodyRig){
             bodyRig.velocity = (bodyRig.rig.transform.position - bodyRig.lastPosition) / Time.deltaTime;
             bodyRig.lastPosition = bodyRig.rig.transform.position;
+            bodyRig.position = bodyRig.rig.transform.position;
             bodyRig.speed = bodyRig.velocity.magnitude;
             //Debug.Log("Speed for avatar" + avat.avatarIndex + "'s " + bodyRig.name + " is " + bodyRig.speed);
         }
@@ -184,10 +197,11 @@ public class DataSubscription : MonoBehaviour
     
     private void isFootHigherThanCalf(Avatar avat)
     {
-        if (avat.leftFoot.rig.transform.position.y >= 0.25f && avat.rightFoot.rig.transform.position.y >= 0.25f) {
+        if (avat.leftFoot.rig.transform.position.y >= 0.12f && avat.rightFoot.rig.transform.position.y >= 0.12f) {
             avat.isJump = true;
         }
         else avat.isJump = false;
+        //Debug.Log("Currnt Height is " + avat.leftFoot.rig.transform.position.y);
 
     }
     
