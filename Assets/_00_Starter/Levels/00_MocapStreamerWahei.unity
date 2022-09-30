@@ -141,11 +141,11 @@ GameObject:
   - component: {fileID: 17945759}
   m_Layer: 0
   m_Name: StarBackdrop
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &17945758
 Transform:
   m_ObjectHideFlags: 0
@@ -1475,11 +1475,11 @@ GameObject:
   - component: {fileID: 115483593}
   m_Layer: 0
   m_Name: ColorBurst[1]
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &115483592
 Transform:
   m_ObjectHideFlags: 0
@@ -1590,7 +1590,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.011258455, y: 0.16039245, z: 0.21698111, w: 0}
+      - m_Value: {x: 0, y: 1.6398152, z: 2.8598425, w: 1}
         m_Name: BurstColor
         m_Overridden: 1
     m_Uint:
@@ -2029,7 +2029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &218314140
 Transform:
   m_ObjectHideFlags: 0
@@ -2050,7 +2050,6 @@ Transform:
   - {fileID: 115483592}
   - {fileID: 906277421}
   - {fileID: 377624586}
-  - {fileID: 1708803776}
   - {fileID: 1389798302}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -2537,6 +2536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b7114de57caa84383131999b409281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameUI: {fileID: 1521344633}
+  eventManager: {fileID: 2134565267}
+  dropDown: {fileID: 1663173432}
+  thresholdInput: {fileID: 1259914093}
+  trailToMeshTogg: {fileID: 2097304277}
   TrailRenderTime: 2
   TrailRenderers: []
   ParticleSystems: []
@@ -2553,10 +2557,6 @@ MonoBehaviour:
   - {fileID: 495632597}
   - {fileID: 1245433043}
   starMtl: {fileID: 2100000, guid: 8b41762bb6109774bbb85c1bf72b6407, type: 2}
-  eventManager: {fileID: 2134565267}
-  dropDown: {fileID: 1663173432}
-  thresholdInput: {fileID: 1259914093}
-  trailToMeshTogg: {fileID: 2097304277}
 --- !u!1001 &239284996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3793,11 +3793,11 @@ GameObject:
   - component: {fileID: 287063340}
   m_Layer: 0
   m_Name: Color Variation V1
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &287063339
 Transform:
   m_ObjectHideFlags: 0
@@ -4065,11 +4065,11 @@ GameObject:
   - component: {fileID: 377624582}
   m_Layer: 0
   m_Name: Attract
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &377624582
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4164,7 +4164,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -0.95, y: -0.00000024586916, z: -3.5}
+      - m_Value: {x: 1.9999994, y: -0.06400025, z: 0.023654941}
         m_Name: attractiveTargetPosition
         m_Overridden: 1
     m_Vector4f:
@@ -4996,11 +4996,11 @@ GameObject:
   - component: {fileID: 495632600}
   m_Layer: 0
   m_Name: TrailToStar0
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!2083052967 &495632597
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -6873,11 +6873,11 @@ GameObject:
   - component: {fileID: 906277424}
   m_Layer: 0
   m_Name: SwirlVar2.1
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &906277421
 Transform:
   m_ObjectHideFlags: 0
@@ -8315,11 +8315,11 @@ GameObject:
   - component: {fileID: 1245433039}
   m_Layer: 0
   m_Name: TrailToStar1
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1245433038
 Transform:
   m_ObjectHideFlags: 0
@@ -8348,7 +8348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: attractiveTargetPositionB
-  Target: {fileID: 221137400}
+  Target: {fileID: 2051160042}
 --- !u!114 &1245433040
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -8363,7 +8363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: attractiveTargetPosition
-  Target: {fileID: 2051160042}
+  Target: {fileID: 221137400}
 --- !u!114 &1245433041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8441,10 +8441,10 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 2, y: 1.0018692, z: 0}
+      - m_Value: {x: -3, y: 1.0018692, z: 0}
         m_Name: attractiveTargetPosition
         m_Overridden: 1
-      - m_Value: {x: -3, y: 1.0018692, z: 0}
+      - m_Value: {x: 2, y: 1.0018692, z: 0}
         m_Name: attractiveTargetPositionB
         m_Overridden: 1
     m_Vector4f:
@@ -8645,6 +8645,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259914091}
   m_CullTransparentMesh: 1
+--- !u!4 &1266161145 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+  m_PrefabInstance: {fileID: 429819527913103581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1274342939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 529511124834227214, guid: b5173b554a6917246a58ea1157f0285a, type: 3}
@@ -8896,11 +8901,11 @@ GameObject:
   - component: {fileID: 1389798303}
   m_Layer: 0
   m_Name: Point field
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1389798298
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -8996,7 +9001,7 @@ VisualEffect:
       - m_Value: {x: 1.9192098, y: 0.098703325, z: -0.032693908}
         m_Name: attractiveTargetPosition
         m_Overridden: 1
-      - m_Value: {x: -3.0807903, y: 0.098703325, z: -0.032693908}
+      - m_Value: {x: -3.080799, y: 0.0987041, z: -0.032693762}
         m_Name: attractiveTargetPositionB
         m_Overridden: 1
     m_Vector4f:
@@ -9027,7 +9032,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 218314140}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1389798303
 MonoBehaviour:
@@ -9135,11 +9140,11 @@ GameObject:
   - component: {fileID: 1422166144}
   m_Layer: 0
   m_Name: ColorBurst[0]
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1422166141
 Transform:
   m_ObjectHideFlags: 0
@@ -9222,7 +9227,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.8773585, y: 0.13656996, z: 0.13656996, w: 0}
+      - m_Value: {x: 3.2111173, y: 0.08406066, z: 0.08406066, w: 1}
         m_Name: BurstColor
         m_Overridden: 1
     m_Uint:
@@ -10186,11 +10191,11 @@ GameObject:
   - component: {fileID: 1627656518}
   m_Layer: 0
   m_Name: SwirlVar3
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1627656512
 Transform:
   m_ObjectHideFlags: 0
@@ -11001,11 +11006,11 @@ GameObject:
   - component: {fileID: 1708803779}
   m_Layer: 0
   m_Name: Shooting Star V2
-  m_TagString: Untagged
+  m_TagString: GalaxyVFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1708803776
 Transform:
   m_ObjectHideFlags: 0
@@ -11014,11 +11019,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708803775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.9293816, y: 2.3269255, z: -1.7377462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 218314140}
-  m_RootOrder: 9
+  m_Father: {fileID: 2122569249}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1708803777
 VFXRenderer:
@@ -11028,7 +11033,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708803775}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -11502,6 +11507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b7114de57caa84383131999b409281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameUI: {fileID: 0}
+  eventManager: {fileID: 0}
+  dropDown: {fileID: 0}
+  thresholdInput: {fileID: 0}
+  trailToMeshTogg: {fileID: 0}
   TrailRenderTime: 2
   TrailRenderers: []
   ParticleSystems: []
@@ -11515,10 +11525,6 @@ MonoBehaviour:
   timerStart: 0
   trailStars: []
   starMtl: {fileID: 0}
-  eventManager: {fileID: 0}
-  dropDown: {fileID: 0}
-  thresholdInput: {fileID: 0}
-  trailToMeshTogg: {fileID: 0}
 --- !u!1 &1780996595
 GameObject:
   m_ObjectHideFlags: 0
@@ -12024,11 +12030,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863845005}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9293816, y: -0.6730745, z: -1.7377462}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2122569249}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1863845007
 VFXRenderer:
@@ -15151,9 +15157,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1770a45e0e5701b418702daa39b0e632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vfxParent: {fileID: 218314139}
+  paricle: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+  trans: {fileID: 2800000, guid: 6b142128a69b3444792deac494afdf04, type: 3}
+  starSpike: {fileID: 429819526955234597, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+  starBoom: {fileID: 1708803778}
   isDrawActive: 0
-  lineMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  starMaterial: {fileID: 2100000, guid: 8b94f1b6c14d3fe49bbe8d23b7edc3f9, type: 2}
+  starNum: 6
+  lineMaterial: {fileID: 2100000, guid: 32388c9e1f55e2e428638f2cbc72d5cd, type: 2}
+  starMaterial: {fileID: 2100000, guid: d9cf4c5ce0c238b4f8c8c32dde5eb6f3, type: 2}
   radarPulse: {fileID: 529511124834227215, guid: b5173b554a6917246a58ea1157f0285a, type: 3}
   constellationDrawer: {fileID: 1863845008}
   data: {fileID: 809883327}
@@ -15165,10 +15177,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122569247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9293816, y: 0.6730745, z: 1.7377462}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1708803776}
   - {fileID: 1863845006}
+  - {fileID: 1266161145}
   - {fileID: 1274342939}
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -15266,6 +15280,7 @@ MonoBehaviour:
   interval: 0.5
   rigNumber: 0
   threshold: 3.25
+  jumpTimeThreshold: 0.3
 --- !u!4 &2134565269
 Transform:
   m_ObjectHideFlags: 0
@@ -15401,6 +15416,67 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7426409270946055879, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
   m_PrefabInstance: {fileID: 2051160040}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &429819527913103581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2122569249}
+    m_Modifications:
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.51942
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.8175082
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.4227085
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234596, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234597, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_Name
+      value: twinkle
+      objectReference: {fileID: 0}
+    - target: {fileID: 429819526955234597, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
 --- !u!1001 &529511126097492501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15410,7 +15486,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 529511124834227214, guid: b5173b554a6917246a58ea1157f0285a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 529511124834227214, guid: b5173b554a6917246a58ea1157f0285a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15548,11 +15624,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7810477542379119794, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.84
+      value: 0.823
       objectReference: {fileID: 0}
     - target: {fileID: 7810477542379119794, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.918
+      value: -1.912
       objectReference: {fileID: 0}
     - target: {fileID: 7810477542379119794, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
       propertyPath: m_LocalRotation.w

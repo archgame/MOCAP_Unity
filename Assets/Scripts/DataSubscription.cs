@@ -136,13 +136,16 @@ public class DataSubscription : MonoBehaviour
         float b = math.min(avatar1.hip.rotationSpeed, 4000f);
         a = math.remap(100f, 1000f, 0.5f, 4f, a);
         b = math.remap(100f, 1000f, 0.5f, 4f, b);
-        //effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f,a));
-        //effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b ));
+
         effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.5f, a ));
         effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b ));
 
+
+        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f, a));
+        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b));
+
         //set jump with size
-        
+
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
 

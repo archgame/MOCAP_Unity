@@ -9,6 +9,16 @@ using HSVPicker;
 
 public class Controls : MonoBehaviour
 {
+
+    //UI elements
+    public Canvas gameUI;
+    public GameObject eventManager;
+    public Dropdown dropDown;
+    public InputField thresholdInput;
+    public Toggle trailToMeshTogg;
+
+
+
     public float TrailRenderTime = 2.0f;
 
     public TrailRenderer[] TrailRenderers;
@@ -50,11 +60,7 @@ public class Controls : MonoBehaviour
 
     private VisualEventManager vem;
 
-    //UI elements
-    public GameObject eventManager;
-    public Dropdown dropDown;
-    public InputField thresholdInput;
-    public Toggle trailToMeshTogg;
+
 
 
 
@@ -149,6 +155,9 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //UI control
+        if (Input.GetKeyDown(KeyCode.Backslash)) { gameUI.enabled = !gameUI.enabled; }
+        //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
         //camera control
         if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
         if(mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false)
