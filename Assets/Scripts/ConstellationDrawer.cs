@@ -245,6 +245,11 @@ public class ConstellationDrawer : MonoBehaviour
         }
     }
 
+    public void toggleDraw()
+    {
+        isDrawActive = !isDrawActive;
+    }
+
 }
 
 

@@ -53,7 +53,10 @@ public class Controls : MonoBehaviour
     private GameObject[] hips = new GameObject[2];
 
     //for trailmesh into stars
+
     private GameObject[] trailMesh = new GameObject[2];
+    [SerializeField]
+    private Mesh[] trailMeshNew;
     public VisualEffect[] trailStars;
     private bool trailStarsEnabled = false;
     public Material starMtl;
@@ -156,7 +159,7 @@ public class Controls : MonoBehaviour
     private void Update()
     {
         //UI control
-        if (Input.GetKeyDown(KeyCode.Backslash)) { gameUI.enabled = !gameUI.enabled; }
+        if (Input.GetKeyDown(KeyCode.Y)) { gameUI.enabled = !gameUI.enabled; }
         //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
         //camera control
         if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
@@ -272,13 +275,15 @@ public class Controls : MonoBehaviour
             CombineChildrenMesh(trailMesh[1]);
             trailStars[0].SetMesh("_spawnMesh", trailMesh[0].GetComponent<MeshFilter>().mesh);
             trailStars[1].SetMesh("_spawnMesh", trailMesh[1].GetComponent<MeshFilter>().mesh);
+
+
             /*trailMesh.transform.GetComponent<MeshFilter>().mesh = new Mesh();
             trailMesh.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
             trailMesh.transform.gameObject.SetActive(true);
             Debug.Log(trailMesh.GetComponent<MeshFilter>().mesh.name);*/
             //trailStars.SetMesh("_spawnMesh", trailMesh.GetComponent<MeshFilter>().mesh);
         }
-        
+
 
     }
 

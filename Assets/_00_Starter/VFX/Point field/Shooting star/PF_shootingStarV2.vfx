@@ -7678,7 +7678,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616756}
   - {fileID: 8926484042661616775}
   dataType: 0
-  capacity: 300
+  capacity: 150
   stripCapacity: 16
   particlePerStripCount: 16
   m_Space: 0
@@ -7938,7 +7938,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 300
+      m_SerializableObject: 150
     m_Space: 2147483647
   m_Property:
     name: Rate
@@ -9319,7 +9319,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 25
+      m_SerializableObject: 15
     m_Space: 2147483647
   m_Property:
     name: 
@@ -11327,7 +11327,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616924}
   - {fileID: 8926484042661616925}
   m_OutputSlots: []
-  m_Disabled: 0
+  m_Disabled: 1
   m_customType:
     m_SerializableType: UnityEngine.VFX.LoopAndDelay, Unity.VisualEffectGraph.Runtime,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -11785,7 +11785,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 8
+      m_SerializableObject: 3
     m_Space: 2147483647
   m_Property:
     name: 
@@ -11972,7 +11972,7 @@ MonoBehaviour:
   m_InputSlots:
   - {fileID: 8926484042661616964}
   m_OutputSlots: []
-  m_Disabled: 0
+  m_Disabled: 1
   attribute: color
   Composition: 0
   AlphaComposition: 0

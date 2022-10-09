@@ -27,7 +27,7 @@ public class VisualEventManager : MonoBehaviour
     private float jumpTimer1 = 0f;
 
     //declare grids
-
+    public GameObject grid;
 
     //declare spin trigger parameter
     private float spinTimer0 = 0f;
@@ -52,7 +52,7 @@ public class VisualEventManager : MonoBehaviour
 
         
         //jump
-        if(data.avatar0.isJump == true) {
+        if(data.avatar0.isJump == true && grid.activeInHierarchy) {
             jumpTimer0 += Time.deltaTime;
             //Debug.Log("Jumptime1 is " + jumpTimer0);
             if (jumpTimer0 > jumpTimeThreshold) {
@@ -64,7 +64,7 @@ public class VisualEventManager : MonoBehaviour
             }
 
         }
-        if (data.avatar1.isJump == true) {
+        if (data.avatar1.isJump == true && grid.activeInHierarchy) {
             jumpTimer1 += Time.deltaTime;
             if (jumpTimer1 > jumpTimeThreshold) {
                 data.avatar1.jumpCount += 1;
