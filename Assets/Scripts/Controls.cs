@@ -14,10 +14,12 @@ public class Controls : MonoBehaviour
     public Canvas gameUI;
     public GameObject eventManager;
     public Dropdown dropDown;
+    public Dropdown traceLineType;
     public InputField thresholdInput;
     public Toggle trailToMeshTogg;
 
-
+    //trailine material
+    public Material[] trailLineMat;
 
     public float TrailRenderTime = 2.0f;
 
@@ -55,8 +57,7 @@ public class Controls : MonoBehaviour
     //for trailmesh into stars
 
     private GameObject[] trailMesh = new GameObject[2];
-    [SerializeField]
-    private Mesh[] trailMeshNew;
+
     public VisualEffect[] trailStars;
     private bool trailStarsEnabled = false;
     public Material starMtl;
@@ -79,6 +80,13 @@ public class Controls : MonoBehaviour
         }
 
         hips = GameObject.FindGameObjectsWithTag("hip");
+
+        //set trailine linetype
+        traceLineType.onValueChanged.AddListener(Value=> {
+            if (Value == 0) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[0]; } }
+            else if (Value == 1) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[1]; } }
+            else if (Value == 2) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[2]; } }
+        });
 
         //set trail color gradients
         ava0TrailHead.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", color); } });

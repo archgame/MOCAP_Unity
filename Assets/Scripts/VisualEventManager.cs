@@ -25,6 +25,8 @@ public class VisualEventManager : MonoBehaviour
     [SerializeField]private float jumpTimeThreshold = 0.3f;
     private float jumpTimer0 = 0f;
     private float jumpTimer1 = 0f;
+    private float jumpTimer2 = 0f;
+    private float jumpTimer3 = 0f;
 
     //declare grids
     public GameObject grid;
@@ -57,6 +59,7 @@ public class VisualEventManager : MonoBehaviour
             //Debug.Log("Jumptime1 is " + jumpTimer0);
             if (jumpTimer0 > jumpTimeThreshold) {
                 data.avatar0.jumpCount += 1;
+                if (effects[0].isActiveAndEnabled) { passEvent(effects[0], "Wave"); }
                 //Debug.Log("Jumped " + data.avatar0.jumpCount + " times");
                 //passEvent(effects[0], "Wave");
                 data.avatar0.isJump = false;
@@ -74,7 +77,8 @@ public class VisualEventManager : MonoBehaviour
             }
 
         }
-        
+
+
 
         //spin
 
@@ -94,6 +98,7 @@ public class VisualEventManager : MonoBehaviour
             // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
             timer2 = 0;
         }
+        
 
 
     }
