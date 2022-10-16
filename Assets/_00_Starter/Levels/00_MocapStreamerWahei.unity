@@ -18526,7 +18526,7 @@ MonoBehaviour:
   starSpike: {fileID: 429819526955234597, guid: f9b183f5e2dc97f4390789c0cdd1ef57, type: 3}
   starBoom: {fileID: 1708803778}
   isDrawActive: 0
-  starNum: 3
+  starNum: 4
   lineMaterial: {fileID: 2100000, guid: 32388c9e1f55e2e428638f2cbc72d5cd, type: 2}
   starMaterial: {fileID: 2100000, guid: d9cf4c5ce0c238b4f8c8c32dde5eb6f3, type: 2}
   constellationDrawer: {fileID: 1863845008}
