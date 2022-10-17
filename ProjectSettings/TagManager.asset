@@ -7,6 +7,7 @@ TagManager:
   - CH36
   - hip
   - GalaxyVFX
+  - Sensor
   layers:
   - Default
   - TransparentFX
