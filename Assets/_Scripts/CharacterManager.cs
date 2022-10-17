@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//using HSVPicker;
+
 public class CharacterManager : MonoBehaviour
 {
     public GameObject[] Char0Avatars;
@@ -14,6 +16,14 @@ public class CharacterManager : MonoBehaviour
     {
         NextChar(0);
         NextChar(1);
+
+        /*/ Wahei Color Picker Set Color Example
+        ColorPicker[] pickers = GameObject.FindObjectsOfType<ColorPicker>(); Debug.Log("pickers: " + pickers.Length);
+        foreach (var picker in pickers)
+        {
+            picker.AssignColor(Color.black);
+        }
+        //*/
     }
 
     public void NextChar(int avatarIndex)
