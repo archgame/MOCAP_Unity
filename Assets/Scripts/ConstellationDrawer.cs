@@ -43,6 +43,7 @@ public class ConstellationDrawer : MonoBehaviour
     public VisualEffect constellationDrawer;
 
     private GameObject[][] constellation;
+    private GameObject allConstellation;
 
     private int activeStarIndex;
 
@@ -53,7 +54,9 @@ public class ConstellationDrawer : MonoBehaviour
     {
         isDrawActive = false;
         avatars = new DataSubscription.Avatar[2] { data.avatar0, data.avatar1 };
-
+        allConstellation = new GameObject();
+        allConstellation.name = "All Constellations";
+        allConstellation.transform.parent = gameObject.transform;
         lineHolder = new GameObject[maxTurn];
         lineRenderers = new LineRenderer[maxTurn];
         for (int i = 0; i < maxTurn; i++) {
@@ -195,8 +198,9 @@ public class ConstellationDrawer : MonoBehaviour
         for (int j = 0; j < 5; j++) {
             GameObject ConStars = new GameObject();
             ConStars.name = "Constellation" + j;
+            ConStars.transform.parent = allConstellation.transform;
             for (int i = 0; i < numStar; i++) {
-                starList[j][i] = new Vector3(Random.Range(-6f, 6f), 0f, Random.Range(-6f, 6f));
+                starList[j][i] = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-4f, 4f));
 
                 //constellation[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 constellation[j][i] = Instantiate(starSpike);
@@ -219,7 +223,7 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
     {
-        if (Vector3.Distance(currentP, endP) <= 0.2f) {
+        if (Vector3.Distance(currentP, endP) <= 0.4f) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             activeStarIndex++;

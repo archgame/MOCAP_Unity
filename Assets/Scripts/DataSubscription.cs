@@ -148,7 +148,12 @@ public class DataSubscription : MonoBehaviour
 
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
         grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
-
+        if (Distance(avatar0.hip.rig, avatar1.hip.rig) <= 3f) {
+            float spacing = Mathf.Repeat(Time.time*0.5f, 0.9f) + 0.1f;
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
+        } else {
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);
+        }
     }
 
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HSVPicker;
 
 public class RunTimer : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class RunTimer : MonoBehaviour
     private Toggle[] togGroup1, togGroup2, togGroup3, togGroup4, togGroup5,togGroup6;
     [SerializeField]
     private InputField input1, input2, input3, input4, input5, input6,input7;
+
+    [SerializeField]
+    private InputField BakeWait, BakeRate;
+    private float bakeWaiteTime, bakeRate;
     [SerializeField]
     private Button button;
     private float timeCount;
@@ -18,11 +23,19 @@ public class RunTimer : MonoBehaviour
 
     private ConstellationDrawer CD;
     [SerializeField]
-    private GameObject LineDraw; 
+    private GameObject LineDraw;
+
+    private Controls mainControl;
+    [SerializeField]
+    private GameObject controlGameOBJ;
+    private bool isInvoked;
  
     // Start is called before the first frame update
     void Start()
     {
+ 
+        isInvoked = false;
+        mainControl = controlGameOBJ.GetComponent<Controls>();
         CD = LineDraw.GetComponent<ConstellationDrawer>();
         clicked = false;
         button.onClick.RemoveAllListeners();
@@ -49,14 +62,31 @@ public class RunTimer : MonoBehaviour
             //Scene 1
             if (time1 >= 0f) { time1 -= Time.deltaTime; }
             //Scene 2.1 & 2.2
-            else if (time1 < 0f & time2 >= 0f) { ToggleGroup(togGroup1, true); time2 -= Time.deltaTime; }
+            else if (time1 < 0f & time2 >= 0f) {
+                ToggleGroup(togGroup1, true); time2 -= Time.deltaTime;
+                bakeWaiteTime = float.Parse(BakeWait.text);
+                bakeRate = float.Parse(BakeRate.text);
+                if (isInvoked == false) {
+                    InvokeRepeating("BakeTrail", bakeWaiteTime, bakeRate);
+                    isInvoked = true;
+                }
+            }
             //Scene 3
-            else if (time1 < 0f & time2 < 0f && time3 >= 0f) { ToggleGroup(togGroup1, true); ToggleGroup(togGroup2, true); time3 -= Time.deltaTime; }
+            else if (time1 < 0f & time2 < 0f && time3 >= 0f) { ToggleGroup(togGroup1, false); ToggleGroup(togGroup2, true); time3 -= Time.deltaTime; 
+                CancelInvoke();
+                mainControl.DeleteBakeTrailRenderersByAvatar(0);
+                mainControl.DeleteBakeTrailRenderersByAvatar(1);
+            }
             //Scene 4
             else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 >= 0f) { ToggleGroup(togGroup2, false); ToggleGroup(togGroup3, true); time4 -= Time.deltaTime; }
             //Scene 5.1
-            else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 < 0f && time5 >= 0f && CD.isDrawActive == false ) { //ToggleGroup(togGroup3, false);
+            else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 < 0f && time5 >= 0f && CD.isDrawActive == false) { //ToggleGroup(togGroup3, false);
+                ToggleGroup(togGroup1, true);
                 ToggleGroup(togGroup4, true); time5 -= Time.deltaTime;
+                ColorPicker[] pickers = GameObject.FindObjectsOfType<ColorPicker>(); Debug.Log("pickers: " + pickers.Length);
+                foreach (var picker in pickers) {
+                    picker.AssignColor(Color.black);
+                }
             }
             //Scene 5.2
             else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 < 0f && time5 < 0f && time6 >= 0f) { //ToggleGroup(togGroup4, false); 
@@ -83,5 +113,11 @@ public class RunTimer : MonoBehaviour
     private void ToggleGroup(Toggle[] togGrp, bool stat)
     {
         foreach(Toggle toggle in togGrp) { toggle.isOn = stat;}
+    }
+
+    private void BakeTrail()
+    {
+        mainControl.BakeTrailRenderersByAvatar(mainControl.avatar0Trails, 0);
+        mainControl.BakeTrailRenderersByAvatar(mainControl.avatar1Trails, 1);
     }
 }

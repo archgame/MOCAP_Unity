@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 using HSVPicker;
+using UnityEngine.SceneManagement;
 
 public class Controls : MonoBehaviour
 {
@@ -24,8 +25,8 @@ public class Controls : MonoBehaviour
     public float TrailRenderTime = 2.0f;
 
     public TrailRenderer[] TrailRenderers;
-    private List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
-    private List<TrailRenderer> avatar1Trails = new List<TrailRenderer>();
+    public List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
+    public List<TrailRenderer> avatar1Trails = new List<TrailRenderer>();
 
     public ParticleSystem[] ParticleSystems;
 
@@ -48,7 +49,7 @@ public class Controls : MonoBehaviour
     public float timerStart;
 
     //public SkinnedMeshRenderer BodyRenderer;
-    private GameObject[] mesh ;
+    private GameObject[] mesh;
     private bool[] renderOn;
 
     private GameObject[] parent = new GameObject[2];
@@ -72,17 +73,19 @@ public class Controls : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
         //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
-        foreach (TrailRenderer trail in TrailRenderers){
-            if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)){ avatar0Trails.Add(trail); }
+        foreach (TrailRenderer trail in TrailRenderers) {
+            if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) { avatar0Trails.Add(trail); }
             else { avatar1Trails.Add(trail); }
         }
 
         hips = GameObject.FindGameObjectsWithTag("hip");
 
         //set trailine linetype
-        traceLineType.onValueChanged.AddListener(Value=> {
+        traceLineType.onValueChanged.AddListener(Value =>
+        {
             if (Value == 0) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[0]; } }
             else if (Value == 1) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[1]; } }
             else if (Value == 2) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[2]; } }
@@ -119,7 +122,7 @@ public class Controls : MonoBehaviour
         for (int i = 0; i < trailMesh.Length; i++) {
             trailMesh[i] = new GameObject();
             trailMesh[i].transform.parent = this.gameObject.transform;
-            trailMesh[i].name = "trailMesh"+i;
+            trailMesh[i].name = "trailMesh" + i;
             trailMesh[i].transform.localPosition = Vector3.zero;
         }
 
@@ -130,7 +133,7 @@ public class Controls : MonoBehaviour
         vem = GameObject.Find("VfxEventManager").GetComponent<VisualEventManager>();
 
 
-        foreach(TrailRenderer trail in TrailRenderers) {
+        foreach (TrailRenderer trail in TrailRenderers) {
             trail.enabled = false;
         }
 
@@ -167,23 +170,22 @@ public class Controls : MonoBehaviour
     private void Update()
     {
         //UI control
-        if (Input.GetKeyDown(KeyCode.Y)) { gameUI.enabled = !gameUI.enabled; }
+        if (Input.GetKeyDown(KeyCode.Y)) { gameUI.enabled = !gameUI.enabled; Cursor.visible = gameUI.enabled; }
         //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
         //camera control
         if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
-        if(mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false)
-        {
+        if (mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false) {
             if (Input.GetKey(KeyCode.Q)) { mainCam.transform.Translate(5 * Vector3.up * Time.deltaTime, Space.World); }
             if (Input.GetKey(KeyCode.E)) { mainCam.transform.Translate(5 * Vector3.down * Time.deltaTime, Space.World); }
         }
-        else if(mainCam.activeInHierarchy == false && subCam.activeInHierarchy == true)
-        {
+        else if (mainCam.activeInHierarchy == false && subCam.activeInHierarchy == true) {
             if (Input.GetMouseButton(1)) {
-                subCam.transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f,Space.World);
+                subCam.transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f, Space.World);
                 subCam.transform.Rotate(Input.GetAxis("Mouse Y"), 0f, 0f, Space.World);
-                Vector3 rotation = new Vector3 (subCam.transform.localEulerAngles.x,subCam.transform.localEulerAngles.y,0f);
-                subCam.transform.rotation = Quaternion.Euler(rotation);}
-            if (Input.GetKey(KeyCode.Q)) { subCam.transform.Translate(3 * Vector3.up * Time.deltaTime ); }
+                Vector3 rotation = new Vector3(subCam.transform.localEulerAngles.x, subCam.transform.localEulerAngles.y, 0f);
+                subCam.transform.rotation = Quaternion.Euler(rotation);
+            }
+            if (Input.GetKey(KeyCode.Q)) { subCam.transform.Translate(3 * Vector3.up * Time.deltaTime); }
             if (Input.GetKey(KeyCode.E)) { subCam.transform.Translate(3 * Vector3.down * Time.deltaTime); }
             if (Input.GetKey(KeyCode.W)) { subCam.transform.Translate(3 * Vector3.forward * Time.deltaTime); }
             if (Input.GetKey(KeyCode.S)) { subCam.transform.Translate(3 * Vector3.back * Time.deltaTime); }
@@ -195,7 +197,7 @@ public class Controls : MonoBehaviour
         currentDist = Vector3.Distance(hips[0].transform.position, hips[1].transform.position);
         currentDist = math.min(currentDist, initialDist);
         currentDist = math.max(currentDist, 0.25f * initialDist);
-        float lerp = math.remap(0.25f, 1f,0.5f,1f, currentDist/initialDist);
+        float lerp = math.remap(0.25f, 1f, 0.5f, 1f, currentDist / initialDist);
         foreach (TrailRenderer trail in avatar0Trails) {
             trail.material.SetColor("_startColor", Color.Lerp(ava1TrailHead.CurrentColor, ava0TrailHead.CurrentColor, lerp));
             trail.material.SetColor("_endColor", Color.Lerp(ava1TrailTail.CurrentColor, ava0TrailTail.CurrentColor, lerp));
@@ -208,17 +210,24 @@ public class Controls : MonoBehaviour
         //quit application
         if (Input.GetKeyDown(KeyCode.Escape)) { Debug.Log("Quit Application"); Application.Quit(); }
 
+        //resart Scene
+        if (Input.GetKeyDown(KeyCode.R)) {
+            SceneManager.LoadSceneAsync(
+            SceneManager.GetActiveScene().buildIndex);
+        }
+
         //increase trail render time
         float tempTime = TrailRenderTime;
         if (Input.GetKey(KeyCode.UpArrow)) { tempTime += _timeIncrement; Debug.Log("Up"); }
         if (Input.GetKey(KeyCode.DownArrow)) { tempTime -= _timeIncrement; Debug.Log("Down"); }
         if (TrailRenderTime > 30) { tempTime = 30; }
         if (TrailRenderTime < 0) { tempTime = 0; }
-        if (tempTime != TrailRenderTime)
-        {
+        if (tempTime != TrailRenderTime) {
             TrailRenderTime = tempTime;
             UpdateTrailRenderers();
         }
+
+        //resart Scene
 
         //toggle body renderer on and off
         //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
@@ -228,7 +237,7 @@ public class Controls : MonoBehaviour
 
 
         //bake trail renderer as mesh
-        if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails,0); BakeTrailRenderersByAvatar(avatar1Trails, 1);}
+        if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
 
         //delete drawing
         if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
@@ -255,16 +264,14 @@ public class Controls : MonoBehaviour
         //update numbers from UI
         vem.rigNumber = dropDown.value;
 
-        if(thresholdInput.text != "0")
-        { vem.threshold = float.Parse(thresholdInput.text); }
-        else
-        { vem.threshold = 10; }
+        if (thresholdInput.text != "0") { vem.threshold = float.Parse(thresholdInput.text); }
+        else { vem.threshold = 10; }
 
         //Debug.Log("0");
 
         if (grids[0].activeInHierarchy) {
             timerStart += Time.deltaTime;
-            if(timerStart >= 60f && grids[0].transform.position.y <= 3) {
+            if (timerStart >= 60f && grids[0].transform.position.y <= 3) {
                 grids[0].transform.Translate(Vector3.up * 0.5f * Time.deltaTime);
                 timerStart = 121f;
             }
@@ -273,8 +280,7 @@ public class Controls : MonoBehaviour
 
         //turn trailmesh into stars
         trailStarsEnabled = trailToMeshTogg.isOn;
-        if (trailStarsEnabled)
-        {
+        if (trailStarsEnabled) {
             trailStars[0].gameObject.SetActive(true);
             trailStars[1].gameObject.SetActive(true);
             BakeStarTrailRenderersByAvatar(avatar0Trails, 0);
@@ -334,15 +340,13 @@ public class Controls : MonoBehaviour
         bool trailOn = true;
         bool particleOn = false;
         _trailRendererEnabled = !_trailRendererEnabled;
-        if (_trailRendererEnabled)
-        {
+        if (_trailRendererEnabled) {
             trailOn = false;
             particleOn = true;
         }
 
         //toggle trail renderers
-        foreach (TrailRenderer trail in trails)
-        {
+        foreach (TrailRenderer trail in trails) {
             //trail.enabled = !trail.enabled;
             trail.enabled = trailOn;
             Debug.Log("Trail status is " + trailOn);
@@ -357,8 +361,7 @@ public class Controls : MonoBehaviour
 
     private void UpdateTrailRenderers()
     {
-        foreach (TrailRenderer trail in TrailRenderers)
-        {
+        foreach (TrailRenderer trail in TrailRenderers) {
             trail.time = TrailRenderTime;
         }
     }
@@ -394,8 +397,7 @@ public class Controls : MonoBehaviour
     {
         Debug.Log("Method start");
         //bake trail renderer and add to parent
-        foreach (TrailRenderer trail in trails)
-        {
+        foreach (TrailRenderer trail in trails) {
             //bake mesh
             Mesh bakedMesh = new Mesh();
             trail.BakeMesh(bakedMesh);
@@ -442,7 +444,7 @@ public class Controls : MonoBehaviour
     }
 
 
-    private void BakeTrailRenderersByAvatar(List<TrailRenderer> trails, int avaIndex)
+    public void BakeTrailRenderersByAvatar(List<TrailRenderer> trails, int avaIndex)
     {
         Debug.Log("Method start");
         //bake trail renderer and add to parent
@@ -455,7 +457,7 @@ public class Controls : MonoBehaviour
             //bakedMesh.RecalculateBounds();
             //Debug.Log("Baked mesh bounds: " + bakedMesh.bounds.ToString());
 
-            // Adding MeshCollider and assigning the bakedMesh.
+            // Adding MeshCollider and assigning the bakedMesh.translateBakedTrail
             GameObject go = new GameObject();
             MeshFilter meshFilter = go.AddComponent<MeshFilter>();
             meshFilter.mesh = bakedMesh;
@@ -466,39 +468,41 @@ public class Controls : MonoBehaviour
             //add to parent
             go.transform.TransformPoint(hips[avaIndex].transform.position);
             go.transform.parent = parent[avaIndex].transform;
-            
+
         }
     }
 
-    private void DeleteBakeTrailRenderersByAvatar(int avatarIndex)
+    public void DeleteBakeTrailRenderersByAvatar(int avatarIndex)
     {
         //delete any existing children
-        foreach (Transform child in parent[avatarIndex].transform)
-        {
+        foreach (Transform child in parent[avatarIndex].transform) {
             GameObject.Destroy(child.gameObject);
         }
     }
 
     private void translateBakedTrail(GameObject trailParent, GameObject target, float spd)
     {
-
-        
         foreach (Transform child in trailParent.transform) {
-            
-            Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
-            Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 3f));
-            child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized ));
-            float intensity = Mathf.PingPong(Time.time, 4f);
-            intensity = 2f - intensity;
-            child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
-            //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
-
-
+            /*if (Vector3.Distance(child.GetComponent<Renderer>().transform.position, target.transform.position) <= 3f) {
+                Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
+                Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, .1f), UnityEngine.Random.Range(0f, .1f));
+                child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
+                float intensity = Mathf.PingPong(Time.time, 4f);
+                intensity = 2f - intensity;
+                child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
+            }
+            else {*/
+                Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
+                Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+                child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
+                float intensity = Mathf.PingPong(Time.time, 4f);
+                intensity = 2f - intensity;
+                child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
         }
-
-        
-
+            //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
     }
+
+
 
     IEnumerator SetUpColorInitialize()
     {
@@ -508,4 +512,19 @@ public class Controls : MonoBehaviour
 
     }
 
+    /*public IEnumerator AutoBake(bool toggle)
+    {
+        yield return new WaitForSeconds(25f);
+        if (toggle) {
+            float delta = Mathf.Repeat(Time.time, 11f);
+            float timer = 10f - delta;
+            if (timer <= 0f) {
+                BakeTrailRenderersByAvatar(avatar0Trails, 0);
+                BakeTrailRenderersByAvatar(avatar1Trails, 1);
+                yield return new WaitForSeconds(1f);
+            }
+        }
+    }*/
+
+    
 }
