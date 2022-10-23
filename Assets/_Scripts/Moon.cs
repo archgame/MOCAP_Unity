@@ -28,7 +28,7 @@ public class Moon : MonoBehaviour
         Vector3 actor0 = Actor0.transform.position;
         Vector3 actor1 = Actor1.transform.position;
         Vector3 newPosition = (actor0 + actor1) / 2.00f;
-        Debug.Log(newPosition);
+        //Debug.Log(newPosition);
 
         //calculate moon scale
         float dist = Vector3.Distance(actor1, actor0);

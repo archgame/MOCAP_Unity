@@ -29,11 +29,13 @@ public class RunTimer : MonoBehaviour
     [SerializeField]
     private GameObject controlGameOBJ;
     private bool isInvoked;
+
+    private bool isCoroutine;
  
     // Start is called before the first frame update
     void Start()
     {
- 
+        isCoroutine = false;
         isInvoked = false;
         mainControl = controlGameOBJ.GetComponent<Controls>();
         CD = LineDraw.GetComponent<ConstellationDrawer>();
@@ -77,8 +79,13 @@ public class RunTimer : MonoBehaviour
                 mainControl.DeleteBakeTrailRenderersByAvatar(0);
                 mainControl.DeleteBakeTrailRenderersByAvatar(1);
             }
-            //Scene 4
-            else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 >= 0f) { ToggleGroup(togGroup2, false); ToggleGroup(togGroup3, true); time4 -= Time.deltaTime; }
+            //Scene 4 Constellation
+            else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 >= 0f) { 
+                ToggleGroup(togGroup2, false); 
+                ToggleGroup(togGroup3, true); 
+                time4 -= Time.deltaTime;
+                if (CD.isDrawActive == false &isCoroutine==false) { StartCoroutine(AutoAnotherRounds()); }
+            }
             //Scene 5.1
             else if (time1 < 0f & time2 < 0f && time3 < 0f && time4 < 0f && time5 >= 0f && CD.isDrawActive == false) { //ToggleGroup(togGroup3, false);
                 ToggleGroup(togGroup1, true);
@@ -119,5 +126,13 @@ public class RunTimer : MonoBehaviour
     {
         mainControl.BakeTrailRenderersByAvatar(mainControl.avatar0Trails, 0);
         mainControl.BakeTrailRenderersByAvatar(mainControl.avatar1Trails, 1);
+    }
+
+    IEnumerator AutoAnotherRounds()
+    {
+        isCoroutine = true;
+        yield return new WaitForSeconds(4);
+        CD.anotherRound();
+        isCoroutine = false;
     }
 }

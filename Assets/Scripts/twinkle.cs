@@ -27,7 +27,7 @@ public class twinkle : MonoBehaviour
         if (_scale == true) {
             scaleDown(0.4f,0.2f,1f);
         }
-
+        starShine();
         //spike.transform.localScale = Vector3.one * spikeScale;
         //star.transform.localScale = Vector3.one * starScale;
     }
@@ -45,6 +45,12 @@ public class twinkle : MonoBehaviour
         }
         else { scaleTimer = 0f; _scale=false; }
 
+    }
+
+    public void starShine()
+    {
+        float power = pingPongTwo(-2f, 2f, 1f);
+        star.GetComponent<MeshRenderer>().material.SetFloat("Vector1_e80ff47c9e534fdeb215fa99a5d9fba8", power);
     }
 
     public float pingPongTwo(float a, float b, float T)

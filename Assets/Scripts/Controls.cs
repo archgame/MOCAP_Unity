@@ -35,6 +35,11 @@ public class Controls : MonoBehaviour
     public ColorPicker ava0TrailTail;
     public ColorPicker ava1TrailHead;
     public ColorPicker ava1TrailTail;
+
+    //set trail color with button
+    public GameObject[] colorButtons;
+    private Color[] headTailColor = new Color[4];
+
     //set blending color according to dist
     private int countdownTime = 5;
     private float initialDist;
@@ -92,10 +97,42 @@ public class Controls : MonoBehaviour
         });
 
         //set trail color gradients
+        /*
         ava0TrailHead.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", color); } });
         ava0TrailTail.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_endColor", color); } });
         ava1TrailHead.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_startColor", color); } });
         ava1TrailTail.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", color); } });
+        */
+
+        //set trail color with Button
+        Button[] buttonList0 = colorButtons[0].GetComponentsInChildren<Button>();
+        Button[] buttonList1 = colorButtons[1].GetComponentsInChildren<Button>();
+        Button[] buttonList2 = colorButtons[2].GetComponentsInChildren<Button>();
+        Button[] buttonList3 = colorButtons[3].GetComponentsInChildren<Button>();
+        Debug.Log("ButtonList has " + buttonList0.Length + " buttons");
+        foreach(var colBott in buttonList0) {
+            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
+            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList0.Length; i++) { buttonList0[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true ; });
+            colBott.onClick.AddListener(() => { headTailColor[0] = colBott.colors.normalColor;  });
+        }
+        foreach (var colBott in buttonList1) {
+            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor);  } });
+            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList1.Length; i++) { buttonList1[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
+            colBott.onClick.AddListener(() => { headTailColor[1] = colBott.colors.normalColor; });
+        }
+        foreach (var colBott in buttonList2) {
+            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
+            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList2.Length; i++) { buttonList2[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
+            colBott.onClick.AddListener(() => { headTailColor[2] = colBott.colors.normalColor; });
+        }
+        foreach (var colBott in buttonList3) {
+            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
+            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList3.Length; i++) { buttonList3[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
+            colBott.onClick.AddListener(() => { headTailColor[3] = colBott.colors.normalColor; });
+        }
+
+
+
         //Find intial distance
         StartCoroutine("SetUpColorInitialize");
 
@@ -199,12 +236,12 @@ public class Controls : MonoBehaviour
         currentDist = math.max(currentDist, 0.25f * initialDist);
         float lerp = math.remap(0.25f, 1f, 0.5f, 1f, currentDist / initialDist);
         foreach (TrailRenderer trail in avatar0Trails) {
-            trail.material.SetColor("_startColor", Color.Lerp(ava1TrailHead.CurrentColor, ava0TrailHead.CurrentColor, lerp));
-            trail.material.SetColor("_endColor", Color.Lerp(ava1TrailTail.CurrentColor, ava0TrailTail.CurrentColor, lerp));
+            trail.material.SetColor("_startColor", Color.Lerp(headTailColor[2], headTailColor[0], lerp));
+            trail.material.SetColor("_endColor", Color.Lerp(headTailColor[3], headTailColor[1], lerp));
         }
         foreach (TrailRenderer trail in avatar1Trails) {
-            trail.material.SetColor("_startColor", Color.Lerp(ava0TrailHead.CurrentColor, ava1TrailHead.CurrentColor, lerp));
-            trail.material.SetColor("_endColor", Color.Lerp(ava0TrailTail.CurrentColor, ava1TrailTail.CurrentColor, lerp));
+            trail.material.SetColor("_startColor", Color.Lerp(headTailColor[0], headTailColor[2], lerp));
+            trail.material.SetColor("_endColor", Color.Lerp(headTailColor[1], headTailColor[3], lerp));
         }
 
         //quit application

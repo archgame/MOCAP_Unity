@@ -144,9 +144,9 @@ public class ConstellationDrawer : MonoBehaviour
             /*foreach (var vfx in galaxy) {
                 vfx.playRate = 1f;
             }*/
-            if (boomNum < turnNum && activeStarIndex!= 1) { starBoom.SendEvent("ShootStar"); boomNum++; }
+            if (boomNum == turnNum && activeStarIndex!= 1) { starBoom.SendEvent("ShootStar"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
             alp = alp<=0.1f?  0.1f : alp - (Time.deltaTime/5f);
-            lineRenderers[turnNum-1].material.SetFloat("_alpha", alp);
+            lineRenderers[turnNum].material.SetFloat("_alpha", alp);
             //lineMaterial.SetFloat("_alpha", alp);
         }
 
@@ -223,9 +223,10 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
     {
-        if (Vector3.Distance(currentP, endP) <= 0.4f) {
+        if (Vector3.Distance(currentP, endP) <= 0.4f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
+            Debug.Log("Twinkle force switched");
             activeStarIndex++;
             Debug.Log("activeStarIndex is now " + activeStarIndex + "while ConstellationLength is" + constellation[turnNum].Length);
             if (activeStarIndex == constellation[turnNum].Length) {
@@ -234,9 +235,7 @@ public class ConstellationDrawer : MonoBehaviour
                 foreach(var stars in constellation[turnNum]) {
                     stars.GetComponent<twinkle>().spike.SetActive(false);
                 }
-                turnNum++;
-                Debug.Log("activeStarIndex is now " + activeStarIndex);
-                Debug.Log("turn numer is now" + turnNum);
+                Debug.Log("Turn" + turnNum +" Finished");
                 isDrawActive = false;
                 return; }
             //constellation[activeStarIndex].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
@@ -258,7 +257,8 @@ public class ConstellationDrawer : MonoBehaviour
     {
         isDrawActive = true;
         activeStarIndex = 1;
-        Debug.Log("ActiveStarIndex is" + activeStarIndex);
+        turnNum++;
+        Debug.Log("ActiveStarIndex reset to" + activeStarIndex + " and turn numer is now"  + turnNum);
     }
 
 }
