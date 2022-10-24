@@ -7,16 +7,7 @@
             "m_Id": "b2e21136d69e49f081af3368445a25ae"
         },
         {
-            "m_Id": "bc12aac5af3c4d94876a0921e3187277"
-        },
-        {
-            "m_Id": "ec970acb2a3c48ba8f886a7746afb2ca"
-        },
-        {
             "m_Id": "54d8918dc8ef4e569d3bf80bcc51aa4d"
-        },
-        {
-            "m_Id": "b68cd76637f7469392a8407abdb5cd56"
         },
         {
             "m_Id": "0a2094c27f21459f8c386e21671be8d0"
@@ -1817,7 +1808,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "28db4b7af325405d93c5d1b4be14d26f",
     "m_Id": 0,
-    "m_DisplayName": "ColorX",
+    "m_DisplayName": "Avatar0Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2467,7 +2458,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "44c3bbed0403457fb39bdc5cc761227b",
     "m_Id": 0,
-    "m_DisplayName": "ColorY",
+    "m_DisplayName": "Avatar1Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3770,9 +3761,9 @@
     "m_Guid": {
         "m_GuidSerialized": "f68e812b-e835-43e2-b6e3-1ab9e0b82db5"
     },
-    "m_Name": "ColorY",
+    "m_Name": "Avatar1Color",
     "m_DefaultReferenceName": "Color_8fe623cb9f294d2abaee3db8b3bebcb9",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_ava1GridColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -4156,9 +4147,9 @@
     "m_Guid": {
         "m_GuidSerialized": "6a82a2a9-8255-427e-be13-47a51e340a54"
     },
-    "m_Name": "ColorX",
+    "m_Name": "Avatar0Color",
     "m_DefaultReferenceName": "Color_ab200907260848c7a863d05e1b30a7b7",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_ava0GridColor",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -4365,29 +4356,6 @@
 }
 
 {
-    "m_SGVersion": 1,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
-    "m_ObjectId": "b68cd76637f7469392a8407abdb5cd56",
-    "m_Guid": {
-        "m_GuidSerialized": "95a0dcaa-8ec1-48b4-8ce0-a538cb5732b0"
-    },
-    "m_Name": "_jumpRadius",
-    "m_DefaultReferenceName": "Vector1_b68cd76637f7469392a8407abdb5cd56",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": 3.0,
-    "m_FloatType": 0,
-    "m_RangeValues": {
-        "x": 0.0,
-        "y": 1.0
-    }
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
     "m_ObjectId": "ba3ea23dabb14fb9a20d554147eeaa26",
@@ -4437,30 +4405,6 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "bc12aac5af3c4d94876a0921e3187277",
-    "m_Guid": {
-        "m_GuidSerialized": "9315c6bd-7fcd-4c2a-93d7-b3989b7e4a12"
-    },
-    "m_Name": "Color",
-    "m_DefaultReferenceName": "Color_bc12aac5af3c4d94876a0921e3187277",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
-        "a": 1.0
-    },
-    "m_ColorMode": 0
 }
 
 {
@@ -5006,9 +4950,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1517.0,
+            "x": -1516.0,
             "y": -1171.0,
-            "width": 114.0,
+            "width": 114.00000762939453,
             "height": 34.0
         }
     },
@@ -5198,30 +5142,6 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 3,
-    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
-    "m_ObjectId": "ec970acb2a3c48ba8f886a7746afb2ca",
-    "m_Guid": {
-        "m_GuidSerialized": "bef23e44-23f1-4cd9-951d-f7e1baa554be"
-    },
-    "m_Name": "Color2",
-    "m_DefaultReferenceName": "Color_ec970acb2a3c48ba8f886a7746afb2ca",
-    "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
-    "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
-    "m_Hidden": false,
-    "m_Value": {
-        "r": 0.7452830076217651,
-        "g": 0.3269401788711548,
-        "b": 0.3269401788711548,
-        "a": 0.0
-    },
-    "m_ColorMode": 0
 }
 
 {
