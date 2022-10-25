@@ -21,9 +21,10 @@ public class RunTimer : MonoBehaviour
     [SerializeField]
     private bool clicked;
 
-    private ConstellationDrawer CD;
+
     [SerializeField]
     private GameObject LineDraw;
+    private ConstellationDrawer CD;
 
     private Controls mainControl;
     [SerializeField]

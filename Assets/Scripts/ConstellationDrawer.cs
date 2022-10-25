@@ -24,7 +24,8 @@ public class ConstellationDrawer : MonoBehaviour
     [SerializeField]
     private VisualEffect starBoom;
     private int turnNum;
-    private int maxTurn=5;
+    [SerializeField]
+    private int maxTurn=15;
     private int boomNum;
 
     private GameObject[] lineHolder;
@@ -40,18 +41,21 @@ public class ConstellationDrawer : MonoBehaviour
     public Material starMaterial;
 
 
-    public VisualEffect constellationDrawer;
+    public VisualEffect Sparkle;
 
     private GameObject[][] constellation;
     private GameObject allConstellation;
 
     private int activeStarIndex;
 
+    private bool isCoroutine;
+
     [SerializeField]
     private DataSubscription data;
     // Start is called before the first frame update
     void Start()
     {
+        isCoroutine = false;
         isDrawActive = false;
         avatars = new DataSubscription.Avatar[2] { data.avatar0, data.avatar1 };
         allConstellation = new GameObject();
@@ -72,8 +76,6 @@ public class ConstellationDrawer : MonoBehaviour
             lineRenderers[i].textureMode = LineTextureMode.Tile;
             lineRenderers[i].enabled = false;
         }
-
-
         /*lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.SetPosition(0, Vector3.zero);
         lineRenderer.SetPosition(1, Vector3.zero);
@@ -88,7 +90,7 @@ public class ConstellationDrawer : MonoBehaviour
         activeStarIndex = 1;
         Debug.Log("Activestar Index is " + activeStarIndex);
         activeAvartarIndex = 1;
-        constellationDrawer.enabled = false;
+        Sparkle.enabled = false;
         alp = 1f;
         
         GenerateConstellation(starNum);
@@ -107,6 +109,7 @@ public class ConstellationDrawer : MonoBehaviour
         }
 
         Debug.Log("there are " + galaxy.Length +" in the list");
+        //gameObject.SetActive(false);
 
     }
 
@@ -119,13 +122,13 @@ public class ConstellationDrawer : MonoBehaviour
             /*foreach (var vfx in galaxy) {
                 if(vfx != constellationDrawer) { vfx.playRate = 0.1f; }
             }*/
-            if(constellationDrawer.enabled == false) { constellationDrawer.enabled = true; constellationDrawer.Play(); }
+            if(Sparkle.enabled == false) { Sparkle.enabled = true; Sparkle.Play(); }
 
             //Color.Lerp(Color.white, Color.black, colorVar);=
             //Vector3 newPos = new Vector3(Time.time, 0, Time.time );
-            constellationDrawer.SetTexture("texture", trans);
+            Sparkle.SetTexture("texture", trans);
             Vector3 currentPos = lineRenderers[turnNum].GetPosition(lineRenderers[turnNum].positionCount - 1);
-            constellationDrawer.SetVector3("spawnPosition", currentPos);
+            Sparkle.SetVector3("spawnPosition", currentPos);
             Vector3 nextStarPos = constellation[turnNum][activeStarIndex].transform.position;
             Vector3 currentPosToStar = nextStarPos - currentPos;
 
@@ -148,6 +151,9 @@ public class ConstellationDrawer : MonoBehaviour
             alp = alp<=0.1f?  0.1f : alp - (Time.deltaTime/5f);
             lineRenderers[turnNum].material.SetFloat("_alpha", alp);
             //lineMaterial.SetFloat("_alpha", alp);
+            if (!isCoroutine) {
+                StartCoroutine(AutoAnotherRounds());
+            }
         }
 
     }
@@ -187,6 +193,9 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void GenerateConstellation(int numStar)
     {
+        foreach (Transform child in allConstellation.transform) {
+            GameObject.Destroy(child.gameObject);
+        }
         Vector3[][] starList = new Vector3[maxTurn][];
         for (int i = 0; i < maxTurn; i++) {
             starList[i] = new Vector3[numStar];
@@ -195,7 +204,7 @@ public class ConstellationDrawer : MonoBehaviour
         for (int i =0; i<maxTurn; i++) {
             constellation[i] = new GameObject[numStar];
         }
-        for (int j = 0; j < 5; j++) {
+        for (int j = 0; j < maxTurn; j++) {
             GameObject ConStars = new GameObject();
             ConStars.name = "Constellation" + j;
             ConStars.transform.parent = allConstellation.transform;
@@ -248,9 +257,9 @@ public class ConstellationDrawer : MonoBehaviour
         }
     }
 
-    public void toggleDraw()
+    public void toggleDraw(bool bo)
     {
-        isDrawActive = !isDrawActive;
+        isDrawActive = bo;
     }
 
     public void anotherRound()
@@ -259,6 +268,51 @@ public class ConstellationDrawer : MonoBehaviour
         activeStarIndex = 1;
         turnNum++;
         Debug.Log("ActiveStarIndex reset to" + activeStarIndex + " and turn numer is now"  + turnNum);
+    }
+
+    public void resetDrawing()
+    {
+        Sparkle.enabled = false;
+        turnNum = 0;
+        boomNum = 0;
+        activeStarIndex = 1;
+        foreach (var rend in lineRenderers) {
+            rend.material.SetFloat("_alpha", 1);
+            rend.enabled = false;
+            rend.positionCount = 2;
+            rend.SetPosition(0, Vector3.zero);
+            rend.SetPosition(1, Vector3.zero);
+        }
+        GenerateConstellation(starNum);
+        for (int i = 0; i < constellation.Length; i++) {
+            for (int j = 0; j < constellation[i].Length; j++) {
+                constellation[i][j].SetActive(false);
+            }
+        }
+        isCoroutine = false;
+        isDrawActive = false;
+
+    }
+
+    public void stopDrawing()
+    {
+        isDrawActive = false;
+        foreach (var rend in lineRenderers) {
+            rend.material.SetFloat("_alpha", 0.1f);
+            Sparkle.enabled = false;
+        }
+        foreach (var stars in constellation[turnNum]) {
+            stars.GetComponent<twinkle>().spike.SetActive(false);
+        }
+    }
+
+
+    IEnumerator AutoAnotherRounds()
+    {
+        isCoroutine = true;
+        yield return new WaitForSeconds(5);
+        anotherRound();
+        isCoroutine = false;
     }
 
 }

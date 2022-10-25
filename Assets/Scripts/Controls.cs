@@ -105,6 +105,13 @@ public class Controls : MonoBehaviour
         */
 
         //set trail color with Button
+        foreach(var trail in TrailRenderers) {
+            trail.material.SetColor("_startColor", Color.white);
+            trail.material.SetColor("_endColor", Color.white);
+        }
+        for(int i =0; i<headTailColor.Length; i++) {
+            headTailColor[i] = Color.white;
+        }
         Button[] buttonList0 = colorButtons[0].GetComponentsInChildren<Button>();
         Button[] buttonList1 = colorButtons[1].GetComponentsInChildren<Button>();
         Button[] buttonList2 = colorButtons[2].GetComponentsInChildren<Button>();
@@ -509,6 +516,13 @@ public class Controls : MonoBehaviour
         }
     }
 
+    //for calling method from outside
+    public void BakeTrail()
+    {
+        BakeTrailRenderersByAvatar(avatar0Trails, 0);
+        BakeTrailRenderersByAvatar(avatar1Trails, 1);
+    }
+
     public void DeleteBakeTrailRenderersByAvatar(int avatarIndex)
     {
         //delete any existing children
@@ -562,6 +576,15 @@ public class Controls : MonoBehaviour
             }
         }
     }*/
-
+    public void TrailBlack()
+    {
+        foreach (var trail in TrailRenderers) {
+            trail.material.SetColor("_startColor", Color.black);
+            trail.material.SetColor("_endColor", Color.black);
+        }
+        for (int i = 0; i < headTailColor.Length; i++) {
+            headTailColor[i] = Color.black;
+        }
+    }
     
 }

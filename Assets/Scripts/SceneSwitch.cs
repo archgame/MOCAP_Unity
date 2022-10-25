@@ -5,71 +5,147 @@ using UnityEngine.UI;
 
 public class SceneSwitch : MonoBehaviour
 {
+    //Creating data structure
     [SerializeField]
-    private Toggle[] Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8, Scene9, Scene10, Scene11, Scene12;
+    private Toggle[] Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8, Scene9, Scene10, Scene11;
     private Toggle[][] allScenes;
+
+    //UI
     private Dropdown sceneSwitch;
+
+    //Getting methods from Control
+    [SerializeField]
+    private GameObject control;
+    private Controls mainControl;
+
+    //Specific Control
+    //Constellation Auto
+    [SerializeField]
+    private GameObject LineDraw;
+    private ConstellationDrawer CD;
+    //Change Bake rate
+    [SerializeField]
+    private InputField BakeRateInput;
+    private float bakeRate;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        sceneSwitch = GetComponent<Dropdown>();
-        sceneSwitch.onValueChanged.AddListener(Value => SwitchScene(Value+1));
+        sceneSwitch = gameObject.GetComponent<Dropdown>();
+        Debug.Log("Current value is" + sceneSwitch.value);
+        sceneSwitch.onValueChanged.AddListener(Value => { 
+            CancelInvoke(); 
+            mainControl.DeleteBakeTrailRenderersByAvatar(0);
+            mainControl.DeleteBakeTrailRenderersByAvatar(1);
+            SwitchScene(Value);
+            if (Value < 7) { CD.resetDrawing(); }
+            if (Value > 7) { CD.stopDrawing(); }
+        }
+        );
+        BakeRateInput.onValueChanged.AddListener(Value =>
+        {
+            CancelInvoke();
+            if(sceneSwitch.value == 3) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
+        });
+        allScenes =new Toggle[][] { Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8, Scene9, Scene10, Scene11};
+        mainControl = control.GetComponent<Controls>();
+        CD = LineDraw.GetComponent<ConstellationDrawer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SwitchScene(int i)
     {
         switch (i) {
             //Avatar
-            case 1:  
-                ToggleVisualGroup(Scene1,true);  break;
+            case 0:
+                TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
             //Moon 1
-            case 2:  
-                ToggleVisualGroup(Scene2, true);  break;
+            case 1:
+                TurnOffVisualGroupsExcept(0,1); TurnOnVisualGroup(1); break;
             //Trace
-            case 3:  
-                ToggleVisualGroup(Scene3, true);  break;
-            //Bake
-            case 4:  
-                ToggleVisualGroup(Scene4, true);  break;
+            case 2:
+                TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
+            //Bake - add time control
+            case 3:
+                TurnOffVisualGroupsExcept(2,3); TurnOnVisualGroup(3); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
             //Circle Grid
-            case 5:  
-                ToggleVisualGroup(Scene5, true); break;
+            case 4:
+                TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
             //Alien Morph
-            case 6:  
-                ToggleVisualGroup(Scene6, true); break;
+            case 5:
+                TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); break;
             //Moon 2
-            case 7:  
-                ToggleVisualGroup(Scene7, true); break;
+            case 6:
+                TurnOffVisualGroupsExcept(4, 5,6); TurnOnVisualGroup(6); break;
             //Constellation
-            case 8:  
-                ToggleVisualGroup(Scene8, true); break;
+            case 7:
+                TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
             //Star Trace
-            case 9:  
-                ToggleVisualGroup(Scene9, true); break;
+            case 8:
+                TurnOffVisualGroupsExcept( 8); TurnOnVisualGroup(8); break;
             //Galaxy
-            case 10:  
-                ToggleVisualGroup(Scene10, true); break;
+            case 9:
+                TurnOffVisualGroupsExcept(8,9);  TurnOnVisualGroup(9); mainControl.TrailBlack(); break;
             //Halo
-            case 11:  
-                ToggleVisualGroup(Scene11, true); break;
+            case 10:
+                TurnOffVisualGroupsExcept( 8, 9,10);  TurnOnVisualGroup(10); break;
             //Swirl
-            case 12:  
-                ToggleVisualGroup(Scene12, true) ; break;
+            case 11:
+                TurnOffVisualGroupsExcept( 8, 9, 10,11); TurnOnVisualGroup(11); break;
             //Defult
             default: break;
         }
     }
 
-    private void ToggleVisualGroup(Toggle[] togGrp, bool stat)
+    private void TurnOnVisualGroup(int sceneNum )
     {
-        if (togGrp != null) { foreach (Toggle toggle in togGrp) { if (toggle.isOn = !stat) { toggle.isOn = stat; } } }
-        else return;
+        if (allScenes[sceneNum] != null) {
+            foreach (var tog in allScenes[sceneNum]) {
+                if (tog.isOn != true) {
+                    tog.isOn = true;
+                }
+            }
+
+        }
     }
+
+    private void TurnOffVisualGroupsExcept(params int[] sceneNums)
+    {
+
+        if (sceneNums == null) { return; }
+        else {
+            for (int i = 0; i < allScenes.Length; i++) {
+                bool match = false;
+                for (int j = 0; j < sceneNums.Length; j++) {
+                    if (i == sceneNums[j]) {match = true;}
+                }
+                if (!match && allScenes[i]!=null) { TurnOffVisualGroup(i); }
+            }
+        }
+    }
+
+    private void TurnOffVisualGroup(int sceneNum)
+    {
+        if (allScenes[sceneNum] != null) {
+            foreach (var tog in allScenes[sceneNum]) {
+                if (tog.isOn != false) {
+                    tog.isOn = false;
+                }
+            }
+
+        }
+    }
+
+    private void CallBakeTrail()
+    {
+        mainControl.BakeTrail();
+    }
+
+
 }
