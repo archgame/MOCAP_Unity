@@ -28,10 +28,13 @@ public class SceneSwitch : MonoBehaviour
     private InputField BakeRateInput;
     private float bakeRate;
 
+    private DataSubscription data;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        data = GameObject.Find("DataSubscribers").GetComponent<DataSubscription>();
         sceneSwitch = gameObject.GetComponent<Dropdown>();
         Debug.Log("Current value is" + sceneSwitch.value);
         sceneSwitch.onValueChanged.AddListener(Value => { 
@@ -41,6 +44,8 @@ public class SceneSwitch : MonoBehaviour
             SwitchScene(Value);
             if (Value < 7) { CD.resetDrawing(); }
             if (Value > 7) { CD.stopDrawing(); }
+            if (Value == 5 || Value ==4) { data.gridStretchTime = 2f; }
+            if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
         }
         );
         BakeRateInput.onValueChanged.AddListener(Value =>
@@ -64,40 +69,40 @@ public class SceneSwitch : MonoBehaviour
         switch (i) {
             //Avatar
             case 0:
-                TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
             //Moon 1
             case 1:
-                TurnOffVisualGroupsExcept(0,1); TurnOnVisualGroup(1); break;
+                mainControl.cameraSelect(1); TurnOffVisualGroupsExcept(0,1); TurnOnVisualGroup(1); break;
             //Trace
             case 2:
-                TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
-            //Bake - add time control
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
+            //Bake 
             case 3:
-                TurnOffVisualGroupsExcept(2,3); TurnOnVisualGroup(3); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(2,3); TurnOnVisualGroup(3); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
             //Circle Grid
             case 4:
-                TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
             //Alien Morph
             case 5:
-                TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); break;
+                 TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); break;
             //Moon 2
             case 6:
-                TurnOffVisualGroupsExcept(4, 5,6); TurnOnVisualGroup(6); break;
+                mainControl.cameraSelect(1); TurnOffVisualGroupsExcept(4, 5,6); TurnOnVisualGroup(6); break;
             //Constellation
             case 7:
-                TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
             //Star Trace
             case 8:
-                TurnOffVisualGroupsExcept( 8); TurnOnVisualGroup(8); break;
+                mainControl.cameraSelect(1); TurnOffVisualGroupsExcept( 8); TurnOnVisualGroup(8); break;
             //Galaxy
             case 9:
-                TurnOffVisualGroupsExcept(8,9);  TurnOnVisualGroup(9); mainControl.TrailBlack(); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(8,9);  TurnOnVisualGroup(9); mainControl.TrailBlack(); break;
             //Halo
             case 10:
-                TurnOffVisualGroupsExcept( 8, 9,10);  TurnOnVisualGroup(10); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept( 8, 9,10);  TurnOnVisualGroup(10); break;
             //Swirl
             case 11:
-                TurnOffVisualGroupsExcept( 8, 9, 10,11); TurnOnVisualGroup(11); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept( 8, 9, 10,11); TurnOnVisualGroup(11); break;
             //Defult
             default: break;
         }
@@ -145,6 +150,12 @@ public class SceneSwitch : MonoBehaviour
     private void CallBakeTrail()
     {
         mainControl.BakeTrail();
+    }
+
+    IEnumerator AlienMorphDelaySwitch()
+    {
+        yield return new WaitForSeconds(3f);
+        mainControl.cameraSelect(1);
     }
 
 

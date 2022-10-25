@@ -313,14 +313,13 @@ public class Controls : MonoBehaviour
 
         //Debug.Log("0");
 
-        if (grids[0].activeInHierarchy) {
+        /*if (grids[0].activeInHierarchy) {
             timerStart += Time.deltaTime;
             if (timerStart >= 60f && grids[0].transform.position.y <= 3) {
                 grids[0].transform.Translate(Vector3.up * 0.5f * Time.deltaTime);
                 timerStart = 121f;
             }
-
-        }
+        }*/
 
         //turn trailmesh into stars
         trailStarsEnabled = trailToMeshTogg.isOn;
@@ -374,6 +373,13 @@ public class Controls : MonoBehaviour
     {
         mainCam.SetActive(!mainCam.activeInHierarchy);
         subCam.SetActive(!subCam.activeInHierarchy);
+    }
+
+    public void cameraSelect(int i)
+    {
+        if (i == 0) { mainCam.SetActive(true); subCam.SetActive(false); }
+        else if (i == 1) { mainCam.SetActive(false); subCam.SetActive(true); }
+        else return;
     }
     private void CameraControl()
     {

@@ -9,6 +9,8 @@ public class GetLocationToShader : MonoBehaviour
     public GameObject[] Anchors;
     public string[] paramNames;
 
+    public bool isAlienMorph;
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +21,15 @@ public class GetLocationToShader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < Anchors.Length; i++)
-        {
-            if (Anchors[i] != null && paramNames[i] != null) { mtl.SetVector(paramNames[i], Anchors[i].transform.position); }
-            else Debug.Log("Anchor or Param " + i + "not assigned");
-        }
+        if (!isAlienMorph) {
+            for (int i = 0; i < Anchors.Length; i++) {
+                if (Anchors[i] != null && paramNames[i] != null) { mtl.SetVector(paramNames[i], Anchors[i].transform.position); }
+                else Debug.Log("Anchor or Param " + i + "not assigned");
+            }
+        } else if(isAlienMorph) { return; }
+
     }
+
+    public void AlienMorph(bool bo) { isAlienMorph = bo; }
 
 }
