@@ -84,7 +84,7 @@ public class SceneSwitch : MonoBehaviour
                 mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
             //Alien Morph
             case 5:
-                 TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); break;
+                 TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); mainControl.TrailBlack(); break;
             //Moon 2
             case 6:
                 mainControl.cameraSelect(1); TurnOffVisualGroupsExcept(4, 5,6); TurnOnVisualGroup(6); break;
