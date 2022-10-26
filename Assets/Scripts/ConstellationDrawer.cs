@@ -89,7 +89,7 @@ public class ConstellationDrawer : MonoBehaviour
         lineRenderer.material.texturemode*/
         activeStarIndex = 1;
         Debug.Log("Activestar Index is " + activeStarIndex);
-        activeAvartarIndex = 1;
+        activeAvartarIndex = 0;
         Sparkle.enabled = false;
         alp = 1f;
         
@@ -119,13 +119,10 @@ public class ConstellationDrawer : MonoBehaviour
         if (isDrawActive && activeStarIndex != constellation[turnNum].Length) {
             lineRenderers[turnNum].enabled = true;
             lineRenderers[turnNum].material.SetFloat("_alpha", 1f);
-            /*foreach (var vfx in galaxy) {
-                if(vfx != constellationDrawer) { vfx.playRate = 0.1f; }
-            }*/
+
             if(Sparkle.enabled == false) { Sparkle.enabled = true; Sparkle.Play(); }
 
-            //Color.Lerp(Color.white, Color.black, colorVar);=
-            //Vector3 newPos = new Vector3(Time.time, 0, Time.time );
+
             Sparkle.SetTexture("texture", trans);
             Vector3 currentPos = lineRenderers[turnNum].GetPosition(lineRenderers[turnNum].positionCount - 1);
             Sparkle.SetVector3("spawnPosition", currentPos);
@@ -136,8 +133,9 @@ public class ConstellationDrawer : MonoBehaviour
             //if(moveDirection == Vector3.zero) { moveDirection = currentPosToStar; }
             
             Vector3 connectDir = ConnectDir(currentPosToStar, moveDirection);
-            float magnifier = Unity.Mathematics.math.remap(0, 25, 0.1f, 0.3f, Unity.Mathematics.math.min(data.avatar0.leftHand.speed, 25));
+            float magnifier = Unity.Mathematics.math.remap(0, 25, 0.01f, 0.3f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 25));
             Vector3 drawVector = connectDir * magnifier;
+                //magnifier;
             //Debug.Log(string.Format("{0},{1},{2}", drawVector.x, drawVector.y, drawVector.z));
             DrawLine(lineRenderers[turnNum], drawVector, constellation[turnNum][0].transform.position);
             IncreIndex(currentPos, nextStarPos);
@@ -162,10 +160,10 @@ public class ConstellationDrawer : MonoBehaviour
     {
         if (Vector3.Angle(posToNextStar, drawDriection) <= 15f && Vector3.Angle(posToNextStar, drawDriection) >= -15f) {
             //Debug.Log(Vector3.Angle(posToNextStar, drawDriection));
-            return drawDriection.normalized * 2f;
+            return drawDriection.normalized * 3f;
         }
         else
-            return drawDriection.normalized * 0.35f;
+            return drawDriection.normalized * 1f;
     }
     private void DrawLine(LineRenderer lineRend, Vector3 drawVector, Vector3 startPos)
     {
