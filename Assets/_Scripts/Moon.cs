@@ -30,6 +30,12 @@ public class Moon : MonoBehaviour
         Vector3 newPosition = (actor0 + actor1) / 2.00f;
         //Debug.Log(newPosition);
 
+        //move position behind avatars
+        float distance = Vector3.Distance(newPosition, Camera.main.transform.position);
+        Debug.Log(Camera.main.transform.forward);
+        Vector3 camAdjust = Camera.main.transform.forward * distance * MoonRelativeScale; //* Time.deltaTime
+        newPosition += newPosition + camAdjust;
+
         //calculate moon scale
         float dist = Vector3.Distance(actor1, actor0);
         dist *= MoonRelativeScale;
