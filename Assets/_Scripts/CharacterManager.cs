@@ -15,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     public int Char1ColorIndex = 0;
     public Material Char1Mat;
     public Color[] colors;
+    public MeshRenderer Renderer;
 
     // Start is called before the first frame update
     private void Start()
@@ -85,6 +86,15 @@ public class CharacterManager : MonoBehaviour
         Color color = colors[index];
         mat.color = color;
         mat.SetColor("_EmissionColor", color);
+
+        //update ring colors
+        if (Renderer != null)
+        {
+            Material ring = Renderer.material;
+            string ava = "_ava0GridColor";
+            if (avatarIndex == 1) { ava = "_ava1GridColor"; }
+            ring.SetColor(ava, color);
+        }
 
         //update global variable
         index++; //get the next index for the next avatar
