@@ -49,6 +49,7 @@ public class DataSubscription : MonoBehaviour
     {
         public string name;
         public GameObject rig;
+        public Vector3 initialFootHeight;
         public Vector3 position;
         public Vector3 lastPosition;
         public Vector3 velocity;
@@ -227,7 +228,7 @@ public class DataSubscription : MonoBehaviour
     
     private void isFootHigherThanCalf(Avatar avat)
     {
-        if (avat.leftFoot.rig.transform.position.y >= 0.12f && avat.rightFoot.rig.transform.position.y >= 0.12f) {
+        if (avat.leftFoot.rig.transform.position.y >= 0.15f && avat.rightFoot.rig.transform.position.y >= 0.15f) {
             avat.isJump = true;
         }
         else avat.isJump = false;

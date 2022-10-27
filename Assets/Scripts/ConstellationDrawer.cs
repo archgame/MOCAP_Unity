@@ -133,7 +133,8 @@ public class ConstellationDrawer : MonoBehaviour
             //if(moveDirection == Vector3.zero) { moveDirection = currentPosToStar; }
             
             Vector3 connectDir = ConnectDir(currentPosToStar, moveDirection);
-            float magnifier = Unity.Mathematics.math.remap(0, 25, 0.01f, 0.3f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 25));
+            float magnifier = Unity.Mathematics.math.remap(0, 25, -0.05f, 0.8f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 25));
+            magnifier = Mathf.Max(magnifier, 0f);
             Vector3 drawVector = connectDir * magnifier;
                 //magnifier;
             //Debug.Log(string.Format("{0},{1},{2}", drawVector.x, drawVector.y, drawVector.z));
@@ -160,10 +161,10 @@ public class ConstellationDrawer : MonoBehaviour
     {
         if (Vector3.Angle(posToNextStar, drawDriection) <= 15f && Vector3.Angle(posToNextStar, drawDriection) >= -15f) {
             //Debug.Log(Vector3.Angle(posToNextStar, drawDriection));
-            return drawDriection.normalized * 3f;
+            return drawDriection.normalized * 2f;
         }
         else
-            return drawDriection.normalized * 1f;
+            return drawDriection.normalized * 0.5f;
     }
     private void DrawLine(LineRenderer lineRend, Vector3 drawVector, Vector3 startPos)
     {
@@ -230,7 +231,7 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
     {
-        if (Vector3.Distance(currentP, endP) <= 0.4f || Input.GetKeyDown(KeyCode.N)) {
+        if (Vector3.Distance(currentP, endP) <= 0.8f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             Debug.Log("Twinkle force switched");
