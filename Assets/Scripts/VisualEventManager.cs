@@ -65,8 +65,18 @@ public class VisualEventManager : MonoBehaviour
                 data.avatar0.isJump = false;
                 jumpTimer0 = 0;
             }
-
         }
+
+        if (data.avatar0.isJump == true && effects[0].isActiveAndEnabled) {
+            jumpTimer0 += Time.deltaTime;
+            //Debug.Log("Jumptime1 is " + jumpTimer0);
+            if (jumpTimer0 > jumpTimeThreshold) {
+                passEvent(effects[0], "Wave");
+                data.avatar0.isJump = false;
+                jumpTimer0 = 0;
+            }
+        }
+
         if (data.avatar1.isJump == true && grid.activeInHierarchy) {
             jumpTimer1 += Time.deltaTime;
             if (jumpTimer1 > jumpTimeThreshold) {
@@ -78,6 +88,16 @@ public class VisualEventManager : MonoBehaviour
 
         }
 
+        if (data.avatar1.isJump == true && effects[1].isActiveAndEnabled) {
+            jumpTimer1 += Time.deltaTime;
+            //Debug.Log("Jumptime1 is " + jumpTimer0);
+            if (jumpTimer1 > jumpTimeThreshold) {
+                passEvent(effects[1], "Wave");
+                data.avatar1.isJump = false;
+                jumpTimer1 = 0;
+            }
+        }
+
 
 
         //spin
@@ -85,7 +105,7 @@ public class VisualEventManager : MonoBehaviour
 
 
 
-        if (rigSpeed[0] >= threshold && timer1 >= interval)
+        /*if (rigSpeed[0] >= threshold && timer1 >= interval)
         {
             passEvent(effects[0], "Wave");
             //Debug.Log("Event Invoked, Speed = " + rigVelocity[0] + "interval = " + timer1);
@@ -97,7 +117,7 @@ public class VisualEventManager : MonoBehaviour
             passEvent(effects[1], "Wave");
             // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
             timer2 = 0;
-        }
+        }*/
         
 
 
