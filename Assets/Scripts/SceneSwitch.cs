@@ -30,6 +30,8 @@ public class SceneSwitch : MonoBehaviour
 
     private DataSubscription data;
 
+    private int activeIndex;
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +63,9 @@ public class SceneSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        activeIndex = sceneSwitch.value;
+        if (Input.GetKeyDown(KeyCode.L)) { activeIndex++; activeIndex %= 12; }
+        if( sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
     }
 
     public void SwitchScene(int i)
@@ -87,7 +91,7 @@ public class SceneSwitch : MonoBehaviour
                  TurnOffVisualGroupsExcept(4,5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); mainControl.TrailBlack(); break;
             //Moon 2
             case 6:
-                mainControl.cameraSelect(1); TurnOffVisualGroupsExcept(4, 5,6); TurnOnVisualGroup(6); break;
+                mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(6); TurnOnVisualGroup(6); break;
             //Constellation
             case 7:
                 mainControl.cameraSelect(0); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;

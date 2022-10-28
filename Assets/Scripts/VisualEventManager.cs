@@ -32,8 +32,13 @@ public class VisualEventManager : MonoBehaviour
     public GameObject grid;
 
     //declare spin trigger parameter
-    private float spinTimer0 = 0f;
+    public float spinTimer0 = 0f;
     private float spinTimer1 = 0f;
+    private float spinTimerThreshold = 1.5f;
+    public float spinThresholdAngle;
+
+    //clap threshold
+    private float clapThreshold=0.2f;
 
 
     private void Start()
@@ -98,9 +103,33 @@ public class VisualEventManager : MonoBehaviour
             }
         }
 
+        //Clap and high five
+        float[,] dist = new float[2,3];
+        dist[0, 0] = data.Distance(data.avatar0[2].rig, data.avatar0[3].rig);
+        dist[1, 0] = data.Distance(data.avatar1[2].rig, data.avatar0[3].rig);
 
+        dist[0, 1] = data.Distance(data.avatar0[2].rig, data.avatar1[2].rig);
+        dist[0, 2] = data.Distance(data.avatar0[2].rig, data.avatar1[3].rig);
+
+        dist[1, 1] = data.Distance(data.avatar0[3].rig, data.avatar1[2].rig);
+        dist[1, 2] = data.Distance(data.avatar0[3].rig, data.avatar1[3].rig);
+
+        //clap
+        if (dist[0,0] <= clapThreshold) {; }
+        if (dist[1, 0] <= clapThreshold) {; }
+
+        //high five
+        if(dist[0, 1] <= clapThreshold || dist[0,2] <= clapThreshold || dist[1, 1] <= clapThreshold || dist[1, 2] <= clapThreshold) {; }
 
         //spin
+        if (data.avatar0.isSpin == true) {
+            //spinTimer0 += Time.deltaTime;
+            if (data.avatar0.accuSpinAngle >= spinThresholdAngle) {
+                Debug.Log("0 Spinned!!!!");
+                //data.avatar0.isSpin = false;
+                data.avatar0.accuSpinAngle = 0;
+            }
+        }
 
 
 
@@ -118,7 +147,7 @@ public class VisualEventManager : MonoBehaviour
             // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
             timer2 = 0;
         }*/
-        
+
 
 
     }

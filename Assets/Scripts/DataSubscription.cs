@@ -11,8 +11,8 @@ public class DataSubscription : MonoBehaviour
     {
         public int avatarIndex;
         public BodyRigs head, hip, leftHand, rightHand, leftFoot, rightFoot;
-        public bool isJump;
-        public float jumpCount = 0;
+        public bool isJump, isSpin;
+        public float jumpCount = 0, accuSpinAngle = 0;
         public Avatar(int avatarIndex, BodyRigs head, BodyRigs hip, BodyRigs leftHand, BodyRigs rightHand, BodyRigs leftFoot, BodyRigs rightFoot)
         {
             this.avatarIndex = avatarIndex;
@@ -31,7 +31,7 @@ public class DataSubscription : MonoBehaviour
         }
         
         //declare indexer for easier assign
-        BodyRigs this[int index]
+        public BodyRigs this[int index]
         {
             get {
                 switch (index) {
@@ -53,14 +53,17 @@ public class DataSubscription : MonoBehaviour
         public Vector3 position;
         public Vector3 lastPosition;
         public Vector3 velocity;
-        public Quaternion lastRotation;
-        public Quaternion rotation;
+        public Vector3 lastRotation;
+        public Vector3 rotation;
         public float speed;
+        public Vector3 rotOmega;
+        public float deltaYlastFrame;
         public float rotationSpeed;
         public BodyRigs(GameObject rig)
         {
             this.rig = rig;
             this.lastPosition = rig.transform.position;
+            this.lastRotation = rig.transform.eulerAngles;
         }
     }
 
@@ -104,6 +107,7 @@ public class DataSubscription : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //velocity calc
         RigsVelocity(avatar0);
         RigsVelocity(avatar1);
@@ -116,9 +120,13 @@ public class DataSubscription : MonoBehaviour
         isFootHigherThanCalf(avatar0);
         isFootHigherThanCalf(avatar1);
 
+        //Spin def
+        isSpinning(avatar0);
+        isSpinning(avatar1);
+
         //TrailStar initial speed
         effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);
-        effects[4].SetVector3("VelocityA", avatar0.rightHand.velocity);
+        effects[4].SetVector3("VelocityA", avatar1.rightHand.velocity);
 
 
         //distance calc 
@@ -204,22 +212,46 @@ public class DataSubscription : MonoBehaviour
         //calc speed and write to class per Avatar
         RotateCalc(avat.head);
         RotateCalc(avat.hip);
-        //Debug.Log("Speed for avatar" + avat.avatarIndex + "'s hip" + " is " + avat.hip.rotationSpeed);
+
         RotateCalc(avat.leftHand);
         RotateCalc(avat.rightHand);
         RotateCalc(avat.leftFoot);
         RotateCalc(avat.rightFoot);
+        //Debug.Log("Rotationspeed for Avat" + avat.avatarIndex + "is " + avat.hip.rotationSpeed);
         //method to calc each rig's speed and write into its class
         void RotateCalc(BodyRigs bodyRig)
         {
-            bodyRig.rotationSpeed = (bodyRig.rig.transform.rotation.eulerAngles - bodyRig.lastRotation.eulerAngles).magnitude / Time.deltaTime;
-            bodyRig.lastRotation = bodyRig.rig.transform.rotation;
-            
+            bodyRig.rotation = bodyRig.rig.transform.eulerAngles ;
+            bodyRig.rotOmega = (bodyRig.rotation - bodyRig.lastRotation) / Time.deltaTime;
+            bodyRig.deltaYlastFrame = Mathf.Abs(bodyRig.rotation.y - bodyRig.lastRotation.y);
+            //Debug.Log("Delta Y is " + bodyRig.deltaYlastFrame);
+            if (bodyRig.deltaYlastFrame >=200f) {
+                //Debug.Log("  Delta Y is " + bodyRig.deltaYlastFrame);
+                bodyRig.deltaYlastFrame = 360 - Mathf.Max(bodyRig.rotation.y, bodyRig.lastRotation.y) + Mathf.Min(bodyRig.rotation.y, bodyRig.lastRotation.y);
+                /*Debug.Log("Current Y is " + bodyRig.rotation.y
+                    + "  Last Y is " + bodyRig.lastRotation.y
+                    + "  Delta Y is " + bodyRig.deltaYlastFrame
+                    + "  Delta Time is " + Time.deltaTime);*/
+            }
+            bodyRig.lastRotation = bodyRig.rig.transform.eulerAngles;
+            bodyRig.rotationSpeed = bodyRig.deltaYlastFrame / Time.deltaTime; 
+
+
+            /*float y1 = bodyRig.rig.transform.eulerAngles.y;
+            float y2 = bodyRig.lastRotation.y;
+            float deltaY;
+            if ( y1 * y2 < 0 && Mathf.Abs(y1 - y2) >= 270) {
+                deltaY = 360 - Mathf.Abs(y1 - y2);
+            } else { deltaY = Mathf.Abs(y1 - y2); }
+
+            bodyRig.rotationSpeed = deltaY / Time.deltaTime;
+            bodyRig.lastRotation = bodyRig.rig.transform.eulerAngles;*/
+
         }
     }
 
 
-    private float Distance(GameObject a, GameObject b)
+    public float Distance(GameObject a, GameObject b)
     {
         float distance = Vector3.Distance(a.transform.position, b.transform.position);
         return distance;
@@ -233,6 +265,22 @@ public class DataSubscription : MonoBehaviour
         }
         else avat.isJump = false;
         //Debug.Log("Currnt Height is " + avat.leftFoot.rig.transform.position.y);
+
+    }
+
+    private void isSpinning(Avatar avat)
+    {
+        if (Mathf.Abs(avat[1].rotationSpeed) > 0.5f) {
+            avat.isSpin = true;
+            //if(avat.accuSpinAngle == 0f) { Debug.Log(avat.avatarIndex + "Spin Star!"); }
+            avat.accuSpinAngle += avat[1].deltaYlastFrame;
+        }
+        else { 
+            avat.isSpin = false;
+            //if(avat.accuSpinAngle> 200f) { Debug.Log("Aborted, " + avat.avatarIndex + "'s accu angle is " + avat.accuSpinAngle); }
+            //Debug.Log("Aborted, " + avat.avatarIndex + "'s accu angle is " + avat.accuSpinAngle);
+            avat.accuSpinAngle = 0f; }
+        
 
     }
 

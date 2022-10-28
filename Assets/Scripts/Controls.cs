@@ -54,8 +54,9 @@ public class Controls : MonoBehaviour
     public float timerStart;
 
     //public SkinnedMeshRenderer BodyRenderer;
-    private GameObject[] mesh;
-    private bool[] renderOn;
+    private GameObject chars;
+    CharacterManager charManager;
+    private GameObject[] sensors;
 
     private GameObject[] parent = new GameObject[2];
     private GameObject[] hips = new GameObject[2];
@@ -78,6 +79,12 @@ public class Controls : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        //get CharManager
+        chars = GameObject.Find("_CHARACTERS");
+        charManager = chars.GetComponent<CharacterManager>();
+        sensors = GameObject.FindGameObjectsWithTag("Sensor");
+        //Debug.Log("Sensors length is " + sensors.Length);
+
 
         //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
@@ -143,8 +150,8 @@ public class Controls : MonoBehaviour
         //Find intial distance
         StartCoroutine("SetUpColorInitialize");
 
-        mesh = GameObject.FindGameObjectsWithTag("CH36");
-        renderOn = new bool[] { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled, mesh[1].GetComponent<SkinnedMeshRenderer>().enabled };
+        //mesh = GameObject.FindGameObjectsWithTag("CH36");
+        //renderOn = new bool[] { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled, mesh[1].GetComponent<SkinnedMeshRenderer>().enabled };
         //Debug.Log("Mesh list has " + mesh.Length + "Elements");
 
 
@@ -275,10 +282,19 @@ public class Controls : MonoBehaviour
 
         //toggle body renderer on and off
         //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
-
-        if (Input.GetKeyDown(KeyCode.V)) { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled = !renderOn[0]; renderOn[0] = !renderOn[0]; }
-        if (Input.GetKeyDown(KeyCode.B)) { mesh[1].GetComponent<SkinnedMeshRenderer>().enabled = !renderOn[1]; renderOn[1] = !renderOn[1]; }
-
+ 
+        if (Input.GetKeyDown(KeyCode.Alpha1) && charManager.Char0Avatars[(charManager.Char0Index +2) % 3] != null) {
+            SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            bool notCurrent = !skins[0].enabled;
+            foreach (var skin in skins) { skin.enabled = notCurrent; }
+            foreach (var sensor in sensors) { if(sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = notCurrent; }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null) {
+            SkinnedMeshRenderer[] skins = charManager.Char1Avatars[(charManager.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            bool notCurrent = !skins[0].enabled;
+            foreach (var skin in skins) { skin.enabled = notCurrent; }
+            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = notCurrent; }
+        }
 
         //bake trail renderer as mesh
         if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
@@ -343,6 +359,7 @@ public class Controls : MonoBehaviour
 
 
     }
+
 
     /*private void ToggleTrailRendererParticleSystem()
     {
