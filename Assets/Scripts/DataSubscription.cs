@@ -127,6 +127,8 @@ public class DataSubscription : MonoBehaviour
         //TrailStar initial speed
         effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);
         effects[4].SetVector3("VelocityA", avatar1.rightHand.velocity);
+        effects[3].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime );
+        effects[4].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
 
 
         //distance calc 
