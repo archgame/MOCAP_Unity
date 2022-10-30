@@ -11,11 +11,13 @@ public class CharacterManager : MonoBehaviour
     public int Char0ColorIndex = 0;
     public Material Char0Mat;
     public Material Sensor0Mat;
+    public Material Trace0Mat;
     public GameObject[] Char1Avatars;
     public int Char1Index = 0;
     public int Char1ColorIndex = 0;
     public Material Char1Mat;
     public Material Sensor1Mat;
+    public Material Trace1Mat;
 
     [ColorUsage(true, true)]
     public Color[] colors;
@@ -81,11 +83,13 @@ public class CharacterManager : MonoBehaviour
         //get the character to act on
         Material mat = Char0Mat;
         Material sensor = Sensor0Mat;
+        Material trace = Trace0Mat;
         int index = Char0ColorIndex;
         if (avatarIndex == 1)
         {
             mat = Char1Mat;
             sensor = Sensor1Mat;
+            trace = Trace1Mat;
             index = Char1ColorIndex;
         }
 
@@ -95,8 +99,8 @@ public class CharacterManager : MonoBehaviour
         mat.SetColor("_BaseColor", color);
         sensor.color = color;
         sensor.SetColor("_EmissionColor", color);
-
-        //TODO: Update Trail Beginning Colors
+        trace.color = color;
+        trace.SetColor("_startColor", color);
 
         //update ring colors
         if (Renderer != null)

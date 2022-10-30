@@ -16723,6 +16723,7 @@ MonoBehaviour:
   Char0ColorIndex: 0
   Char0Mat: {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
   Sensor0Mat: {fileID: 2100000, guid: fc8347d20a1a2c04bb226f3cd54fe6e1, type: 2}
+  Trace0Mat: {fileID: 2100000, guid: dde7a9225855a1e4a84b402d26ace153, type: 2}
   Char1Avatars:
   - {fileID: 221137451}
   - {fileID: 822646229}
@@ -16731,6 +16732,7 @@ MonoBehaviour:
   Char1ColorIndex: 0
   Char1Mat: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
   Sensor1Mat: {fileID: 2100000, guid: 99b25bc7de3860847b3ad7c685091337, type: 2}
+  Trace1Mat: {fileID: 2100000, guid: 245f2a4e98d708d4081f36827921fec7, type: 2}
   colors:
   - {r: 0, g: 0, b: 1.4980392, a: 0}
   - {r: 0, g: 1.4980392, b: 0, a: 0}
@@ -20116,6 +20118,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051160049}
     m_Modifications:
+    - target: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+      propertyPath: m_Emitting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1980609243536159272, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
       propertyPath: m_Name
       value: Trail (4)
