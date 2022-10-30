@@ -4308,7 +4308,7 @@ PrefabInstance:
     - target: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
+      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
     - target: {fileID: 919132149155446097, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_Name
       value: Ch36_nonPBR (1)
@@ -8093,6 +8093,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: CH36(1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3060534831799469192, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
     - target: {fileID: 3830541063022364519, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_Name
       value: ybot (1)
@@ -8149,6 +8153,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7577139973377109525, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
     - target: {fileID: 7850516375106774516, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_TagString
       value: CH36(1)
@@ -12002,6 +12010,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1129106346}
     m_Modifications:
+    - target: {fileID: 288174962655347435, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
     - target: {fileID: 975324837682196414, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_TagString
       value: CH36(1)
@@ -12070,6 +12082,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7193082296794194124, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
 --- !u!1 &767944227
