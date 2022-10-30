@@ -318,6 +318,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137449}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftCalf
@@ -1766,6 +1770,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137428}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftForeArm
@@ -3390,6 +3398,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137406}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightForeArm
@@ -6190,29 +6202,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2051160049}
     m_Modifications:
+    - target: {fileID: 781880901, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 430370521}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightHand
       objectReference: {fileID: 0}
-    - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
-      propertyPath: m_TagString
-      value: Sensor
-      objectReference: {fileID: 0}
     - target: {fileID: 2993929217768258424, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2993929217768258424, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 2993929217768258424, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 2993929217768258424, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 2993929217768258424, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7413,6 +7413,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137446}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightCalf
@@ -14758,6 +14762,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137427}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftArm
@@ -15116,6 +15124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137448}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftLeg
@@ -16090,6 +16102,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137405}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightArm
@@ -16724,6 +16740,7 @@ MonoBehaviour:
   Char0Mat: {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
   Sensor0Mat: {fileID: 2100000, guid: fc8347d20a1a2c04bb226f3cd54fe6e1, type: 2}
   Trace0Mat: {fileID: 2100000, guid: dde7a9225855a1e4a84b402d26ace153, type: 2}
+  Flare0Mat: {fileID: 2100000, guid: d77ceee382e89614d820fc97af9b25a2, type: 2}
   Char1Avatars:
   - {fileID: 221137451}
   - {fileID: 822646229}
@@ -16733,6 +16750,7 @@ MonoBehaviour:
   Char1Mat: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
   Sensor1Mat: {fileID: 2100000, guid: 99b25bc7de3860847b3ad7c685091337, type: 2}
   Trace1Mat: {fileID: 2100000, guid: 245f2a4e98d708d4081f36827921fec7, type: 2}
+  Flare1Mat: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
   colors:
   - {r: 0, g: 0, b: 1.4980392, a: 0}
   - {r: 0, g: 1.4980392, b: 0, a: 0}
@@ -17235,6 +17253,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137447}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightFoot
@@ -18342,6 +18364,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137445}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightLeg
@@ -19709,6 +19735,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137407}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor RightHand
@@ -24979,6 +25009,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137450}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftFoot
@@ -28556,6 +28590,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137429}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor LeftHand
@@ -29523,6 +29561,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 221137425}
     m_Modifications:
+    - target: {fileID: 781880899, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 888020447791d6843b3ac5fe06242db5, type: 2}
     - target: {fileID: 2593287479050957023, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
       propertyPath: m_Name
       value: Sensor Head

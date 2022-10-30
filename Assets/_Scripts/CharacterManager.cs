@@ -12,12 +12,14 @@ public class CharacterManager : MonoBehaviour
     public Material Char0Mat;
     public Material Sensor0Mat;
     public Material Trace0Mat;
+    public Material Flare0Mat;
     public GameObject[] Char1Avatars;
     public int Char1Index = 0;
     public int Char1ColorIndex = 0;
     public Material Char1Mat;
     public Material Sensor1Mat;
     public Material Trace1Mat;
+    public Material Flare1Mat;
 
     [ColorUsage(true, true)]
     public Color[] colors;
@@ -84,12 +86,14 @@ public class CharacterManager : MonoBehaviour
         Material mat = Char0Mat;
         Material sensor = Sensor0Mat;
         Material trace = Trace0Mat;
+        Material flare = Flare0Mat;
         int index = Char0ColorIndex;
         if (avatarIndex == 1)
         {
             mat = Char1Mat;
             sensor = Sensor1Mat;
             trace = Trace1Mat;
+            flare = Flare1Mat;
             index = Char1ColorIndex;
         }
 
@@ -101,6 +105,8 @@ public class CharacterManager : MonoBehaviour
         sensor.SetColor("_EmissionColor", color);
         trace.color = color;
         trace.SetColor("_startColor", color);
+        flare.SetColor("_BaseColor", color);
+        flare.color = color;
 
         //update ring colors
         if (Renderer != null)
