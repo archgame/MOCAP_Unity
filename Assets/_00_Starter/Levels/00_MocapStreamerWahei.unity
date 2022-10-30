@@ -16721,20 +16721,22 @@ MonoBehaviour:
   - {fileID: 8030253750627545935}
   Char0Index: 0
   Char0ColorIndex: 0
-  Char0Mat: {fileID: 2100000, guid: fc8347d20a1a2c04bb226f3cd54fe6e1, type: 2}
+  Char0Mat: {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
+  Sensor0Mat: {fileID: 2100000, guid: fc8347d20a1a2c04bb226f3cd54fe6e1, type: 2}
   Char1Avatars:
   - {fileID: 221137451}
   - {fileID: 822646229}
   - {fileID: 710463932}
   Char1Index: 0
   Char1ColorIndex: 0
-  Char1Mat: {fileID: 2100000, guid: 99b25bc7de3860847b3ad7c685091337, type: 2}
+  Char1Mat: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
+  Sensor1Mat: {fileID: 2100000, guid: 99b25bc7de3860847b3ad7c685091337, type: 2}
   colors:
-  - {r: 0, g: 0, b: 1, a: 0}
-  - {r: 0, g: 1, b: 0, a: 0}
-  - {r: 1, g: 0, b: 1, a: 0}
-  - {r: 0, g: 1, b: 1, a: 0}
-  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 0, g: 0, b: 1.4980392, a: 0}
+  - {r: 0, g: 1.4980392, b: 0, a: 0}
+  - {r: 1.4980392, g: 0, b: 1.4980392, a: 0}
+  - {r: 0, g: 1.4980392, b: 1.4980392, a: 0}
+  - {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 0}
   Renderer: {fileID: 2137325018}
 --- !u!1 &1129188609
 GameObject:

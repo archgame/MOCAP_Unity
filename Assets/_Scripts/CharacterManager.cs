@@ -10,11 +10,16 @@ public class CharacterManager : MonoBehaviour
     public int Char0Index = 0;
     public int Char0ColorIndex = 0;
     public Material Char0Mat;
+    public Material Sensor0Mat;
     public GameObject[] Char1Avatars;
     public int Char1Index = 0;
     public int Char1ColorIndex = 0;
     public Material Char1Mat;
+    public Material Sensor1Mat;
+
+    [ColorUsage(true, true)]
     public Color[] colors;
+
     public MeshRenderer Renderer;
 
     // Start is called before the first frame update
@@ -75,17 +80,23 @@ public class CharacterManager : MonoBehaviour
     {
         //get the character to act on
         Material mat = Char0Mat;
+        Material sensor = Sensor0Mat;
         int index = Char0ColorIndex;
         if (avatarIndex == 1)
         {
             mat = Char1Mat;
+            sensor = Sensor1Mat;
             index = Char1ColorIndex;
         }
 
         //update material colors
         Color color = colors[index];
         mat.color = color;
-        mat.SetColor("_EmissionColor", color);
+        mat.SetColor("_BaseColor", color);
+        sensor.color = color;
+        sensor.SetColor("_EmissionColor", color);
+
+        //TODO: Update Trail Beginning Colors
 
         //update ring colors
         if (Renderer != null)
