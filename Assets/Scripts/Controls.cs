@@ -38,7 +38,7 @@ public class Controls : MonoBehaviour
 
     //set trail color with button
     public GameObject[] colorButtons;
-    private Color[] headTailColor = new Color[4];
+    public Color[] headTailColor = new Color[4];
 
     //set blending color according to dist
     private int countdownTime = 5;
@@ -59,6 +59,7 @@ public class Controls : MonoBehaviour
     private GameObject[] sensors;
 
     private GameObject[] parent = new GameObject[2];
+
     private GameObject[] hips = new GameObject[2];
 
     //for trailmesh into stars
@@ -124,25 +125,27 @@ public class Controls : MonoBehaviour
         Button[] buttonList2 = colorButtons[2].GetComponentsInChildren<Button>();
         Button[] buttonList3 = colorButtons[3].GetComponentsInChildren<Button>();
         Debug.Log("ButtonList has " + buttonList0.Length + " buttons");
-        foreach(var colBott in buttonList0) {
+        /*foreach(var colBott in buttonList0) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList0.Length; i++) { buttonList0[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true ; });
             colBott.onClick.AddListener(() => { headTailColor[0] = colBott.colors.normalColor;  });
-        }
+        }*/
         foreach (var colBott in buttonList1) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor);  } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList1.Length; i++) { buttonList1[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
             colBott.onClick.AddListener(() => { headTailColor[1] = colBott.colors.normalColor; });
+            colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut0", colBott.colors.normalColor); });
         }
-        foreach (var colBott in buttonList2) {
+        /*foreach (var colBott in buttonList2) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList2.Length; i++) { buttonList2[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
             colBott.onClick.AddListener(() => { headTailColor[2] = colBott.colors.normalColor; });
-        }
+        }*/
         foreach (var colBott in buttonList3) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList3.Length; i++) { buttonList3[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
             colBott.onClick.AddListener(() => { headTailColor[3] = colBott.colors.normalColor; });
+            colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut1", colBott.colors.normalColor); });
         }
 
 

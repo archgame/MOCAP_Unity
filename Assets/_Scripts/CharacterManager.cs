@@ -21,6 +21,8 @@ public class CharacterManager : MonoBehaviour
     public Material Trace1Mat;
     public Material Flare1Mat;
 
+    public Controls mainControl;
+
     [ColorUsage(true, true)]
     public Color[] colors;
 
@@ -109,12 +111,26 @@ public class CharacterManager : MonoBehaviour
         flare.color = color;
 
         //update ring colors
-        if (Renderer != null)
-        {
+        if (Renderer != null) {
             Material ring = Renderer.material;
             string ava = "_ava0GridColor";
-            if (avatarIndex == 1) { ava = "_ava1GridColor"; }
+            int colorIn = 0;
+            if (avatarIndex == 1) { ava = "_ava1GridColor"; colorIn = 2; }
             ring.SetColor(ava, color);
+
+            //trail color control
+            mainControl.headTailColor[colorIn] = color;
+            if (avatarIndex == 0) {
+                foreach (TrailRenderer trail in mainControl.avatar0Trails) {
+                    trail.material.SetColor("_startColor", color);
+                }
+            }
+            else if (avatarIndex == 1) {
+                foreach (TrailRenderer trail in mainControl.avatar1Trails) {
+                    trail.material.SetColor("_startColor", color);
+                }
+
+            }
         }
 
         //update global variable
