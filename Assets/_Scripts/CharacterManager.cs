@@ -28,6 +28,7 @@ public class CharacterManager : MonoBehaviour
 
     public MeshRenderer Renderer;
 
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -118,7 +119,7 @@ public class CharacterManager : MonoBehaviour
             if (avatarIndex == 1) { ava = "_ava1GridColor"; colorIn = 2; }
             ring.SetColor(ava, color);
 
-            //trail color control
+            //trail color control + galaxy color
             mainControl.headTailColor[colorIn] = color;
             if (avatarIndex == 0) {
                 foreach (TrailRenderer trail in mainControl.avatar0Trails) {
@@ -129,8 +130,8 @@ public class CharacterManager : MonoBehaviour
                 foreach (TrailRenderer trail in mainControl.avatar1Trails) {
                     trail.material.SetColor("_startColor", color);
                 }
-
             }
+            //trail color control + galaxy color end
         }
 
         //update global variable

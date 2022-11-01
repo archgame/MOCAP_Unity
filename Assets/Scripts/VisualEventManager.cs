@@ -40,10 +40,15 @@ public class VisualEventManager : MonoBehaviour
     //clap threshold
     private float clapThreshold=0.2f;
 
+    //declare character
+    public GameObject chars;
+    public CharacterManager charManager;
+
 
     private void Start()
     {
-
+        chars = GameObject.Find("_CHARACTERS");
+        charManager = chars.GetComponent<CharacterManager>();
     }
     private void Update()
     {
@@ -131,7 +136,10 @@ public class VisualEventManager : MonoBehaviour
             }
         }
 
-
+        effects[3].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex+4) % 5]);
+        effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex+4) % 5]);
+        effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex+4) % 5]);
+        effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex+4)% 5]);
 
 
         /*if (rigSpeed[0] >= threshold && timer1 >= interval)

@@ -88,6 +88,11 @@ public class DataSubscription : MonoBehaviour
     public bool isAlienMorph;
     public float gridStretchTime;
 
+
+    //declare character
+    private GameObject chars;
+    private CharacterManager charManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,7 +105,10 @@ public class DataSubscription : MonoBehaviour
 
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
         mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
-        
+
+        chars = GameObject.Find("_CHARACTERS");
+        charManager = chars.GetComponent<CharacterManager>();
+
 
     }
 
@@ -127,8 +135,19 @@ public class DataSubscription : MonoBehaviour
         //TrailStar initial speed
         effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);
         effects[4].SetVector3("VelocityA", avatar1.rightHand.velocity);
+        effects[5].SetVector3("VelocityA", avatar0.rightHand.velocity);
+        effects[6].SetVector3("VelocityA", avatar1.rightHand.velocity);
         effects[3].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime );
         effects[4].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
+        effects[5].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime);
+        effects[6].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
+
+        effects[0].SetVector4("BurstColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+        effects[1].SetVector4("BurstColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        effects[3].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+        effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+        effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
 
 
         //distance calc 
@@ -146,17 +165,17 @@ public class DataSubscription : MonoBehaviour
 
 
         //set swirl strength to work with speed
-        float a = math.min(avatar0.hip.rotationSpeed, 4000f);
-        float b = math.min(avatar1.hip.rotationSpeed, 4000f);
-        a = math.remap(100f, 1000f, 0.5f, 4f, a);
-        b = math.remap(100f, 1000f, 0.5f, 4f, b);
+        float a = math.min(avatar0.hip.rotationSpeed, 10000f);
+        float b = math.min(avatar1.hip.rotationSpeed, 10000f);
+        a = math.remap(100f, 10000f, 0.2f, 1.2f, a);
+        b = math.remap(100f, 10000f, 0.2f, 1.2f, b);
 
-        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.5f, a ));
-        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.5f, b ));
+        effects[2].SetFloat("swirlForceStrength", Mathf.Max(1.2f, a ));
+        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(1.2f, b ));
 
 
-        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.5f, a));
-        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.5f, b));
+        effects[2].SetFloat("attractForceStrength", Mathf.Max(1.2f, a));
+        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(1.2f, b));
 
         //set jump with size
         if (!isAlienMorph) {

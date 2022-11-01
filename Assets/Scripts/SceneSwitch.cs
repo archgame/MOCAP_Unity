@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class SceneSwitch : MonoBehaviour
 {
+
+    public Camera[] cams;
+
     //Creating data structure
     [SerializeField]
-    private Toggle[] Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8, Scene9, Scene10, Scene11;
+    private Toggle[] Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
+        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull;
     private Toggle[][] allScenes;
 
     //UI
@@ -33,29 +37,32 @@ public class SceneSwitch : MonoBehaviour
     private int activeIndex;
 
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         data = GameObject.Find("DataSubscribers").GetComponent<DataSubscription>();
         sceneSwitch = gameObject.GetComponent<Dropdown>();
         Debug.Log("Current value is" + sceneSwitch.value);
-        sceneSwitch.onValueChanged.AddListener(Value => { 
-            CancelInvoke(); 
+        sceneSwitch.onValueChanged.AddListener(Value => {
+            CancelInvoke();
             mainControl.DeleteBakeTrailRenderersByAvatar(0);
             mainControl.DeleteBakeTrailRenderersByAvatar(1);
             SwitchScene(Value);
             if (Value < 7) { CD.resetDrawing(); }
             if (Value > 7) { CD.stopDrawing(); }
-            if (Value == 5 || Value ==4) { data.gridStretchTime = 2f; }
+            if (Value == 5 || Value == 4) { data.gridStretchTime = 2f; }
             if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
         }
         );
         BakeRateInput.onValueChanged.AddListener(Value =>
         {
             CancelInvoke();
-            if(sceneSwitch.value == 3) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
+            if (sceneSwitch.value == 3) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
         });
-        allScenes =new Toggle[][] { Scene0, Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Scene8, Scene9, Scene10, Scene11};
+        allScenes = new Toggle[][] { Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
+        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull };
         mainControl = control.GetComponent<Controls>();
         CD = LineDraw.GetComponent<ConstellationDrawer>();
     }
@@ -69,6 +76,54 @@ public class SceneSwitch : MonoBehaviour
     }
 
     public void SwitchScene(int i)
+    {
+        switch (i) {
+            //Avatar
+            case 0:
+                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
+            //Trace
+            case 1:
+                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
+            //Bake 
+            case 2:
+                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(1, 2); TurnOnVisualGroup(2); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
+            //SharedWorld
+            case 3:
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(3); TurnOnVisualGroup(3); break;
+            //Circle Grid
+            case 4:
+                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
+            //Alien Morph
+            case 5:
+                TurnOnCamera(1, 2); TurnOffVisualGroupsExcept(4, 5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); break;
+            //Moon 2
+            case 6:
+                TurnOnCamera(2); TurnOffVisualGroupsExcept(6); TurnOnVisualGroup(6); break;
+            //Constellation
+            case 7:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
+            //Build the Sky
+            case 8:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(8); TurnOnVisualGroup(8); break;
+            //Spiral
+            case 9:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(9); TurnOnVisualGroup(9); break;
+            //Halo
+            case 10:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(10); TurnOnVisualGroup(10); break;
+            //Swirl
+            case 11:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(11); TurnOnVisualGroup(11); break;
+            //Combined Galaxy
+            case 12:
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(11); break;
+
+            //Defult
+            default: break;
+        }
+    }
+    //archived switches
+    /*public void SwitchScene(int i)
     {
         switch (i) {
             //Avatar
@@ -110,7 +165,7 @@ public class SceneSwitch : MonoBehaviour
             //Defult
             default: break;
         }
-    }
+    }*/
 
     private void TurnOnVisualGroup(int sceneNum )
     {
@@ -160,6 +215,16 @@ public class SceneSwitch : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         mainControl.cameraSelect(1);
+    }
+
+    private void TurnOnCamera(params int[] index)
+    {
+        foreach(var cam in cams) {
+            cam.enabled = false;
+        }
+        foreach (var ind in index) {
+            cams[ind].enabled = true;
+        }
     }
 
 

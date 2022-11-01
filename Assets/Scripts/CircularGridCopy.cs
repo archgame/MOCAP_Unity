@@ -33,6 +33,7 @@ public class CircularGridCopy : MonoBehaviour
         highMat.SetFloat("_jumpCount1", jumpCount1);
         highMat.SetFloat("_spacing", spacing);
         highMat.SetColor("_ava0GridColor", color0);
+        highMat.SetColor("_ava1GridColor", color1);
         highMat.SetColor("_gradientOut0", outColor0);
         highMat.SetColor("_gradientOut1", outColor1);
 
