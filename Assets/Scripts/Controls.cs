@@ -287,6 +287,7 @@ public class Controls : MonoBehaviour
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = notCurrent; }
         }
 
+
         //bake trail renderer as mesh
         if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
 
