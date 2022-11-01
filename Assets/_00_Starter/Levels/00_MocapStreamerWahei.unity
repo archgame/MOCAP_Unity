@@ -8677,7 +8677,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1388614226}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8689,7 +8689,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 85820782}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12888,9 +12888,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cams:
-  - {fileID: 815028137}
-  - {fileID: 430370521}
-  - {fileID: 1206228823}
+  - {fileID: 815028132}
+  - {fileID: 430370517}
+  - {fileID: 1206228818}
   Scene0Avatar: []
   Scene1Trace:
   - {fileID: 120533099}
@@ -12932,6 +12932,7 @@ MonoBehaviour:
   - {fileID: 139002743}
   - {fileID: 122710772}
   - {fileID: 1096862694}
+  - {fileID: 1701001953}
   control: {fileID: 237206978}
   LineDraw: {fileID: 2122569247}
   BakeRateInput: {fileID: 1184474681}
@@ -15386,6 +15387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -16998,7 +17000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070136334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17098,7 +17100,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+      - m_Value: {fileID: 1365880574}
         m_Name: SkinnedMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -18023,7 +18025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158610987}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18123,7 +18125,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+      - m_Value: {fileID: 1236055202}
         m_Name: SkinnedMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -18938,7 +18940,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196185262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19038,7 +19040,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+      - m_Value: {fileID: 1236055202}
         m_Name: SkinnedMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -19776,6 +19778,11 @@ CanvasRenderer:
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
   m_PrefabInstance: {fileID: 617538291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1236055202 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 2051160040}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1240657380
 PrefabInstance:
@@ -21134,6 +21141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+--- !u!137 &1365880574 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 221137398}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1371203974
 GameObject:
   m_ObjectHideFlags: 0
@@ -26245,7 +26257,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721122510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26345,7 +26357,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+      - m_Value: {fileID: 1365880574}
         m_Name: SkinnedMeshRenderer
         m_Overridden: 1
     m_Bool:
@@ -32642,6 +32654,7 @@ GameObject:
   - component: {fileID: 2058147014}
   - component: {fileID: 2058147016}
   - component: {fileID: 2058147015}
+  - component: {fileID: 2058147017}
   m_Layer: 0
   m_Name: Spot Light Follow
   m_TagString: Untagged
@@ -32741,6 +32754,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2058147017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058147013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!96 &2059143767 stripped
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
@@ -33564,8 +33597,6 @@ MonoBehaviour:
   grid: {fileID: 2137325014}
   spinTimer0: 0
   spinThresholdAngle: 10
-  chars: {fileID: 0}
-  charManager: {fileID: 0}
 --- !u!4 &2134565269
 Transform:
   m_ObjectHideFlags: 0

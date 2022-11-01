@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SceneSwitch : MonoBehaviour
 {
 
-    public Camera[] cams;
+    public GameObject[] cams;
 
     //Creating data structure
     [SerializeField]
@@ -51,7 +51,7 @@ public class SceneSwitch : MonoBehaviour
             mainControl.DeleteBakeTrailRenderersByAvatar(1);
             SwitchScene(Value);
             if (Value < 7) { CD.resetDrawing(); }
-            if (Value > 7) { CD.stopDrawing(); }
+            if (Value > 7) { CD.resetDrawing(); }
             if (Value == 5 || Value == 4) { data.gridStretchTime = 2f; }
             if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
         }
@@ -116,7 +116,7 @@ public class SceneSwitch : MonoBehaviour
                 TurnOnCamera(1); TurnOffVisualGroupsExcept(11); TurnOnVisualGroup(11); break;
             //Combined Galaxy
             case 12:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(11); break;
+                TurnOnCamera(1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(12); break;
 
             //Defult
             default: break;
@@ -220,10 +220,10 @@ public class SceneSwitch : MonoBehaviour
     private void TurnOnCamera(params int[] index)
     {
         foreach(var cam in cams) {
-            cam.enabled = false;
+            cam.SetActive(false);
         }
         foreach (var ind in index) {
-            cams[ind].enabled = true;
+            cams[ind].SetActive(true);
         }
     }
 
