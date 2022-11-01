@@ -146,7 +146,7 @@ public class ConstellationDrawer : MonoBehaviour
             /*foreach (var vfx in galaxy) {
                 vfx.playRate = 1f;
             }*/
-            if (boomNum == turnNum && activeStarIndex!= 1) { starBoom.SendEvent("ShootStar"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
+            if (boomNum == turnNum && activeStarIndex!= 1) { starBoom.SendEvent("Wave"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
             alp = alp<=0.1f?  0.1f : alp - (Time.deltaTime/5f);
             lineRenderers[turnNum].material.SetFloat("_alpha", alp);
             //lineMaterial.SetFloat("_alpha", alp);
@@ -231,7 +231,7 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
     {
-        if (Vector3.Distance(currentP, endP) <= 0.8f || Input.GetKeyDown(KeyCode.N)) {
+        if (Vector3.Distance(currentP, endP) <= 0.5f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             Debug.Log("Twinkle force switched");

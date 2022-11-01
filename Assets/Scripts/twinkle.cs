@@ -22,7 +22,7 @@ public class twinkle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spikeColor.a = pingPongTwo(-1f, 1f,period);
+        spikeColor.a = pingPongTwo(-1f, 0.5f,period);
         spike.GetComponent<SpriteRenderer>().color = spikeColor;
         if (_scale == true) {
             scaleDown(0.4f,0.2f,1f);
