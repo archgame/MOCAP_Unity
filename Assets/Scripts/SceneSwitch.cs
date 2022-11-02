@@ -36,25 +36,49 @@ public class SceneSwitch : MonoBehaviour
 
     private int activeIndex;
 
+    //Circular GridSpecific
+    [SerializeField]
+    private GameObject[] char0, char1;
+
+    private Vector3 camDefaultPos;
+    private Vector3 camHighPos;
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //Record Cam position
+        camDefaultPos = cams[1].transform.position;
+        Vector3 zoomInVec = new Vector3(0f, 4f, 0f);
+        camHighPos = camDefaultPos + zoomInVec;
+
+
+
+        //layer
+        int layerDefault = LayerMask.NameToLayer("Default");
+        int layer1Only = LayerMask.NameToLayer("Camera 1 Only"); 
+        int layer2Only = LayerMask.NameToLayer("Camera 2 Only");
+
         data = GameObject.Find("DataSubscribers").GetComponent<DataSubscription>();
         sceneSwitch = gameObject.GetComponent<Dropdown>();
         Debug.Log("Current value is" + sceneSwitch.value);
-        sceneSwitch.onValueChanged.AddListener(Value => {
+        sceneSwitch.onValueChanged.AddListener(Value =>
+        {
             CancelInvoke();
             mainControl.DeleteBakeTrailRenderersByAvatar(0);
             mainControl.DeleteBakeTrailRenderersByAvatar(1);
             SwitchScene(Value);
-            if (Value < 7) { CD.resetDrawing(); }
-            if (Value > 7) { CD.resetDrawing(); }
+            if (Value < 7) { CD.resetDrawing(); cams[1].transform.position = camDefaultPos; cams[0].transform.position = camDefaultPos; }
+            if (Value == 7) { cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
+            if (Value > 7) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
             if (Value == 5 || Value == 4) { data.gridStretchTime = 2f; }
             if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
-        }
+            if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
+            if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
+            }
+        
         );
         BakeRateInput.onValueChanged.AddListener(Value =>
         {
@@ -71,8 +95,9 @@ public class SceneSwitch : MonoBehaviour
     void Update()
     {
         activeIndex = sceneSwitch.value;
-        if (Input.GetKeyDown(KeyCode.L)) { activeIndex++; activeIndex %= 12; }
-        if( sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 13; }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 13; }
+        if ( sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
     }
 
     public void SwitchScene(int i)
@@ -80,43 +105,43 @@ public class SceneSwitch : MonoBehaviour
         switch (i) {
             //Avatar
             case 0:
-                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
+                TurnOnCamera(0,3); TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
             //Trace
             case 1:
-                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
+                TurnOnCamera(0,3); TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
             //Bake 
             case 2:
-                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(1, 2); TurnOnVisualGroup(2); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
+                TurnOnCamera(0,3); TurnOffVisualGroupsExcept(1, 2); TurnOnVisualGroup(2); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
             //SharedWorld
             case 3:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(3); TurnOnVisualGroup(3); break;
             //Circle Grid
             case 4:
-                TurnOnCamera(1,2); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
-            //Alien Morph
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
+            //Circle Grid
             case 5:
-                TurnOnCamera(1, 2); TurnOffVisualGroupsExcept(4, 5); TurnOnVisualGroup(5); StartCoroutine(AlienMorphDelaySwitch()); break;
+                TurnOnCamera(2,3); TurnOffVisualGroupsExcept(4, 5); TurnOnVisualGroup(5); break;
             //Moon 2
             case 6:
-                TurnOnCamera(2); TurnOffVisualGroupsExcept(6); TurnOnVisualGroup(6); break;
+                TurnOnCamera(4,5); TurnOffVisualGroupsExcept(6); TurnOnVisualGroup(6); break;
             //Constellation
             case 7:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
             //Build the Sky
             case 8:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(8); TurnOnVisualGroup(8); break;
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(8); TurnOnVisualGroup(8); break;
             //Spiral
             case 9:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(9); TurnOnVisualGroup(9); break;
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(9); TurnOnVisualGroup(9); break;
             //Halo
             case 10:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(10); TurnOnVisualGroup(10); break;
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(10); TurnOnVisualGroup(10); break;
             //Swirl
             case 11:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(11); TurnOnVisualGroup(11); break;
+                TurnOnCamera(0,1); TurnOffVisualGroupsExcept(11); TurnOnVisualGroup(11); break;
             //Combined Galaxy
             case 12:
-                TurnOnCamera(1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(12); break;
+                TurnOnCamera(0, 1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(12); break;
 
             //Defult
             default: break;
@@ -166,6 +191,14 @@ public class SceneSwitch : MonoBehaviour
             default: break;
         }
     }*/
+
+
+    private void SimpleChildrenLayerChange(GameObject go, int layerIn)
+    {
+        foreach(Transform childs in go.transform) {
+            childs.gameObject.layer = layerIn;
+        }
+    }
 
     private void TurnOnVisualGroup(int sceneNum )
     {

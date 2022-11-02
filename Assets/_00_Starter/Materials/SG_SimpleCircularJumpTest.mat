@@ -60,8 +60,8 @@ Material:
     - _QueueOffset: 0
     - _handDistAf: 0.5
     - _handDistBf: 0.5
-    - _jumpCount0: 0
-    - _jumpCount1: 0
+    - _jumpCount0: 36
+    - _jumpCount1: 36
     - _spacing: 1
     m_Colors:
     - Color_8fe623cb9f294d2abaee3db8b3bebcb9: {r: 0, g: 0.59169054, b: 1, a: 0}
