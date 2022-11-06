@@ -9,6 +9,8 @@ TagManager:
   - GalaxyVFX
   - Sensor
   - CH36(1)
+  - Display2
+  - Display3
   layers:
   - Default
   - TransparentFX

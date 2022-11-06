@@ -1,5 +1,5 @@
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.GraphData",
     "m_ObjectId": "13c1f22f5c9d4984bbfd5e87f72985ef",
     "m_Properties": [
@@ -11,6 +11,12 @@
         }
     ],
     "m_Keywords": [],
+    "m_Dropdowns": [],
+    "m_CategoryData": [
+        {
+            "m_Id": "2af4203fc5de4b2793de22b0afffc933"
+        }
+    ],
     "m_Nodes": [
         {
             "m_Id": "ef5be530cc194b21bb45a98baeff32af"
@@ -227,10 +233,11 @@
         "serializedMesh": {
             "m_SerializedMesh": "{\"mesh\":{\"fileID\":-3702037217650275473,\"guid\":\"d389eb81f798ba14eb1dde6a1ccd8c80\",\"type\":3}}",
             "m_Guid": ""
-        }
+        },
+        "preventRotation": false
     },
     "m_Path": "Shader Graphs",
-    "m_ConcretePrecision": 0,
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -382,9 +389,13 @@
         "m_GuidSerialized": "c091c27b-6821-4497-8706-135ec746fc70"
     },
     "m_Name": "BaseColor",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Color_182904b23dd8441db7f971688ca239b1",
     "m_OverrideReferenceName": "_BaseColor",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -395,6 +406,7 @@
         "b": 1.4980392456054688,
         "a": 0.0
     },
+    "isMainColor": false,
     "m_ColorMode": 1
 }
 
@@ -540,6 +552,21 @@
     "m_Value": 0.5,
     "m_DefaultValue": 0.5,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.CategoryData",
+    "m_ObjectId": "2af4203fc5de4b2793de22b0afffc933",
+    "m_Name": "",
+    "m_ChildObjectList": [
+        {
+            "m_Id": "182904b23dd8441db7f971688ca239b1"
+        },
+        {
+            "m_Id": "5ceba00dd2fc4ad08c57a97cd5dd2351"
+        }
+    ]
 }
 
 {
@@ -699,9 +726,13 @@
         "m_GuidSerialized": "b8a504c3-9a85-4d01-8fd9-10d495d19277"
     },
     "m_Name": "Glow",
+    "m_DefaultRefNameVersion": 0,
+    "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_5ceba00dd2fc4ad08c57a97cd5dd2351",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
@@ -1312,17 +1343,23 @@
 }
 
 {
-    "m_SGVersion": 0,
+    "m_SGVersion": 1,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "e6e5064ed1dd4ba39d9f84b974140299",
     "m_ActiveSubTarget": {
         "m_Id": "bfa9199ea69d4252b335f8f00a5f3029"
     },
+    "m_AllowMaterialOverride": false,
     "m_SurfaceType": 1,
+    "m_ZTestMode": 4,
+    "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
-    "m_TwoSided": false,
+    "m_RenderFace": 2,
     "m_AlphaClip": false,
-    "m_CustomEditorGUI": ""
+    "m_CastShadows": true,
+    "m_ReceiveShadows": true,
+    "m_CustomEditorGUI": "",
+    "m_SupportVFX": false
 }
 
 {

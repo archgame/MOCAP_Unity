@@ -43,12 +43,32 @@ public class SceneSwitch : MonoBehaviour
     private Vector3 camDefaultPos;
     private Vector3 camHighPos;
 
+    private SkinnedMeshRenderer[] skins;
+    private Material[] skinMtls;
+    private GameObject[] sensors;
+    private Material[] sensorMtls;
+    [SerializeField]
+    private Material blackMtl;
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        skins = FindObjectsOfType<SkinnedMeshRenderer>();
+        skinMtls = new Material[skins.Length];
+        for (int i = 0; i < skins.Length; i++) {
+            skinMtls[i] = skins[i].sharedMaterial;
+        }
+        sensors = GameObject.FindGameObjectsWithTag("Sensor");
+        sensorMtls = new Material[sensors.Length];
+        for (int i = 0; i < sensors.Length; i++) {
+            sensorMtls[i] = sensors[i].GetComponent<MeshRenderer>().sharedMaterial;
+        }
+
+
+
         //Record Cam position
         camDefaultPos = cams[1].transform.position;
         Vector3 zoomInVec = new Vector3(0f, 4f, 0f);
@@ -257,6 +277,26 @@ public class SceneSwitch : MonoBehaviour
         }
         foreach (var ind in index) {
             cams[ind].SetActive(true);
+        }
+    }
+
+    public void ChangeSkinMtl(bool set)
+    {
+        if (set) {
+            foreach (var skin in skins) {
+                skin.sharedMaterial = blackMtl;
+            }
+            foreach (var sensor in sensors) {
+                sensor.GetComponent<MeshRenderer>().sharedMaterial = blackMtl;
+            }
+        }
+        else {
+            for (int i = 0; i < skins.Length; i++) {
+                skins[i].sharedMaterial = skinMtls[i];
+            }
+            for (int i = 0; i < sensors.Length; i++) {
+                sensors[i].GetComponent<MeshRenderer>().sharedMaterial = sensorMtls[i];
+            }
         }
     }
 
