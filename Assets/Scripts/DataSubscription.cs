@@ -165,17 +165,25 @@ public class DataSubscription : MonoBehaviour
 
 
         //set swirl strength to work with speed
-        float a = math.min(avatar0.hip.rotationSpeed, 10000f);
-        float b = math.min(avatar1.hip.rotationSpeed, 10000f);
-        a = math.remap(100f, 10000f, 0.2f, 1.2f, a);
-        b = math.remap(100f, 10000f, 0.2f, 1.2f, b);
+        float a = math.min(avatar0.hip.rotationSpeed, 500f);
+        float b = math.min(avatar1.hip.rotationSpeed, 500f);
+        a = math.remap(0f, 500f, 0.8f, 6f, a);
+        b = math.remap(0f, 500f, 0.8f, 6f, b);
 
-        effects[2].SetFloat("swirlForceStrength", Mathf.Max(1.2f, a ));
-        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(1.2f, b ));
+        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.8f, a ));
+        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.8f, b ));
 
 
-        effects[2].SetFloat("attractForceStrength", Mathf.Max(1.2f, a));
-        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(1.2f, b));
+        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.8f, a));
+        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.8f, b));
+
+
+        if (grids[2].activeInHierarchy && grids[3].activeInHierarchy) {
+            grids[2].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+            grids[3].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        }
+
+
 
         //set jump with size
         if (!isAlienMorph) {

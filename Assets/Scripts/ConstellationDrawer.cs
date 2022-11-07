@@ -136,8 +136,9 @@ public class ConstellationDrawer : MonoBehaviour
             float magnifier = Unity.Mathematics.math.remap(0, 25, -0.1f, 2f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 25));
             magnifier = Mathf.Max(magnifier, 0f);
             Vector3 drawVector = connectDir * magnifier;
-                //magnifier;
+            //magnifier;
             //Debug.Log(string.Format("{0},{1},{2}", drawVector.x, drawVector.y, drawVector.z));
+            drawVector = new Vector3 (drawVector.x, 0, drawVector.z);
             DrawLine(lineRenderers[turnNum], drawVector, constellation[turnNum][0].transform.position);
             IncreIndex(currentPos, nextStarPos);
             
@@ -231,6 +232,8 @@ public class ConstellationDrawer : MonoBehaviour
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
     {
+        currentP.y = 0f;
+        endP.y = 0f;
         if (Vector3.Distance(currentP, endP) <= 0.5f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;

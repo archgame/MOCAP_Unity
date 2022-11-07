@@ -103,7 +103,7 @@ public class SceneSwitch : MonoBehaviour
         BakeRateInput.onValueChanged.AddListener(Value =>
         {
             CancelInvoke();
-            if (sceneSwitch.value == 3) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
+            if (sceneSwitch.value == 2) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
         });
         allScenes = new Toggle[][] { Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
         Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull };
@@ -296,6 +296,20 @@ public class SceneSwitch : MonoBehaviour
             }
             for (int i = 0; i < sensors.Length; i++) {
                 sensors[i].GetComponent<MeshRenderer>().sharedMaterial = sensorMtls[i];
+            }
+        }
+    }
+
+    public void SensorOff(bool set)
+    {
+        if (set) {
+            foreach(var sensor in sensors) {
+                sensor.SetActive(false);
+            }
+        }
+        else {
+            foreach (var sensor in sensors) {
+                sensor.SetActive(true);
             }
         }
     }

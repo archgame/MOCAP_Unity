@@ -65,6 +65,9 @@ public class Controls : MonoBehaviour
 
     private VisualEventManager vem;
 
+    //reset Position
+    public GameObject[] parentObjs;
+
 
 
 
@@ -211,6 +214,23 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+        //reset position
+        if (Input.GetKeyDown(KeyCode.F)) {
+            parentObjs[0].transform.Translate(hips[0].transform.position * (-1f));
+            //parentObjs[1].transform.Translate(hips[0].transform.position * (-1f));
+            //parentObjs[2].transform.Translate(hips[0].transform.position * (-1f));
+            parentObjs[1].transform.position = parentObjs[0].transform.position;
+            parentObjs[2].transform.position = parentObjs[0].transform.position;
+            parentObjs[3].transform.Translate(hips[1].transform.position * (-1f));
+            //parentObjs[4].transform.Translate(hips[1].transform.position * (-1f));
+            //parentObjs[5].transform.Translate(hips[1].transform.position * (-1f));
+            parentObjs[4].transform.position = parentObjs[3].transform.position;
+            parentObjs[5].transform.position = parentObjs[3].transform.position;
+        }
+
+
+
         //UI control
         if (Input.GetKeyDown(KeyCode.Y)) { gameUI.enabled = !gameUI.enabled; Cursor.visible = gameUI.enabled; }
         //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
