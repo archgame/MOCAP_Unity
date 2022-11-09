@@ -50,6 +50,8 @@ public class SceneSwitch : MonoBehaviour
     [SerializeField]
     private Material blackMtl;
 
+    private float finalTimer;
+
 
 
 
@@ -97,7 +99,8 @@ public class SceneSwitch : MonoBehaviour
             if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
             if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
             if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
-            }
+            if(Value == 13) { finalTimer = 15f; }    
+        }
         
         );
         BakeRateInput.onValueChanged.AddListener(Value =>
@@ -115,9 +118,12 @@ public class SceneSwitch : MonoBehaviour
     void Update()
     {
         activeIndex = sceneSwitch.value;
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 13; }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 13; }
-        if ( sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 14; }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 14; }
+        if (sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
+
+        //final scene
+        if(sceneSwitch.value == 13 && finalTimer>0f) { finalTimer -= Time.deltaTime; cams[0].transform.Translate(0, Time.deltaTime / 15f * 10f, 0f, Space.World); cams[1].transform.Translate(0, Time.deltaTime / 15f * 10f, 0f, Space.World); }
     }
 
     public void SwitchScene(int i)

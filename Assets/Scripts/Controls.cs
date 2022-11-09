@@ -76,6 +76,7 @@ public class Controls : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
         //get CharManager
         chars = GameObject.Find("_CHARACTERS");
         charManager = chars.GetComponent<CharacterManager>();
@@ -214,15 +215,16 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         //reset position
         if (Input.GetKeyDown(KeyCode.F)) {
-            parentObjs[0].transform.Translate(hips[0].transform.position * (-1f));
+            Vector3 offSet0 = new Vector3 (hips[0].transform.position.x, 0f, hips[0].transform.position.z);
+            Vector3 offSet1 = new Vector3 (hips[1].transform.position.x, 0f, hips[1].transform.position.z);
+            parentObjs[0].transform.Translate(offSet0 * (-1f));
             //parentObjs[1].transform.Translate(hips[0].transform.position * (-1f));
             //parentObjs[2].transform.Translate(hips[0].transform.position * (-1f));
             parentObjs[1].transform.position = parentObjs[0].transform.position;
             parentObjs[2].transform.position = parentObjs[0].transform.position;
-            parentObjs[3].transform.Translate(hips[1].transform.position * (-1f));
+            parentObjs[3].transform.Translate(offSet1 * (-1f));
             //parentObjs[4].transform.Translate(hips[1].transform.position * (-1f));
             //parentObjs[5].transform.Translate(hips[1].transform.position * (-1f));
             parentObjs[4].transform.position = parentObjs[3].transform.position;
@@ -236,6 +238,7 @@ public class Controls : MonoBehaviour
         //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
         //camera control
         if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
+
         if (mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false) {
             if (Input.GetKey(KeyCode.Q)) { mainCam.transform.Translate(5 * Vector3.up * Time.deltaTime, Space.World); }
             if (Input.GetKey(KeyCode.E)) { mainCam.transform.Translate(5 * Vector3.down * Time.deltaTime, Space.World); }

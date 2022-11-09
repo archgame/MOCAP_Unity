@@ -234,7 +234,7 @@ public class ConstellationDrawer : MonoBehaviour
     {
         currentP.y = 0f;
         endP.y = 0f;
-        if (Vector3.Distance(currentP, endP) <= 0.5f || Input.GetKeyDown(KeyCode.N)) {
+        if (Vector3.Distance(currentP, endP) <= 0.3f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             Debug.Log("Twinkle force switched");
