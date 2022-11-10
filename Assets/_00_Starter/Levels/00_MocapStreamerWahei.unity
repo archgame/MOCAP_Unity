@@ -10351,6 +10351,18 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 784109975}
         m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
+        m_MethodName: SensorOff
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 784109975}
+        m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
         m_MethodName: ChangeSkinMtl
         m_Mode: 0
         m_Arguments:
@@ -13339,6 +13351,7 @@ MonoBehaviour:
   - {fileID: 796852095}
   Scene5Alien:
   - {fileID: 1611674400}
+  - {fileID: 796852095}
   Scene6Moon:
   - {fileID: 511513640}
   Scene7Constellation:
@@ -19452,7 +19465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1194900260
 Transform:
   m_ObjectHideFlags: 0
@@ -19461,7 +19474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194900259}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.33, y: 2, z: 4}
+  m_LocalPosition: {x: -0.33, y: 1.2, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19919,7 +19932,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206228818}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.33, y: 2, z: 4}
+  m_LocalPosition: {x: -0.33, y: 1.2, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20723,7 +20736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1275180118
 Transform:
   m_ObjectHideFlags: 0
@@ -28267,7 +28280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781175291}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.72212744, y: 0, z: 0.31199175}
+  m_LocalPosition: {x: 0.72212744, y: -1.2, z: 0.31199175}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []

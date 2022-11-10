@@ -133,7 +133,7 @@ public class ConstellationDrawer : MonoBehaviour
             //if(moveDirection == Vector3.zero) { moveDirection = currentPosToStar; }
             
             Vector3 connectDir = ConnectDir(currentPosToStar, moveDirection);
-            float magnifier = Unity.Mathematics.math.remap(0, 25, -0.1f, 2f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 25));
+            float magnifier = Unity.Mathematics.math.remap(0, 53, -0.1f, 2f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 53));
             magnifier = Mathf.Max(magnifier, 0f);
             Vector3 drawVector = connectDir * magnifier;
             //magnifier;
@@ -162,10 +162,10 @@ public class ConstellationDrawer : MonoBehaviour
     {
         if (Vector3.Angle(posToNextStar, drawDriection) <= 15f && Vector3.Angle(posToNextStar, drawDriection) >= -15f) {
             //Debug.Log(Vector3.Angle(posToNextStar, drawDriection));
-            return drawDriection.normalized * 3f;
+            return drawDriection.normalized * 1.8f;
         }
         else
-            return drawDriection.normalized * 1f;
+            return drawDriection.normalized * 0.7f;
     }
     private void DrawLine(LineRenderer lineRend, Vector3 drawVector, Vector3 startPos)
     {
