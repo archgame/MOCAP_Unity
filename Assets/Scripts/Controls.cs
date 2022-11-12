@@ -69,6 +69,9 @@ public class Controls : MonoBehaviour
     public GameObject[] parentObjs;
 
 
+    public bool sensor0Toggle;
+    public bool sensor1Toggle;
+
 
 
 
@@ -76,6 +79,9 @@ public class Controls : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+
+        sensor0Toggle = true;
+        sensor1Toggle = true;
 
         //get CharManager
         chars = GameObject.Find("_CHARACTERS");
@@ -244,7 +250,7 @@ public class Controls : MonoBehaviour
             if (Input.GetKey(KeyCode.E)) { mainCam.transform.Translate(5 * Vector3.down * Time.deltaTime, Space.World); }
         }
         else if (mainCam.activeInHierarchy == false && subCam.activeInHierarchy == true) {
-            if (Input.GetMouseButton(1)) {
+            if (Input.GetMouseButton(0)) {
                 subCam.transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f, Space.World);
                 subCam.transform.Rotate(Input.GetAxis("Mouse Y"), 0f, 0f, Space.World);
                 Vector3 rotation = new Vector3(subCam.transform.localEulerAngles.x, subCam.transform.localEulerAngles.y, 0f);
@@ -299,15 +305,16 @@ public class Controls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null) {
             SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
-            bool notCurrent = !skins[0].enabled;
-            foreach (var skin in skins) { skin.enabled = notCurrent; }
-            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = notCurrent; }
+            //bool notCurrent = !skins[0].enabled;
+            sensor0Toggle = !sensor0Toggle;
+            foreach (var skin in skins) { skin.enabled = sensor0Toggle; }
+            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor0Toggle; }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null) {
             SkinnedMeshRenderer[] skins = charManager.Char1Avatars[(charManager.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
-            bool notCurrent = !skins[0].enabled;
-            foreach (var skin in skins) { skin.enabled = notCurrent; }
-            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = notCurrent; }
+            sensor1Toggle = !sensor1Toggle;
+            foreach (var skin in skins) { skin.enabled = sensor1Toggle; }
+            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor1Toggle; }
         }
 
 
@@ -318,8 +325,8 @@ public class Controls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
 
         //toggle trail renderer and particle systems
-        if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
-        if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(avatar1Trails); }
+        //if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
+        //if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(avatar1Trails); }
 
 
         //rotate parent

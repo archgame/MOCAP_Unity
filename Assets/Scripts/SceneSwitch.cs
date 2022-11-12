@@ -11,7 +11,7 @@ public class SceneSwitch : MonoBehaviour
     //Creating data structure
     [SerializeField]
     private Toggle[] Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
-        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull;
+        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull, SceneFinale, Scene13SharedWorld2;
     private Toggle[][] allScenes;
 
     //UI
@@ -112,7 +112,7 @@ public class SceneSwitch : MonoBehaviour
             if (sceneSwitch.value == 2) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
         });
         allScenes = new Toggle[][] { Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
-        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull };
+        Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull,SceneFinale, Scene13SharedWorld2 };
         mainControl = control.GetComponent<Controls>();
         CD = LineDraw.GetComponent<ConstellationDrawer>();
     }
@@ -121,8 +121,8 @@ public class SceneSwitch : MonoBehaviour
     void Update()
     {
         activeIndex = sceneSwitch.value;
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 14; }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 14; }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 15; }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 15; }
         if (sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
 
         //final scene
@@ -171,6 +171,8 @@ public class SceneSwitch : MonoBehaviour
             //Combined Galaxy
             case 12:
                 TurnOnCamera(0, 1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(12); break;
+            case 14:
+                TurnOnCamera(2, 3); TurnOffVisualGroupsExcept(14); TurnOnVisualGroup(14); break;
 
             //Defult
             default: break;

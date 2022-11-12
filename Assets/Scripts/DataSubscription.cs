@@ -183,6 +183,11 @@ public class DataSubscription : MonoBehaviour
             grids[3].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
         }
 
+        if (grids[4].activeInHierarchy && grids[5].activeInHierarchy) {
+            grids[4].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+            grids[5].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        }
+
 
 
         //set jump with size
