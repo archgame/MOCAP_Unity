@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
+    #region AVA0
+
     public GameObject[] Char0Avatars;
     public int Char0Index = 0;
     public int Char0ColorIndex = 0;
@@ -13,6 +15,11 @@ public class CharacterManager : MonoBehaviour
     public Material Sensor0Mat;
     public Material Trace0Mat;
     public Material Flare0Mat;
+
+    #endregion AVA0
+
+    #region AVA1
+
     public GameObject[] Char1Avatars;
     public int Char1Index = 0;
     public int Char1ColorIndex = 0;
@@ -21,6 +28,20 @@ public class CharacterManager : MonoBehaviour
     public Material Trace1Mat;
     public Material Flare1Mat;
 
+    #endregion AVA1
+
+    #region AVA2
+
+    public GameObject[] Char2Avatars;
+    public int Char2Index = 0;
+    public int Char2ColorIndex = 0;
+    public Material Char2Mat;
+    public Material Sensor2Mat;
+    public Material Trace2Mat;
+    public Material Flare2Mat;
+
+    #endregion AVA2
+
     public Controls mainControl;
 
     [ColorUsage(true, true)]
@@ -28,15 +49,16 @@ public class CharacterManager : MonoBehaviour
 
     public MeshRenderer Renderer;
 
-
     // Start is called before the first frame update
     private void Start()
     {
         NextChar(0);
         NextChar(1);
+        NextChar(2);
 
         NextColor(0);
         NextColor(1);
+        NextColor(2);
 
         /*/ Wahei Color Picker Set Color Example
         ColorPicker[] pickers = GameObject.FindObjectsOfType<ColorPicker>(); Debug.Log("pickers: " + pickers.Length);
@@ -57,6 +79,11 @@ public class CharacterManager : MonoBehaviour
             avatars = Char1Avatars;
             index = Char1Index;
         }
+        else if (avatarIndex == 2)
+        {
+            avatars = Char2Avatars;
+            index = Char2Index;
+        }
 
         //update all the avatars
         for (int i = 0; i < avatars.Length; i++)
@@ -76,6 +103,10 @@ public class CharacterManager : MonoBehaviour
         if (avatarIndex == 1)
         {
             Char1Index = index;
+        }
+        else if (avatarIndex == 2)
+        {
+            Char2Index = index;
         }
         else
         {
@@ -99,6 +130,14 @@ public class CharacterManager : MonoBehaviour
             flare = Flare1Mat;
             index = Char1ColorIndex;
         }
+        else if (avatarIndex == 2)
+        {
+            mat = Char2Mat;
+            sensor = Sensor2Mat;
+            trace = Trace2Mat;
+            flare = Flare2Mat;
+            index = Char2ColorIndex;
+        }
 
         //update material colors
         Color color = colors[index];
@@ -112,7 +151,8 @@ public class CharacterManager : MonoBehaviour
         flare.color = color;
 
         //update ring colors
-        if (Renderer != null) {
+        if (Renderer != null)
+        {
             Material ring = Renderer.material;
             string ava = "_ava0GridColor";
             int colorIn = 0;
@@ -121,13 +161,24 @@ public class CharacterManager : MonoBehaviour
 
             //trail color control + galaxy color
             mainControl.headTailColor[colorIn] = color;
-            if (avatarIndex == 0) {
-                foreach (TrailRenderer trail in mainControl.avatar0Trails) {
+            if (avatarIndex == 0)
+            {
+                foreach (TrailRenderer trail in mainControl.avatar0Trails)
+                {
                     trail.material.SetColor("_startColor", color);
                 }
             }
-            else if (avatarIndex == 1) {
-                foreach (TrailRenderer trail in mainControl.avatar1Trails) {
+            else if (avatarIndex == 1)
+            {
+                foreach (TrailRenderer trail in mainControl.avatar1Trails)
+                {
+                    trail.material.SetColor("_startColor", color);
+                }
+            }
+            else if (avatarIndex == 2)
+            {
+                foreach (TrailRenderer trail in mainControl.avatar2Trails)
+                {
                     trail.material.SetColor("_startColor", color);
                 }
             }
@@ -138,6 +189,7 @@ public class CharacterManager : MonoBehaviour
         index++; //get the next index for the next avatar
         if (index >= colors.Length) { index = 0; } //reset index if we are at the last avatar
         if (avatarIndex == 1) { Char1ColorIndex = index; }
+        else if (avatarIndex == 2) { Char2ColorIndex = index; }
         else { Char0ColorIndex = index; }
     }
 
