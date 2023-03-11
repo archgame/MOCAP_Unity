@@ -1836,17 +1836,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 22448498, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
   m_PrefabInstance: {fileID: 68328976}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &68328978 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 11423364, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
-  m_PrefabInstance: {fileID: 68328976}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8262e4a8322117f4da079921eaa72834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &68807717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,6 +2846,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 591430914}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &122710770
 GameObject:
@@ -3034,6 +3035,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123908748}
   m_CullTransparentMesh: 1
+--- !u!1 &131091235 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2972324554277783046, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &132201516
 GameObject:
   m_ObjectHideFlags: 0
@@ -5070,6 +5076,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -7067583090204131254, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
   m_PrefabInstance: {fileID: 1853956328}
   m_PrefabAsset: {fileID: 0}
+--- !u!96 &215184488 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 924798006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &218314139
 GameObject:
   m_ObjectHideFlags: 0
@@ -5698,6 +5709,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 281297371296666442, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
   m_PrefabInstance: {fileID: 1853956328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &232936424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1664083765829960058, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &237206978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,18 +5775,16 @@ MonoBehaviour:
   avatar1Trails: []
   avatar2Trails: []
   ParticleSystems: []
-  ava0TrailHead: {fileID: 1915756777}
-  ava0TrailTail: {fileID: 259001783}
-  ava1TrailHead: {fileID: 68328978}
-  ava1TrailTail: {fileID: 1887918328}
-  ava2TrailHead: {fileID: 0}
-  ava2TrailTail: {fileID: 0}
   colorButtons:
   - {fileID: 1117281934}
   - {fileID: 1214162598}
   - {fileID: 292966910}
   - {fileID: 1122024111}
+  - {fileID: 1099323888}
+  - {fileID: 1291226465}
   headTailColor:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
@@ -5787,6 +5801,9 @@ MonoBehaviour:
   - {fileID: 221137451}
   - {fileID: 822646229}
   - {fileID: 710463932}
+  - {fileID: 254287937}
+  - {fileID: 20726756}
+  - {fileID: 1402252474}
   sensor0Toggle: 0
   sensor1Toggle: 0
   sensor2Toggle: 0
@@ -6076,6 +6093,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+--- !u!1 &249931980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4702939792406662091, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &250936898
 GameObject:
   m_ObjectHideFlags: 0
@@ -7382,7 +7404,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1340542541}
+      - m_Target: {fileID: 1986758472}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1518137734}
         m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 0
@@ -12717,7 +12751,7 @@ PrefabInstance:
     - target: {fileID: 3060534831799469192, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
+      objectReference: {fileID: 2100000, guid: 973cbce5cc065c048881233f7869d6c3, type: 2}
     - target: {fileID: 3830541063022364519, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_Name
       value: ybot (2)
@@ -12777,7 +12811,7 @@ PrefabInstance:
     - target: {fileID: 7577139973377109525, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
+      objectReference: {fileID: 2100000, guid: 973cbce5cc065c048881233f7869d6c3, type: 2}
     - target: {fileID: 7850516375106774516, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_TagString
       value: CH36(1)
@@ -13171,6 +13205,11 @@ CanvasRenderer:
 Transform:
   m_CorrespondingSourceObject: {fileID: -7270674689752606462, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
   m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!96 &591430914 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 1865944248}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &593625375
 GameObject:
@@ -13609,7 +13648,7 @@ GameObject:
   - component: {fileID: 636422331}
   - component: {fileID: 636422330}
   m_Layer: 5
-  m_Name: Ava[1]Color Buttons (1)
+  m_Name: 'Ava[2]Color Buttons '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15716,6 +15755,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 215184488}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &782787854
 GameObject:
@@ -16389,6 +16440,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1398677657}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &803740582 stripped
 GameObject:
@@ -16535,6 +16598,13 @@ MonoBehaviour:
   - {fileID: 963143573}
   - {fileID: 2147463207}
   - {fileID: 803740582}
+  avat2:
+  - {fileID: 846348791}
+  - {fileID: 232936424}
+  - {fileID: 131091235}
+  - {fileID: 2139292489}
+  - {fileID: 1303761711}
+  - {fileID: 249931980}
   effects:
   - {fileID: 1422166143}
   - {fileID: 115483596}
@@ -17290,6 +17360,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+--- !u!1 &846348791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4495723111191367625, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &849435977
 GameObject:
   m_ObjectHideFlags: 0
@@ -21382,7 +21457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1099323889}
   m_Layer: 5
-  m_Name: Ava[1] Head
+  m_Name: Ava[2] Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25152,7 +25227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291226466}
   m_Layer: 5
-  m_Name: Ava[1] Tail
+  m_Name: Ava[2] Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25623,6 +25698,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1296365552}
   m_CullTransparentMesh: 1
+--- !u!1 &1303761711 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7426409270946055879, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1304848832
 GameObject:
   m_ObjectHideFlags: 0
@@ -26407,11 +26487,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 99b25bc7de3860847b3ad7c685091337, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
---- !u!96 &1340542541 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
-  m_PrefabInstance: {fileID: 1945609344}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1342590347
 GameObject:
   m_ObjectHideFlags: 0
@@ -26607,6 +26682,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+--- !u!96 &1357054535 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 249672833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &1365880574 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4571605982943762130, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
@@ -27451,6 +27531,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398188928}
   m_CullTransparentMesh: 1
+--- !u!96 &1398677657 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 1490034425}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402252474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3830541063022364519, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
@@ -29280,6 +29365,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514660479}
   m_CullTransparentMesh: 1
+--- !u!96 &1518137734 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 393404210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1518592199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30097,7 +30187,7 @@ GameObject:
   - component: {fileID: 1569914520}
   - component: {fileID: 1569914519}
   m_Layer: 5
-  m_Name: Button ChangeChar 1 Color
+  m_Name: Button ChangeChar 2 Color
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31616,6 +31706,7 @@ GameObject:
   - component: {fileID: 1657106713}
   - component: {fileID: 1657106715}
   - component: {fileID: 1657106714}
+  - component: {fileID: 1657106716}
   m_Layer: 0
   m_Name: Spot Light Follow (1)
   m_TagString: Untagged
@@ -31715,6 +31806,26 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1657106716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657106712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1659114921
 GameObject:
   m_ObjectHideFlags: 0
@@ -33824,12 +33935,6 @@ MonoBehaviour:
   avatar1Trails: []
   avatar2Trails: []
   ParticleSystems: []
-  ava0TrailHead: {fileID: 0}
-  ava0TrailTail: {fileID: 0}
-  ava1TrailHead: {fileID: 0}
-  ava1TrailTail: {fileID: 0}
-  ava2TrailHead: {fileID: 0}
-  ava2TrailTail: {fileID: 0}
   colorButtons: []
   headTailColor:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -34075,6 +34180,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1188293786}
+        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1357054535}
         m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 0
@@ -36514,17 +36631,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 22448498, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
   m_PrefabInstance: {fileID: 1887918326}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1887918328 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 11423364, guid: 916ee089a0d7b63419075f91e1c657ec, type: 3}
-  m_PrefabInstance: {fileID: 1887918326}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8262e4a8322117f4da079921eaa72834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1890143980
 GameObject:
   m_ObjectHideFlags: 0
@@ -36582,12 +36688,6 @@ MonoBehaviour:
   avatar1Trails: []
   avatar2Trails: []
   ParticleSystems: []
-  ava0TrailHead: {fileID: 0}
-  ava0TrailTail: {fileID: 0}
-  ava1TrailHead: {fileID: 0}
-  ava1TrailTail: {fileID: 0}
-  ava2TrailHead: {fileID: 0}
-  ava2TrailTail: {fileID: 0}
   colorButtons: []
   headTailColor:
   - {r: 0, g: 0, b: 0, a: 0}
@@ -36919,7 +37019,7 @@ PrefabInstance:
     - target: {fileID: 288174962655347435, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
+      objectReference: {fileID: 2100000, guid: 973cbce5cc065c048881233f7869d6c3, type: 2}
     - target: {fileID: 975324837682196414, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_TagString
       value: CH36(1)
@@ -36991,7 +37091,7 @@ PrefabInstance:
     - target: {fileID: 7193082296794194124, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90e166cf78b84974dac61521e5b0cbf4, type: 2}
+      objectReference: {fileID: 2100000, guid: 973cbce5cc065c048881233f7869d6c3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
 --- !u!1 &1921844691
@@ -37414,7 +37514,7 @@ GameObject:
   - component: {fileID: 1935606446}
   - component: {fileID: 1935606445}
   m_Layer: 5
-  m_Name: Button ChangeChar 1
+  m_Name: Button ChangeChar 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39288,6 +39388,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!96 &1986758472 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1180841072394359332, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
+  m_PrefabInstance: {fileID: 174241850}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1988574702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42420,6 +42525,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2137325014}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2139292489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2807231755144388993, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2141362583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1510652388387417717, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
