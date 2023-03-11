@@ -71,8 +71,10 @@ public class DataSubscription : MonoBehaviour
     //declare avatars, avatar[]= {head, hip, left hand, right hand, left foot, right foot}
     public GameObject[] avat0;
     public GameObject[] avat1;
+    public GameObject[] avat2;
     public Avatar avatar0;
     public Avatar avatar1;
+    public Avatar avatar2;
     /*public BodyRigs[] avat0Rigs ;
     public BodyRigs[] avat1Rigs ;*/
 
@@ -101,6 +103,7 @@ public class DataSubscription : MonoBehaviour
         //Construct  the Avatar Class 
         avatar0 = new Avatar(0, new BodyRigs(avat0[0]), new BodyRigs(avat0[1]), new BodyRigs(avat0[2]), new BodyRigs(avat0[3]), new BodyRigs(avat0[4]), new BodyRigs(avat0[5]));
         avatar1 = new Avatar(1, new BodyRigs(avat1[0]), new BodyRigs(avat1[1]), new BodyRigs(avat1[2]), new BodyRigs(avat1[3]), new BodyRigs(avat1[4]), new BodyRigs(avat1[5]));
+        avatar2 = new Avatar(2, new BodyRigs(avat2[0]), new BodyRigs(avat2[1]), new BodyRigs(avat2[2]), new BodyRigs(avat2[3]), new BodyRigs(avat2[4]), new BodyRigs(avat2[5]));
 
 
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
@@ -119,18 +122,24 @@ public class DataSubscription : MonoBehaviour
         //velocity calc
         RigsVelocity(avatar0);
         RigsVelocity(avatar1);
+        RigsVelocity(avatar2);
 
         //rotation speed calc
         RigsRotation(avatar0);
         RigsRotation(avatar1);
+        RigsRotation(avatar2);
+
 
         //jumping defition
         isFootHigherThanCalf(avatar0);
         isFootHigherThanCalf(avatar1);
+        isFootHigherThanCalf(avatar2);
+
 
         //Spin def
         isSpinning(avatar0);
         isSpinning(avatar1);
+        isSpinning(avatar2);
 
         //TrailStar initial speed
         effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);

@@ -116,13 +116,22 @@ public class CharacterManager : MonoBehaviour
 
     public void NextColor(int avatarIndex)
     {
-        //get the character to act on
         Material mat = Char0Mat;
         Material sensor = Sensor0Mat;
         Material trace = Trace0Mat;
         Material flare = Flare0Mat;
         int index = Char0ColorIndex;
-        if (avatarIndex == 1)
+        //get the character to act on
+        if (avatarIndex == 0) 
+        {
+            mat = Char0Mat;
+            sensor = Sensor0Mat;
+            trace = Trace0Mat;
+            flare = Flare0Mat;
+            index = Char0ColorIndex;
+        }
+
+        else if (avatarIndex == 1)
         {
             mat = Char1Mat;
             sensor = Sensor1Mat;
@@ -147,6 +156,7 @@ public class CharacterManager : MonoBehaviour
         sensor.SetColor("_EmissionColor", color);
         trace.color = color;
         trace.SetColor("_startColor", color);
+        trace.SetColor("_endColor", color);
         flare.SetColor("_BaseColor", color);
         flare.color = color;
 

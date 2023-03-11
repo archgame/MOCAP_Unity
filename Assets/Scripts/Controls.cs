@@ -32,19 +32,10 @@ public class Controls : MonoBehaviour
 
     public ParticleSystem[] ParticleSystems;
 
-    //set trail color gradient for both avatars
-    public ColorPicker ava0TrailHead;
-
-    public ColorPicker ava0TrailTail;
-    public ColorPicker ava1TrailHead;
-    public ColorPicker ava1TrailTail;
-    public ColorPicker ava2TrailHead;
-    public ColorPicker ava2TrailTail;
-
     //set trail color with button
     public GameObject[] colorButtons;
 
-    public Color[] headTailColor = new Color[4];
+    public Color[] headTailColor = new Color[6];
 
     //set blending color according to dist
     private int countdownTime = 5;
@@ -68,9 +59,9 @@ public class Controls : MonoBehaviour
     private CharacterManager charManager;
     private GameObject[] sensors;
 
-    private GameObject[] parent = new GameObject[2];
+    private GameObject[] parent = new GameObject[3];
 
-    private GameObject[] hips = new GameObject[2];
+    private GameObject[] hips = new GameObject[3];
 
     private VisualEventManager vem;
 
@@ -100,7 +91,7 @@ public class Controls : MonoBehaviour
         {
             if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) { avatar0Trails.Add(trail); }
             else if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) { avatar1Trails.Add(trail); }
-            else { avatar2Trails.Add(trail); }
+            else if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (2)").transform)) { avatar2Trails.Add(trail); }
         }
 
         hips = GameObject.FindGameObjectsWithTag("hip");
@@ -113,13 +104,6 @@ public class Controls : MonoBehaviour
             else if (Value == 2) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[2]; } }
         });
 
-        //set trail color gradients
-        /*
-        ava0TrailHead.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", color); } });
-        ava0TrailTail.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_endColor", color); } });
-        ava1TrailHead.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_startColor", color); } });
-        ava1TrailTail.onValueChanged.AddListener(color => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", color); } });
-        */
 
         //set trail color with Button
         foreach (var trail in TrailRenderers)
@@ -135,6 +119,8 @@ public class Controls : MonoBehaviour
         Button[] buttonList1 = colorButtons[1].GetComponentsInChildren<Button>();
         Button[] buttonList2 = colorButtons[2].GetComponentsInChildren<Button>();
         Button[] buttonList3 = colorButtons[3].GetComponentsInChildren<Button>();
+        Button[] buttonList4 = colorButtons[4].GetComponentsInChildren<Button>();
+        Button[] buttonList5 = colorButtons[5].GetComponentsInChildren<Button>();
         Debug.Log("ButtonList has " + buttonList0.Length + " buttons");
         /*foreach(var colBott in buttonList0) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
@@ -148,11 +134,6 @@ public class Controls : MonoBehaviour
             colBott.onClick.AddListener(() => { headTailColor[1] = colBott.colors.normalColor; });
             colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut0", colBott.colors.normalColor); });
         }
-        /*foreach (var colBott in buttonList2) {
-            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
-            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList2.Length; i++) { buttonList2[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
-            colBott.onClick.AddListener(() => { headTailColor[2] = colBott.colors.normalColor; });
-        }*/
         foreach (var colBott in buttonList3)
         {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
@@ -160,9 +141,15 @@ public class Controls : MonoBehaviour
             colBott.onClick.AddListener(() => { headTailColor[3] = colBott.colors.normalColor; });
             colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut1", colBott.colors.normalColor); });
         }
+        foreach (var colBott in buttonList5) {
+            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar2Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
+            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList5.Length; i++) { buttonList3[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
+            colBott.onClick.AddListener(() => { headTailColor[5] = colBott.colors.normalColor; });
+            colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut1", colBott.colors.normalColor); });
+        }
 
         //Find intial distance
-        StartCoroutine("SetUpColorInitialize");
+        //StartCoroutine("SetUpColorInitialize");
 
         //mesh = GameObject.FindGameObjectsWithTag("CH36");
         //renderOn = new bool[] { mesh[0].GetComponent<SkinnedMeshRenderer>().enabled, mesh[1].GetComponent<SkinnedMeshRenderer>().enabled };
@@ -270,6 +257,7 @@ public class Controls : MonoBehaviour
         }
 
         //blend color according to distance
+        /*
         currentDist = Vector3.Distance(hips[0].transform.position, hips[1].transform.position);
         currentDist = math.min(currentDist, initialDist);
         currentDist = math.max(currentDist, 0.25f * initialDist);
@@ -284,6 +272,7 @@ public class Controls : MonoBehaviour
             trail.material.SetColor("_startColor", Color.Lerp(headTailColor[0], headTailColor[2], lerp));
             trail.material.SetColor("_endColor", Color.Lerp(headTailColor[1], headTailColor[3], lerp));
         }
+        */
 
         //quit application
         if (Input.GetKeyDown(KeyCode.Escape)) { Debug.Log("Quit Application"); Application.Quit(); }
@@ -329,10 +318,16 @@ public class Controls : MonoBehaviour
         }
 
         //bake trail renderer as mesh
-        if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
+        if (Input.GetKeyDown(KeyCode.Space)) { 
+            BakeTrailRenderersByAvatar(avatar0Trails, 0); 
+            BakeTrailRenderersByAvatar(avatar1Trails, 1);
+            BakeTrailRenderersByAvatar(avatar2Trails, 2);
+        }
 
         //delete drawing
-        if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
+        if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1);
+          DeleteBakeTrailRenderersByAvatar(2);
+        }
 
         //toggle trail renderer and particle systems
         //if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
@@ -349,7 +344,8 @@ public class Controls : MonoBehaviour
         }*/
 
         translateBakedTrail(parent[0], hips[1], trans);
-        translateBakedTrail(parent[1], hips[0], trans);
+        translateBakedTrail(parent[1], hips[2], trans);
+        translateBakedTrail(parent[2], hips[0], trans);
 
         //update numbers from UI
         vem.rigNumber = dropDown.value;
@@ -500,6 +496,7 @@ public class Controls : MonoBehaviour
     {
         BakeTrailRenderersByAvatar(avatar0Trails, 0);
         BakeTrailRenderersByAvatar(avatar1Trails, 1);
+        BakeTrailRenderersByAvatar(avatar2Trails, 2);
     }
 
     public void DeleteBakeTrailRenderersByAvatar(int avatarIndex)
@@ -534,26 +531,14 @@ public class Controls : MonoBehaviour
         //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
     }
 
+    /*
     private IEnumerator SetUpColorInitialize()
     {
         yield return new WaitForSeconds(countdownTime);
         initialDist = Vector3.Distance(hips[0].transform.position, hips[1].transform.position);
         Debug.Log("Initial distance is" + initialDist);
     }
-
-    /*public IEnumerator AutoBake(bool toggle)
-    {
-        yield return new WaitForSeconds(25f);
-        if (toggle) {
-            float delta = Mathf.Repeat(Time.time, 11f);
-            float timer = 10f - delta;
-            if (timer <= 0f) {
-                BakeTrailRenderersByAvatar(avatar0Trails, 0);
-                BakeTrailRenderersByAvatar(avatar1Trails, 1);
-                yield return new WaitForSeconds(1f);
-            }
-        }
-    }*/
+    */
 
     public void TrailBlack()
     {
