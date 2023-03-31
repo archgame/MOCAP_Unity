@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.VFX;
 using HSVPicker;
 using UnityEngine.SceneManagement;
+using static CharacterManager;
 
 public class Controls : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class Controls : MonoBehaviour
     public Dropdown dropDown;
     public Dropdown traceLineType;
     public InputField thresholdInput;
-    public Toggle[] galaxyTog;
     //trailToMeshTogg;
 
     //trailine material
@@ -25,7 +25,7 @@ public class Controls : MonoBehaviour
 
     public float TrailRenderTime = 2.0f;
 
-    public TrailRenderer[] TrailRenderers;
+    private TrailRenderer[] TrailRenderers;
     public List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
     public List<TrailRenderer> avatar1Trails = new List<TrailRenderer>();
     public List<TrailRenderer> avatar2Trails = new List<TrailRenderer>();
@@ -35,7 +35,6 @@ public class Controls : MonoBehaviour
     //set trail color with button
     public GameObject[] colorButtons;
 
-    public Color[] headTailColor = new Color[6];
 
     //set blending color according to dist
     private int countdownTime = 5;
@@ -54,9 +53,7 @@ public class Controls : MonoBehaviour
     public float timerStart;
 
     //public SkinnedMeshRenderer BodyRenderer;
-    private GameObject chars;
 
-    private CharacterManager charManager;
     private GameObject[] sensors;
 
     private GameObject[] parent = new GameObject[3];
@@ -79,9 +76,7 @@ public class Controls : MonoBehaviour
         sensor1Toggle = true;
         sensor2Toggle = true;
 
-        //get CharManager
-        chars = GameObject.Find("_CHARACTERS");
-        charManager = chars.GetComponent<CharacterManager>();
+
         sensors = GameObject.FindGameObjectsWithTag("Sensor");
         //Debug.Log("Sensors length is " + sensors.Length);
 
@@ -110,43 +105,42 @@ public class Controls : MonoBehaviour
         {
             trail.material.SetColor("_startColor", Color.white);
             trail.material.SetColor("_endColor", Color.white);
+            trail.enabled = false;
         }
-        for (int i = 0; i < headTailColor.Length; i++)
-        {
-            headTailColor[i] = Color.white;
+
+        //Color buttons functioni 
+        Button[][] buttonlists = new Button[colorButtons.Length][];
+        for(int i = 0; i < colorButtons.Length; i++) {
+            buttonlists[i] = colorButtons[i].GetComponentsInChildren<Button>();
+            List<TrailRenderer> trails = i switch
+            {
+                0 => avatar0Trails,
+                1 => avatar1Trails,
+                2 => avatar2Trails,
+                _ => null,
+            };
+            ColorButtonFunction(buttonlists[i], trails);
+
         }
-        Button[] buttonList0 = colorButtons[0].GetComponentsInChildren<Button>();
-        Button[] buttonList1 = colorButtons[1].GetComponentsInChildren<Button>();
-        Button[] buttonList2 = colorButtons[2].GetComponentsInChildren<Button>();
-        Button[] buttonList3 = colorButtons[3].GetComponentsInChildren<Button>();
-        Button[] buttonList4 = colorButtons[4].GetComponentsInChildren<Button>();
-        Button[] buttonList5 = colorButtons[5].GetComponentsInChildren<Button>();
-        Debug.Log("ButtonList has " + buttonList0.Length + " buttons");
-        /*foreach(var colBott in buttonList0) {
-            colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_startColor", colBott.colors.normalColor); } });
-            colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList0.Length; i++) { buttonList0[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true ; });
-            colBott.onClick.AddListener(() => { headTailColor[0] = colBott.colors.normalColor;  });
-        }*/
+        /*
         foreach (var colBott in buttonList1)
         {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar0Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList1.Length; i++) { buttonList1[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
-            colBott.onClick.AddListener(() => { headTailColor[1] = colBott.colors.normalColor; });
             colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut0", colBott.colors.normalColor); });
         }
         foreach (var colBott in buttonList3)
         {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar1Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList3.Length; i++) { buttonList3[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
-            colBott.onClick.AddListener(() => { headTailColor[3] = colBott.colors.normalColor; });
             colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut1", colBott.colors.normalColor); });
         }
         foreach (var colBott in buttonList5) {
             colBott.onClick.AddListener(() => { foreach (TrailRenderer trail in avatar2Trails) { trail.material.SetColor("_endColor", colBott.colors.normalColor); } });
             colBott.onClick.AddListener(() => { for (int i = 0; i < buttonList5.Length; i++) { buttonList3[i].GetComponent<Outline>().enabled = false; } colBott.GetComponent<Outline>().enabled = true; });
-            colBott.onClick.AddListener(() => { headTailColor[5] = colBott.colors.normalColor; });
             colBott.onClick.AddListener(() => { grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut1", colBott.colors.normalColor); });
         }
+        */
 
         //Find intial distance
         //StartCoroutine("SetUpColorInitialize");
@@ -167,11 +161,6 @@ public class Controls : MonoBehaviour
             parent[i].transform.localPosition = Vector3.zero;
         }
 
-        foreach (var tog in galaxyTog)
-        {
-            tog.isOn = false;
-        }
-
         //get VisualEventManager Sciprt
         vem = GameObject.Find("VfxEventManager").GetComponent<VisualEventManager>();
 
@@ -181,7 +170,7 @@ public class Controls : MonoBehaviour
         }
     }
 
-    private float _timeIncrement = 0.01f;
+    private float _timeIncrement = 0.2f;
     private bool _trailRendererEnabled = true;
 
     /*/
@@ -216,6 +205,7 @@ public class Controls : MonoBehaviour
         {
             Vector3 offSet0 = new Vector3(hips[0].transform.position.x, 0f, hips[0].transform.position.z);
             Vector3 offSet1 = new Vector3(hips[1].transform.position.x, 0f, hips[1].transform.position.z);
+            Vector3 offSet2 = new Vector3(hips[2].transform.position.x, 0f, hips[2].transform.position.z);
             parentObjs[0].transform.Translate(offSet0 * (-1f));
             //parentObjs[1].transform.Translate(hips[0].transform.position * (-1f));
             //parentObjs[2].transform.Translate(hips[0].transform.position * (-1f));
@@ -226,12 +216,16 @@ public class Controls : MonoBehaviour
             //parentObjs[5].transform.Translate(hips[1].transform.position * (-1f));
             parentObjs[4].transform.position = parentObjs[3].transform.position;
             parentObjs[5].transform.position = parentObjs[3].transform.position;
+            parentObjs[6].transform.Translate(offSet2 * (-1f));
+            parentObjs[7].transform.position = parentObjs[6].transform.position;
+            parentObjs[8].transform.position = parentObjs[6].transform.position;
         }
 
-        //UI control
+        //UI On and Off
         if (Input.GetKeyDown(KeyCode.Y)) { gameUI.enabled = !gameUI.enabled; Cursor.visible = gameUI.enabled; }
         //gameUI.gameObject.SetActive(!gameUI.gameObject.activeInHierarchy);
-        //camera control
+
+        #region CameraControl
         if (Input.GetKeyDown(KeyCode.Tab)) cameraSwitch();
 
         if (mainCam.activeInHierarchy == true && subCam.activeInHierarchy == false)
@@ -255,24 +249,8 @@ public class Controls : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) { subCam.transform.Translate(3 * Vector3.left * Time.deltaTime); }
             if (Input.GetKey(KeyCode.D)) { subCam.transform.Translate(3 * Vector3.right * Time.deltaTime); }
         }
+        #endregion CameraControl
 
-        //blend color according to distance
-        /*
-        currentDist = Vector3.Distance(hips[0].transform.position, hips[1].transform.position);
-        currentDist = math.min(currentDist, initialDist);
-        currentDist = math.max(currentDist, 0.25f * initialDist);
-        float lerp = math.remap(0.25f, 1f, 0.5f, 1f, currentDist / initialDist);
-        foreach (TrailRenderer trail in avatar0Trails)
-        {
-            trail.material.SetColor("_startColor", Color.Lerp(headTailColor[2], headTailColor[0], lerp));
-            trail.material.SetColor("_endColor", Color.Lerp(headTailColor[3], headTailColor[1], lerp));
-        }
-        foreach (TrailRenderer trail in avatar1Trails)
-        {
-            trail.material.SetColor("_startColor", Color.Lerp(headTailColor[0], headTailColor[2], lerp));
-            trail.material.SetColor("_endColor", Color.Lerp(headTailColor[1], headTailColor[3], lerp));
-        }
-        */
 
         //quit application
         if (Input.GetKeyDown(KeyCode.Escape)) { Debug.Log("Quit Application"); Application.Quit(); }
@@ -301,17 +279,17 @@ public class Controls : MonoBehaviour
         //toggle body renderer on and off
         //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && CharMGM.Char0Avatars[(CharMGM.Char0Index + 2) % 3] != null)
         {
-            SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer[] skins = CharMGM.Char0Avatars[(CharMGM.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
             //bool notCurrent = !skins[0].enabled;
             sensor0Toggle = !sensor0Toggle;
             foreach (var skin in skins) { skin.enabled = sensor0Toggle; }
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor0Toggle; }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && CharMGM.Char1Avatars[(CharMGM.Char1Index + 2) % 3] != null)
         {
-            SkinnedMeshRenderer[] skins = charManager.Char1Avatars[(charManager.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer[] skins = CharMGM.Char1Avatars[(CharMGM.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
             sensor1Toggle = !sensor1Toggle;
             foreach (var skin in skins) { skin.enabled = sensor1Toggle; }
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor1Toggle; }
@@ -352,42 +330,8 @@ public class Controls : MonoBehaviour
 
         if (thresholdInput.text != "0") { vem.threshold = float.Parse(thresholdInput.text); }
         else { vem.threshold = 10; }
-
-        //Debug.Log("0");
-
-        /*if (grids[0].activeInHierarchy) {
-            timerStart += Time.deltaTime;
-            if (timerStart >= 60f && grids[0].transform.position.y <= 3) {
-                grids[0].transform.Translate(Vector3.up * 0.5f * Time.deltaTime);
-                timerStart = 121f;
-            }
-        }*/
     }
 
-    /*private void ToggleTrailRendererParticleSystem()
-    {
-        bool trailOn = true;
-        bool particleOn = false;
-        _trailRendererEnabled = !_trailRendererEnabled;
-        if (_trailRendererEnabled)
-        {
-            trailOn = false;
-            particleOn = true;
-        }
-
-        //toggle trail renderers
-        foreach (TrailRenderer trail in TrailRenderers)
-        {
-            //trail.enabled = !trail.enabled;
-            trail.enabled = trailOn;
-        }
-
-        //toggle particle systems
-        foreach (ParticleSystem system in ParticleSystems)
-        {
-            system.enableEmission = !system.enableEmission;
-        }
-    }*/
 
     private void cameraSwitch()
     {
@@ -531,14 +475,6 @@ public class Controls : MonoBehaviour
         //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
     }
 
-    /*
-    private IEnumerator SetUpColorInitialize()
-    {
-        yield return new WaitForSeconds(countdownTime);
-        initialDist = Vector3.Distance(hips[0].transform.position, hips[1].transform.position);
-        Debug.Log("Initial distance is" + initialDist);
-    }
-    */
 
     public void TrailBlack()
     {
@@ -547,9 +483,18 @@ public class Controls : MonoBehaviour
             trail.material.SetColor("_startColor", Color.black);
             trail.material.SetColor("_endColor", Color.black);
         }
-        for (int i = 0; i < headTailColor.Length; i++)
-        {
-            headTailColor[i] = Color.black;
+    }
+
+    private void ColorButtonFunction(Button[] buttonlist, List<TrailRenderer> trails)
+    {
+        foreach(var button in buttonlist) {
+            button.onClick.AddListener(() =>
+            {
+                foreach (var trail in trails) { trail.material.SetColor("_endColor", button.colors.normalColor); }
+                for (int i = 0; i < buttonlist.Length; i++) { buttonlist[i].GetComponent<Outline>().enabled = false; }
+                button.GetComponent<Outline>().enabled = true;
+                grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut0", button.colors.normalColor);
+            });
         }
     }
 }

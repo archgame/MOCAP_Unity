@@ -6,6 +6,19 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
+    private static CharacterManager _instance;
+    public static CharacterManager CharMGM { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this) {
+            Destroy(this.gameObject);
+        }
+        else {
+            _instance = this;
+        }
+    }
+
     #region AVA0
 
     public GameObject[] Char0Avatars;
@@ -170,7 +183,7 @@ public class CharacterManager : MonoBehaviour
             ring.SetColor(ava, color);
 
             //trail color control + galaxy color
-            mainControl.headTailColor[colorIn] = color;
+            //mainControl.headTailColor[colorIn] = color;
             if (avatarIndex == 0)
             {
                 foreach (TrailRenderer trail in mainControl.avatar0Trails)

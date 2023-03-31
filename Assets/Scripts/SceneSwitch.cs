@@ -32,13 +32,12 @@ public class SceneSwitch : MonoBehaviour
     private InputField BakeRateInput;
     private float bakeRate;
 
-    private DataSubscription data;
 
     private int activeIndex;
 
     //Circular GridSpecific
     [SerializeField]
-    private GameObject[] char0, char1;
+    private GameObject[] char0, char1, char2;
 
     private Vector3 camDefaultPos;
     private Vector3 camHighPos;
@@ -79,13 +78,10 @@ public class SceneSwitch : MonoBehaviour
         camLowPos = camDefaultPos - zoomInVec;
 
 
-
         //layer
         int layerDefault = LayerMask.NameToLayer("Default");
         int layer1Only = LayerMask.NameToLayer("Camera 1 Only"); 
         int layer2Only = LayerMask.NameToLayer("Camera 2 Only");
-
-        data = GameObject.Find("DataSubscribers").GetComponent<DataSubscription>();
         sceneSwitch = gameObject.GetComponent<Dropdown>();
         Debug.Log("Current value is" + sceneSwitch.value);
         sceneSwitch.onValueChanged.AddListener(Value =>
@@ -93,13 +89,14 @@ public class SceneSwitch : MonoBehaviour
             CancelInvoke();
             mainControl.DeleteBakeTrailRenderersByAvatar(0);
             mainControl.DeleteBakeTrailRenderersByAvatar(1);
+            mainControl.DeleteBakeTrailRenderersByAvatar(2);
             SwitchScene(Value);
             if (Value < 7) { CD.resetDrawing(); cams[1].transform.position = camDefaultPos; cams[0].transform.position = camDefaultPos; }
             if (Value == 7) { cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
             if (Value > 7) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
             if(Value == 1 || Value == 2 || Value==8) { cams[1].transform.position = camLowPos; cams[0].transform.position = camLowPos; }
-            if (Value == 5 || Value == 4) { data.gridStretchTime = 2f; }
-            if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
+            if (Value == 5 || Value == 4) { AvatarsData.gridStretchTime = 2f; }
+            if (Value == 4) { AvatarsData.avatar0.jumpCount = 1; AvatarsData.avatar1.jumpCount = 1; }
             if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
             if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
             if(Value == 13) { finalTimer = 20f; }    
