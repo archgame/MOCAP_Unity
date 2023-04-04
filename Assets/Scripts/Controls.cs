@@ -119,7 +119,14 @@ public class Controls : MonoBehaviour
                 2 => avatar2Trails,
                 _ => null,
             };
-            ColorButtonFunction(buttonlists[i], trails);
+            string gridParam = i switch
+            {
+                0 => "_gradientOut0",
+                1 => "_gradientOut1",
+                2 => "_gradientOut2",
+                _ => null,
+            };
+            ColorButtonFunction(buttonlists[i], trails, gridParam);
 
         }
         /*
@@ -485,7 +492,7 @@ public class Controls : MonoBehaviour
         }
     }
 
-    private void ColorButtonFunction(Button[] buttonlist, List<TrailRenderer> trails)
+    private void ColorButtonFunction(Button[] buttonlist, List<TrailRenderer> trails, string gridEndColor)
     {
         foreach(var button in buttonlist) {
             button.onClick.AddListener(() =>
@@ -493,7 +500,7 @@ public class Controls : MonoBehaviour
                 foreach (var trail in trails) { trail.material.SetColor("_endColor", button.colors.normalColor); }
                 for (int i = 0; i < buttonlist.Length; i++) { buttonlist[i].GetComponent<Outline>().enabled = false; }
                 button.GetComponent<Outline>().enabled = true;
-                grids[0].GetComponent<MeshRenderer>().material.SetColor("_gradientOut0", button.colors.normalColor);
+                grids[0].GetComponent<MeshRenderer>().material.SetColor(gridEndColor, button.colors.normalColor);
             });
         }
     }

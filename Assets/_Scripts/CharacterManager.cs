@@ -179,7 +179,9 @@ public class CharacterManager : MonoBehaviour
             Material ring = Renderer.material;
             string ava = "_ava0GridColor";
             int colorIn = 0;
-            if (avatarIndex == 1) { ava = "_ava1GridColor"; colorIn = 2; }
+            if (avatarIndex == 0) { ava = "_ava0GridColor"; colorIn = 2; }
+            else if (avatarIndex == 1) { ava = "_ava1GridColor"; colorIn = 2; }
+            else if (avatarIndex == 2) { ava = "_ava2GridColor"; colorIn = 2; }
             ring.SetColor(ava, color);
 
             //trail color control + galaxy color

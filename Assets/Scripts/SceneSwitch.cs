@@ -96,7 +96,7 @@ public class SceneSwitch : MonoBehaviour
             if (Value > 7) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
             if(Value == 1 || Value == 2 || Value==8) { cams[1].transform.position = camLowPos; cams[0].transform.position = camLowPos; }
             if (Value == 5 || Value == 4) { AvatarsData.gridStretchTime = 2f; }
-            if (Value == 4) { AvatarsData.avatar0.jumpCount = 1; AvatarsData.avatar1.jumpCount = 1; }
+            if (Value == 4) { AvatarsData.avatar0.jumpCount = 1; AvatarsData.avatar1.jumpCount = 1; AvatarsData.avatar2.jumpCount = 1; }
             if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
             if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
             if(Value == 13) { finalTimer = 20f; }    

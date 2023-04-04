@@ -7,6 +7,7 @@ using System;
 
 public class AvatarsData : MonoBehaviour
 {
+    
     public class Avatar
     {
         public int avatarIndex;
@@ -100,7 +101,6 @@ public class AvatarsData : MonoBehaviour
         avatar1 = new Avatar(1, new BodyRigs(avat1[0]), new BodyRigs(avat1[1]), new BodyRigs(avat1[2]), new BodyRigs(avat1[3]), new BodyRigs(avat1[4]), new BodyRigs(avat1[5]));
         avatar2 = new Avatar(2, new BodyRigs(avat2[0]), new BodyRigs(avat2[1]), new BodyRigs(avat2[2]), new BodyRigs(avat2[3]), new BodyRigs(avat2[4]), new BodyRigs(avat2[5]));
 
-
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
         mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
 
@@ -148,42 +148,6 @@ public class AvatarsData : MonoBehaviour
         //handDistV2[1] = new Vector2(dist[1], dist[1]);
         //mtl[1].SetVector("_handDistA", handDistV2[0]);
         //mtl[1].SetVector("_handDistB", handDistV2[1]);
-
-
-
-
-
-
-
-
-        //set jump with size
-        if (!isAlienMorph) {
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
-            if (Distance(avatar0.hip.rig, avatar1.hip.rig) <= 3f) {
-                float spacing = Mathf.Repeat(Time.time, 0.9f) + 0.1f;
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
-            } else {
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);
-        }
-        } else if(isAlienMorph) {
-
-            if (gridStretchTime >= 0f) {
-                float spacing = Mathf.Repeat(Time.time, 0.9f) + 0.1f;
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
-                gridStretchTime -= Time.deltaTime;
-            }
-            else {
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetVector("_targetALocation", Vector3.zero);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetVector("_targetBLocation", Vector3.zero);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", 1f);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", 1f);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);
-
-            }
-
-        }
-       
 
     }
 

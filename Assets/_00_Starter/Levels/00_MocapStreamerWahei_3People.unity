@@ -6079,11 +6079,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 195eb83b3adea8d4a80b7602a2a6df4d, type: 3}
---- !u!1 &249931980 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4702939792406662091, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
-  m_PrefabInstance: {fileID: 1853956328}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &250936898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6307,7 +6302,7 @@ MonoBehaviour:
   address: 127.0.0.1
   port: 7002
   socketType: 1
-  actorID: 1
+  actorID: 2
   connectToAxis: 1
   useNewRig: 1
   enableHipMove: 1
@@ -12988,7 +12983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4495437272414330333, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.099999934
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4495437272414330333, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12996,7 +12991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4495437272414330333, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.23
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4495437272414330333, guid: bc6745f8537c6f34e8be9b0d9106bc99, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16985,7 +16980,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809883325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8, y: 125, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17024,7 +17019,7 @@ MonoBehaviour:
   - {fileID: 131091235}
   - {fileID: 2139292489}
   - {fileID: 1303761711}
-  - {fileID: 249931980}
+  - {fileID: 1587828071}
   grids:
   - {fileID: 2137325014}
   - {fileID: 1781175291}
@@ -30998,6 +30993,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585155186}
   m_CullTransparentMesh: 1
+--- !u!1 &1587828071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1703038148065535201, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
+  m_PrefabInstance: {fileID: 1853956328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1590198380
 GameObject:
   m_ObjectHideFlags: 0
@@ -35650,7 +35650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35658,7 +35658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.23
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 362ee28798cc8d4449532988aba361ae, type: 3}
       propertyPath: m_LocalRotation.x
@@ -37611,7 +37611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846165883690029307, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.099999934
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5846165883690029307, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37619,7 +37619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5846165883690029307, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.23
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5846165883690029307, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
       propertyPath: m_LocalRotation.w
@@ -43058,9 +43058,11 @@ MonoBehaviour:
   Anchors:
   - {fileID: 1104163389}
   - {fileID: 1566537657}
+  - {fileID: 232936424}
   paramNames:
   - _targetALocation
   - _targetBLocation
+  - _targetCLocation
   isAlienMorph: 0
 --- !u!64 &2137325017
 MeshCollider:

@@ -33,6 +33,7 @@ public class VisualEventManager : MonoBehaviour
 
     //declare grids
     public GameObject grid;
+    private float spacing=0f;
 
 
 
@@ -50,7 +51,7 @@ public class VisualEventManager : MonoBehaviour
 
     private void Start()
     {
-
+        spacing = grids[0].GetComponent<MeshRenderer>().sharedMaterial.GetFloat("_spacing");
     }
     private void Update()
     {
@@ -152,23 +153,45 @@ public class VisualEventManager : MonoBehaviour
             grids[4].GetComponent<MeshRenderer>().material.SetColor("_centerColor", CharMGM.colors[(CharMGM.Char0ColorIndex + 4) % 5]);
             grids[5].GetComponent<MeshRenderer>().material.SetColor("_centerColor", CharMGM.colors[(CharMGM.Char1ColorIndex + 4) % 5]);
         }
-        /*if (rigSpeed[0] >= threshold && timer1 >= interval)
-        {
-            passEvent(effects[0], "Wave");
-            //Debug.Log("Event Invoked, Speed = " + rigVelocity[0] + "interval = " + timer1);
-            timer1 = 0;
+
+        //Set Grid Spacing
+        grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
+        grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
+        grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount2", avatar2.jumpCount);
+
+        bool[] distBool = { Distance(avatar0.hip.rig, avatar1.hip.rig) <= 3f, Distance(avatar1.hip.rig, avatar2.hip.rig) <= 3f, Distance(avatar0.hip.rig, avatar2.hip.rig) <= 3f };
+        bool isClose = distBool[0] || distBool[1] || distBool[2];
+
+
+        if (isClose) {
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", 150);
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", 150);
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount2", 150);
+            float newSpacing = Mathf.Repeat(Time.time/2, 0.5f) + 0.001f;
+            //newSpacing *= spacing;
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", newSpacing);
+        }
+        else {
+            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
         }
 
-        if (rigSpeed[1] >= threshold && timer2 >= interval)
-        {
-            passEvent(effects[1], "Wave");
-            // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
-            timer2 = 0;
-        }*/
+            /*if (rigSpeed[0] >= threshold && timer1 >= interval)
+            {
+                passEvent(effects[0], "Wave");
+                //Debug.Log("Event Invoked, Speed = " + rigVelocity[0] + "interval = " + timer1);
+                timer1 = 0;
+            }
+
+            if (rigSpeed[1] >= threshold && timer2 >= interval)
+            {
+                passEvent(effects[1], "Wave");
+                // Debug.Log("Event Invoked, Speed = " + rigVelocity[1] + "interval = " + timer2);
+                timer2 = 0;
+            }*/
 
 
 
-    }
+        }
 
     private void passEvent(VisualEffect vfx, string eventName)
     {
