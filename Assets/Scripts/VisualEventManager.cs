@@ -44,7 +44,7 @@ public class VisualEventManager : MonoBehaviour
     public float spinThresholdAngle;
 
     //clap threshold
-    private float clapThreshold = 0.2f;
+    private float clapThreshold = 0.15f;
 
 
 
@@ -164,9 +164,9 @@ public class VisualEventManager : MonoBehaviour
 
 
         if (isClose) {
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", 150);
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", 150);
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount2", 150);
+            //grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", 150);
+            //grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", 150);
+            //grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount2", 150);
             float newSpacing = Mathf.Repeat(Time.time/2, 0.5f) + 0.001f;
             //newSpacing *= spacing;
             grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", newSpacing);

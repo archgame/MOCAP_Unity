@@ -8,6 +8,7 @@ using UnityEngine.VFX;
 using HSVPicker;
 using UnityEngine.SceneManagement;
 using static CharacterManager;
+using static AvatarsData;
 
 public class Controls : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class Controls : MonoBehaviour
 
     private GameObject[] parent = new GameObject[3];
 
-    private GameObject[] hips = new GameObject[3];
+    public GameObject[] hips = new GameObject[3];
 
     private VisualEventManager vem;
 
@@ -80,6 +81,7 @@ public class Controls : MonoBehaviour
         sensors = GameObject.FindGameObjectsWithTag("Sensor");
         //Debug.Log("Sensors length is " + sensors.Length);
 
+
         //get all trail renderers
         TrailRenderers = FindObjectsOfType<TrailRenderer>();
         foreach (TrailRenderer trail in TrailRenderers)
@@ -88,8 +90,6 @@ public class Controls : MonoBehaviour
             else if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) { avatar1Trails.Add(trail); }
             else if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (2)").transform)) { avatar2Trails.Add(trail); }
         }
-
-        hips = GameObject.FindGameObjectsWithTag("hip");
 
         //set trailine linetype
         traceLineType.onValueChanged.AddListener(Value =>
@@ -207,6 +207,7 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
         //reset position
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -333,10 +334,10 @@ public class Controls : MonoBehaviour
         translateBakedTrail(parent[2], hips[0], trans);
 
         //update numbers from UI
-        vem.rigNumber = dropDown.value;
+        //vem.rigNumber = dropDown.value;
 
-        if (thresholdInput.text != "0") { vem.threshold = float.Parse(thresholdInput.text); }
-        else { vem.threshold = 10; }
+        //if (thresholdInput.text != "0") { vem.threshold = float.Parse(thresholdInput.text); }
+        //else { vem.threshold = 10; }
     }
 
 
@@ -475,8 +476,8 @@ public class Controls : MonoBehaviour
             Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
             Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
             child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
-            float intensity = Mathf.PingPong(Time.time, 4f);
-            intensity = 2f - intensity;
+            float intensity = Mathf.PingPong(Time.time, 2f);
+            intensity = 1f - intensity;
             child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
         }
         //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);

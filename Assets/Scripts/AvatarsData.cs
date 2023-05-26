@@ -89,11 +89,13 @@ public class AvatarsData : MonoBehaviour
     public bool isAlienMorph;
     public static float gridStretchTime;
 
+    [SerializeField] private float jumpHeight;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        jumpHeight = 0.15f;
         isAlienMorph = false;
         gridStretchTime = 2f;
         //Construct  the Avatar Class 
@@ -224,7 +226,7 @@ public class AvatarsData : MonoBehaviour
     
     private void isFootHigherThanCalf(Avatar avat)
     {
-        if (avat.leftFoot.rig.transform.position.y >= 0.15f && avat.rightFoot.rig.transform.position.y >= 0.15f) {
+        if (avat.leftFoot.rig.transform.position.y >= jumpHeight && avat.rightFoot.rig.transform.position.y >= jumpHeight) {
             avat.isJump = true;
         }
         else avat.isJump = false;
