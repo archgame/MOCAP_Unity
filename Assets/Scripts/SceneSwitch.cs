@@ -1,3 +1,4 @@
+using Klak.Spout;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class SceneSwitch : MonoBehaviour
 {
 
     public GameObject[] cams;
-
+    public SpoutSender[] spoutSenders;
     //Creating data structure
     [SerializeField]
     private Toggle[] Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
@@ -70,7 +71,8 @@ public class SceneSwitch : MonoBehaviour
             sensorMtls[i] = sensors[i].GetComponent<MeshRenderer>().sharedMaterial;
         }
 
-
+        spoutSenders[0].sourceCamera = cams[0].GetComponent<Camera>();
+        spoutSenders[1].sourceCamera = cams[2].GetComponent<Camera>();
 
         //Record Cam position
         camDefaultPos = cams[1].transform.position;
@@ -286,7 +288,10 @@ public class SceneSwitch : MonoBehaviour
         foreach(var cam in cams) {
             cam.SetActive(false);
         }
+        
         foreach (var ind in index) {
+            if (ind == 0) { spoutSenders[0].sourceCamera = cams[ind].GetComponent<Camera>(); }
+            if (ind == 1) { spoutSenders[1].sourceCamera = cams[ind].GetComponent<Camera>(); }
             cams[ind].SetActive(true);
         }
     }
