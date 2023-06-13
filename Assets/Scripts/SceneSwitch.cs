@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using static UnityEngine.InputManagerEntry;
 
 public class SceneSwitch : MonoBehaviour
 {
@@ -288,12 +289,17 @@ public class SceneSwitch : MonoBehaviour
         foreach(var cam in cams) {
             cam.SetActive(false);
         }
-        
-        foreach (var ind in index) {
-            if (ind == 0) { spoutSenders[0].sourceCamera = cams[ind].GetComponent<Camera>(); }
-            if (ind == 1) { spoutSenders[1].sourceCamera = cams[ind].GetComponent<Camera>(); }
-            cams[ind].SetActive(true);
+        for(int i = 0; i < index.Length;i++) {
+            if (i <= 1) {
+                spoutSenders[i].sourceCamera = cams[index[i]].GetComponent<Camera>();
+            }
+            cams[index[i]].SetActive(true);
         }
+        //foreach (var ind in index) {
+        //    if (i == 0) { }
+        //    if (i == 1) { spoutSenders[1].sourceCamera = cams[ind].GetComponent<Camera>(); }
+        //    cams[ind].SetActive(true);
+        //}
     }
 
     public void ChangeSkinMtl(bool set)
