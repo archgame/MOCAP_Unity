@@ -302,6 +302,9 @@ public class Controls : MonoBehaviour
             UpdateTrailRenderers();
         }
 
+        if (Input.GetKey(KeyCode.W))
+            resetTrails();
+
         //resart Scene
 
         //toggle body renderer on and off
@@ -436,6 +439,18 @@ public class Controls : MonoBehaviour
         }
     }
 
+    void resetTrails()
+    {
+        float resetTrailTimeHolder = TrailRenderTime;
+
+        foreach (TrailRenderer trail in TrailRenderers)
+        {
+            trail.Clear();
+        }
+
+    }
+
+
     /*private void BakeTrailRenderers()
     {
         DeleteBakeTrailRenderers();
@@ -564,5 +579,6 @@ public class Controls : MonoBehaviour
             headTailColor[i] = Color.black;
         }
     }
-    
+
+   
 }
