@@ -79,6 +79,7 @@ public class Controls : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+       
 
         sensor0Toggle = true;
         sensor1Toggle = true;
@@ -96,6 +97,9 @@ public class Controls : MonoBehaviour
             if (trail.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) { avatar0Trails.Add(trail); }
             else { avatar1Trails.Add(trail); }
         }
+
+        //Sets all trail time to TrailRenderTime on start
+        UpdateTrailRenderers();
 
         hips = GameObject.FindGameObjectsWithTag("hip");
 
@@ -426,6 +430,7 @@ public class Controls : MonoBehaviour
 
     private void UpdateTrailRenderers()
     {
+       
         foreach (TrailRenderer trail in TrailRenderers) {
             trail.time = TrailRenderTime;
         }
