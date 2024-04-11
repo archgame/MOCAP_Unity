@@ -302,12 +302,17 @@ public class Controls : MonoBehaviour
             UpdateTrailRenderers();
         }
 
+        //Debug keys for resetting player trails
+
+        //key = 1
         if (Input.GetKey(KeyCode.Alpha1))
             resetTrailsAll();
 
-        if(Input.GetKey(KeyCode.Alpha2))
+        //key = 2
+        if (Input.GetKey(KeyCode.Alpha2))
             resetTrailsAvatar0();
 
+        //key = 3
         if (Input.GetKey(KeyCode.Alpha3))
             resetTrailsAvatar1();
 
@@ -446,6 +451,7 @@ public class Controls : MonoBehaviour
         }
     }
 
+    //Resets both player trails
     public void resetTrailsAll()
     {
         foreach (TrailRenderer trail in TrailRenderers)
@@ -455,6 +461,7 @@ public class Controls : MonoBehaviour
 
     }
 
+    //Resets trail for player 1
     public void resetTrailsAvatar0()
     {
         foreach (TrailRenderer trail in avatar0Trails)
@@ -463,6 +470,7 @@ public class Controls : MonoBehaviour
         }
     }
 
+    //Resets trail for player 2
     public void resetTrailsAvatar1()
     {
         foreach (TrailRenderer trail in avatar1Trails)
