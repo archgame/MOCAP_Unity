@@ -97,6 +97,8 @@ Material:
     m_Floats:
     - BlendSharpness: 4
     - Vector1_4a7980014dc341abb453428e5890b5d1: 1.5
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Color_a5360a19b63240869b73f37091acf98e: {r: 1, g: 1, b: 1, a: 0}
     - Color_b6c314d3997242809e1e3dad2fb653ea: {r: 0.18039216, g: 0.18039216, b: 0.18039216, a: 0}

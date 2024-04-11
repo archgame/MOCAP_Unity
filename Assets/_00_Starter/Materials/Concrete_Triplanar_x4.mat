@@ -72,6 +72,8 @@ Material:
     m_Ints: []
     m_Floats:
     - BlendSharpness: 4
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
     - Vector2_b31bafeb11cb494b9fdb211616a52863: {r: 0.25, g: 0.25, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -302,8 +302,15 @@ public class Controls : MonoBehaviour
             UpdateTrailRenderers();
         }
 
-        if (Input.GetKey(KeyCode.W))
-            resetTrails();
+        if (Input.GetKey(KeyCode.Alpha1))
+            resetTrailsAll();
+
+        if(Input.GetKey(KeyCode.Alpha2))
+            resetTrailsAvatar0();
+
+        if (Input.GetKey(KeyCode.Alpha3))
+            resetTrailsAvatar1();
+
 
         //resart Scene
 
@@ -439,15 +446,29 @@ public class Controls : MonoBehaviour
         }
     }
 
-    void resetTrails()
+    public void resetTrailsAll()
     {
-        float resetTrailTimeHolder = TrailRenderTime;
-
         foreach (TrailRenderer trail in TrailRenderers)
         {
             trail.Clear();
         }
 
+    }
+
+    public void resetTrailsAvatar0()
+    {
+        foreach (TrailRenderer trail in avatar0Trails)
+        {
+            trail.Clear();
+        }
+    }
+
+    public void resetTrailsAvatar1()
+    {
+        foreach (TrailRenderer trail in avatar1Trails)
+        {
+            trail.Clear();
+        }
     }
 
 
