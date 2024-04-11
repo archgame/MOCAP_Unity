@@ -98,11 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f71086bcf956243a8bf182eb678d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAvatar0: 0
-  trailResetKey: {fileID: 0}
-  controls: {fileID: 0}
-  doResetDelay: 0
-  resetDalay: 1
+  _isAvatar0: 0
+  _trailResetKey: {fileID: 0}
+  _controls: {fileID: 0}
+  _resetDalay: 1
 --- !u!135 &2510922662203838268
 SphereCollider:
   m_ObjectHideFlags: 0
