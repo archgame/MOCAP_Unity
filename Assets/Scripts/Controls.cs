@@ -535,6 +535,8 @@ public class Controls : MonoBehaviour
             go.transform.TransformPoint(hips[avaIndex].transform.position);
             go.transform.parent = parent[avaIndex].transform;
 
+            go.gameObject.AddComponent<BakeTrailShrinker>();
+
         }
     }
 
@@ -552,6 +554,8 @@ public class Controls : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
+
+
 
     private void translateBakedTrail(GameObject trailParent, GameObject target, float spd)
     {
@@ -571,6 +575,7 @@ public class Controls : MonoBehaviour
                 float intensity = Mathf.PingPong(Time.time, 4f);
                 intensity = 2f - intensity;
                 child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
+
         }
             //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
     }
