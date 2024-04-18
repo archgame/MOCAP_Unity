@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.VFX;
 using HSVPicker;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Controls : MonoBehaviour
 {
@@ -72,6 +73,15 @@ public class Controls : MonoBehaviour
     public bool sensor0Toggle;
     public bool sensor1Toggle;
 
+    //Bake Trail Destroy
+    [Header("Baked trail clearner settings")]
+    [Tooltip("The amount of time before a baked trail starts to shrink")]
+    [SerializeField] private float _bakedTrailLifeTime = 60;
+    [Tooltip("The speed a baked trail to shrinks and destroy its self")]
+    [SerializeField] private float _bakedTrailShrinkSpeed = 2;
+
+    [SerializeField] private TMP_InputField _bakedTrialLifeTimeInputField;
+    [SerializeField] private TMP_InputField _bakedTrailShrinkSpeedInputField;
 
 
 
@@ -192,6 +202,10 @@ public class Controls : MonoBehaviour
         foreach (TrailRenderer trail in TrailRenderers) {
             trail.enabled = false;
         }
+
+
+        _bakedTrialLifeTimeInputField.text = _bakedTrailLifeTime.ToString();
+        _bakedTrailShrinkSpeedInputField.text = _bakedTrailShrinkSpeed.ToString();
 
     }
 
@@ -535,7 +549,11 @@ public class Controls : MonoBehaviour
             go.transform.TransformPoint(hips[avaIndex].transform.position);
             go.transform.parent = parent[avaIndex].transform;
 
+            //Adds the bakeTrailShrinker script to go
             go.gameObject.AddComponent<BakeTrailShrinker>();
+            //Sets _shrinkDelay and _shinkSpeed verables based on _bakedTrailLifeTime and _bakedTrailShrinkSpeed from this script.
+            go.GetComponent<BakeTrailShrinker>()._shrinkDelay = _bakedTrailLifeTime;
+            go.GetComponent<BakeTrailShrinker>()._shrinkSpeed = _bakedTrailShrinkSpeed;
 
         }
     }
@@ -553,6 +571,16 @@ public class Controls : MonoBehaviour
         foreach (Transform child in parent[avatarIndex].transform) {
             GameObject.Destroy(child.gameObject);
         }
+    }
+
+    public void setBakedTrailLifeTime()
+    {
+        _bakedTrailLifeTime = float.Parse(_bakedTrialLifeTimeInputField.text.ToString());
+    }
+
+    public void setBakedTrailShrinkSpeed()
+    {
+        _bakedTrailShrinkSpeed = float.Parse(_bakedTrailShrinkSpeedInputField.text.ToString());
     }
 
 
