@@ -30592,8 +30592,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2510922662203838268, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: m_Radius
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
       propertyPath: controls
+      value: 
+      objectReference: {fileID: 237206979}
+    - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: _controls
       value: 
       objectReference: {fileID: 237206979}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
@@ -30601,7 +30609,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: _isAvatar0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
       propertyPath: trailResetKey
+      value: 
+      objectReference: {fileID: 1087080536}
+    - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: _trailResetKey
       value: 
       objectReference: {fileID: 1087080536}
     - target: {fileID: 2510922662203838270, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
@@ -35599,8 +35615,16 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2510922662203838268, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: m_Radius
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
       propertyPath: controls
+      value: 
+      objectReference: {fileID: 237206979}
+    - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: _controls
       value: 
       objectReference: {fileID: 237206979}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
@@ -35609,6 +35633,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
       propertyPath: trailResetKey
+      value: 
+      objectReference: {fileID: 1350338297}
+    - target: {fileID: 2510922662203838269, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
+      propertyPath: _trailResetKey
       value: 
       objectReference: {fileID: 1350338297}
     - target: {fileID: 2510922662203838270, guid: 390aa64eb58719b4a9fc6b7803d748cb, type: 3}
