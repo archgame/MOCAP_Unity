@@ -5487,7 +5487,7 @@ MonoBehaviour:
   - {fileID: 710463932}
   sensor0Toggle: 0
   sensor1Toggle: 0
-  _bakedTrailLifeTime: 60
+  _bakedTrailLifeTime: 20
   _bakedTrailShrinkSpeed: 2
   _bakedTrialLifeTimeInputField: {fileID: 1567623516}
   _bakedTrailShrinkSpeedInputField: {fileID: 2031977909}
