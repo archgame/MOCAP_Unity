@@ -52,6 +52,9 @@ public class ConstellationDrawer : MonoBehaviour
 
     [SerializeField]
     private DataSubscription data;
+
+    [SerializeField] private Transform endPointPart;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -156,6 +159,11 @@ public class ConstellationDrawer : MonoBehaviour
             }
         }
 
+        if (isDrawActive == true)
+            endPointPart.gameObject.SetActive(true);
+        else
+            endPointPart.gameObject.SetActive(false);
+
     }
 
     private Vector3 ConnectDir(Vector3 posToNextStar, Vector3 drawDriection)
@@ -234,6 +242,7 @@ public class ConstellationDrawer : MonoBehaviour
     {
         currentP.y = 0f;
         endP.y = 0f;
+        endPointPart.position = endP;
         if (Vector3.Distance(currentP, endP) <= 0.6f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
@@ -316,7 +325,6 @@ public class ConstellationDrawer : MonoBehaviour
         anotherRound();
         isCoroutine = false;
     }
-
 }
 
 
