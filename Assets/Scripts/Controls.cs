@@ -83,6 +83,8 @@ public class Controls : MonoBehaviour
     [SerializeField] private TMP_InputField _bakedTrialLifeTimeInputField;
     [SerializeField] private TMP_InputField _bakedTrailShrinkSpeedInputField;
 
+    [SerializeField] private TMP_InputField _trailRenderTimeInput;
+
 
 
 
@@ -203,7 +205,7 @@ public class Controls : MonoBehaviour
             trail.enabled = false;
         }
 
-
+        _trailRenderTimeInput.text = TrailRenderTime.ToString();
         _bakedTrialLifeTimeInputField.text = _bakedTrailLifeTime.ToString();
         _bakedTrailShrinkSpeedInputField.text = _bakedTrailShrinkSpeed.ToString();
 
@@ -304,30 +306,31 @@ public class Controls : MonoBehaviour
             SceneManager.LoadSceneAsync(
             SceneManager.GetActiveScene().buildIndex);
         }
-
-        //increase trail render time
-        float tempTime = TrailRenderTime;
-        if (Input.GetKey(KeyCode.UpArrow)) { tempTime += _timeIncrement; Debug.Log("Up"); }
-        if (Input.GetKey(KeyCode.DownArrow)) { tempTime -= _timeIncrement; Debug.Log("Down"); }
-        if (TrailRenderTime > 30) { tempTime = 30; }
-        if (TrailRenderTime < 0) { tempTime = 0; }
-        if (tempTime != TrailRenderTime) {
-            TrailRenderTime = tempTime;
-            UpdateTrailRenderers();
-        }
+        //.
+        ////increase trail render time
+        //float tempTime = TrailRenderTime;
+        //if (Input.GetKey(KeyCode.UpArrow)) { tempTime += _timeIncrement; Debug.Log("Up"); }
+        //if (Input.GetKey(KeyCode.DownArrow)) { tempTime -= _timeIncrement; Debug.Log("Down"); }
+        //if (TrailRenderTime > 30) { tempTime = 30; }
+        //if (TrailRenderTime < 0) { tempTime = 0; }
+        //if (tempTime != TrailRenderTime) {
+        //    TrailRenderTime = tempTime;
+        //    UpdateTrailRenderers();
+            
+        //}
 
         //Debug keys for resetting player trails
 
         //key = 1
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.I))
             resetTrailsAll();
 
         //key = 2
-        if (Input.GetKey(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.O))
             resetTrailsAvatar0();
 
         //key = 3
-        if (Input.GetKey(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.P))
             resetTrailsAvatar1();
 
 
@@ -457,6 +460,11 @@ public class Controls : MonoBehaviour
         }*/
     }
 
+    public void newTrailTimeInput()
+    {
+        TrailRenderTime = float.Parse(_trailRenderTimeInput.text.ToString());
+        UpdateTrailRenderers();
+    }
     private void UpdateTrailRenderers()
     {
        
