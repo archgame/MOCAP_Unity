@@ -76,9 +76,9 @@ public class Controls : MonoBehaviour
     //Bake Trail Destroy
     [Header("Baked trail clearner settings")]
     [Tooltip("The amount of time before a baked trail starts to shrink")]
-    [SerializeField] private float _bakedTrailLifeTime = 60;
+    public float _bakedTrailLifeTime = 60;
     [Tooltip("The speed a baked trail to shrinks and destroy its self")]
-    [SerializeField] private float _bakedTrailShrinkSpeed = 2;
+    public float _bakedTrailShrinkSpeed = 2;
 
     [SerializeField] private TMP_InputField _bakedTrialLifeTimeInputField;
     [SerializeField] private TMP_InputField _bakedTrailShrinkSpeedInputField;
