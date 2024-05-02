@@ -55,6 +55,16 @@ public class ConstellationDrawer : MonoBehaviour
 
     [SerializeField] private Transform endPointPart;
 
+    [SerializeField] private SkinnedMeshRenderer[] avatarRenders;
+
+    [SerializeField] private GameObject avatarManager;
+
+    [SerializeField] private Color controllingAvatarColour;
+
+    [SerializeField] private GameObject currantConstlation;
+
+    private int currantAvatarCollorIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -164,6 +174,19 @@ public class ConstellationDrawer : MonoBehaviour
         else
             endPointPart.gameObject.SetActive(false);
 
+
+        if (activeAvartarIndex == 0)
+            currantAvatarCollorIndex = avatarManager.GetComponent<CharacterManager>().Char0ColorIndex;
+        else
+            currantAvatarCollorIndex = avatarManager.GetComponent<CharacterManager>().Char1ColorIndex;
+
+        if (avatarManager.GetComponent<CharacterManager>().Char0ColorIndex == 0)
+            controllingAvatarColour = avatarManager.GetComponent<CharacterManager>().colors[avatarManager.GetComponent<CharacterManager>().colors.Length -1];
+        else
+            controllingAvatarColour = avatarManager.GetComponent<CharacterManager>().colors[currantAvatarCollorIndex - 1];
+            
+        currantConstlation = constellation[turnNum][activeStarIndex].GetComponent<twinkle>().star;
+        currantConstlation.GetComponent<MeshRenderer>().material.SetVector("_Color", controllingAvatarColour);
     }
 
     private Vector3 ConnectDir(Vector3 posToNextStar, Vector3 drawDriection)
@@ -216,10 +239,9 @@ public class ConstellationDrawer : MonoBehaviour
             GameObject ConStars = new GameObject();
             ConStars.name = "Constellation" + j;
             ConStars.transform.parent = allConstellation.transform;
-            for (int i = 0; i < numStar; i++) {
-                starList[j][i] = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-4f, 4f));
 
-                //constellation[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            for (int i = 0; i < numStar; i++) {              
+                starList[j][i] = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-4f, 4f));
                 constellation[j][i] = Instantiate(starSpike);
                 constellation[j][i].transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                 constellation[j][i].GetComponent<twinkle>().period = 1f;
@@ -235,7 +257,7 @@ public class ConstellationDrawer : MonoBehaviour
             constellation[j][1].GetComponent<twinkle>().period = 1f;
         }
 
-
+        
     }
 
     private void IncreIndex(Vector3 currentP, Vector3 endP)
@@ -244,6 +266,7 @@ public class ConstellationDrawer : MonoBehaviour
         endP.y = 0f;
         endPointPart.position = endP;
         if (Vector3.Distance(currentP, endP) <= 0.6f || Input.GetKeyDown(KeyCode.N)) {
+            currantConstlation.GetComponent<MeshRenderer>().material.SetVector("_Color", Color.white);
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             Debug.Log("Twinkle force switched");

@@ -25233,7 +25233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -500.9, y: -327.1}
+  m_AnchoredPosition: {x: -500.90002, y: -327.1}
   m_SizeDelta: {x: 124.995, y: 32.2}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1379239447
@@ -27043,6 +27043,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a7d6619b7080bc4d924d4529599bc4d, type: 3}
+--- !u!137 &1495138818 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 288174962655347435, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
+  m_PrefabInstance: {fileID: 6245219006128959949}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1501703979
 GameObject:
   m_ObjectHideFlags: 0
@@ -36787,6 +36792,11 @@ Transform:
   m_Father: {fileID: 152824566}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!137 &1998158575 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 288174962655347435, guid: 9c530bdb3fe2739408afcfcbff669086, type: 3}
+  m_PrefabInstance: {fileID: 767778870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2002290201
 GameObject:
   m_ObjectHideFlags: 0
@@ -39402,6 +39412,11 @@ MonoBehaviour:
   Sparkle: {fileID: 1863845008}
   data: {fileID: 809883327}
   endPointPart: {fileID: 724400930}
+  avatarRenders:
+  - {fileID: 1495138818}
+  - {fileID: 1998158575}
+  avatarManager: {fileID: 1129106345}
+  controllingAvatarColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &2122569249
 Transform:
   m_ObjectHideFlags: 0
