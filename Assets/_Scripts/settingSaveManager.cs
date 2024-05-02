@@ -12,7 +12,7 @@ public class settingSaveManager : MonoBehaviour
 
     [SerializeField] private GameObject Controls;
 
-    private void Start()
+    private void Awake()
     {
         loadSettings();
     }
@@ -23,6 +23,8 @@ public class settingSaveManager : MonoBehaviour
 
         Controls.GetComponent<Controls>()._bakedTrailLifeTime = PlayerPrefs.GetFloat("BakedTrailLifeTime");
         Controls.GetComponent<Controls>()._bakedTrailShrinkSpeed = PlayerPrefs.GetFloat("BakedTrailShrinkSpeed");
+
+        print("Pref" + PlayerPrefs.GetFloat("BakedTrailLifeTime"));
     }
 
     public void saveSettings()
@@ -31,5 +33,15 @@ public class settingSaveManager : MonoBehaviour
 
         PlayerPrefs.SetFloat("BakedTrailLifeTime", float.Parse(bakedTrailLifeTimeInput.text.ToString()));
         PlayerPrefs.SetFloat("BakedTrailShrinkSpeed", float.Parse(bakedTrilShrinkSpeedInput.text.ToString()));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            //PlayerPrefs.DeleteAll();
+            print("Pref" + PlayerPrefs.GetFloat("BakedTrailLifeTime"));
+        }
+            
     }
 }

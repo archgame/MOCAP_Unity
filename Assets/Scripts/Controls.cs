@@ -85,7 +85,7 @@ public class Controls : MonoBehaviour
 
     [SerializeField] private TMP_InputField _trailRenderTimeInput;
 
-
+    
 
 
     // Start is called before the first frame update
@@ -339,14 +339,14 @@ public class Controls : MonoBehaviour
         //toggle body renderer on and off
         //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null) {
+        if (Input.GetKeyDown(KeyCode.K) && charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null) {
             SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
             //bool notCurrent = !skins[0].enabled;
             sensor0Toggle = !sensor0Toggle;
             foreach (var skin in skins) { skin.enabled = sensor0Toggle; }
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor0Toggle; }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null) {
+        if (Input.GetKeyDown(KeyCode.L) && charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null) {
             SkinnedMeshRenderer[] skins = charManager.Char1Avatars[(charManager.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
             sensor1Toggle = !sensor1Toggle;
             foreach (var skin in skins) { skin.enabled = sensor1Toggle; }
@@ -559,6 +559,7 @@ public class Controls : MonoBehaviour
 
             //Adds the bakeTrailShrinker script to go
             go.gameObject.AddComponent<BakeTrailShrinker>();
+
             //Sets _shrinkDelay and _shinkSpeed verables based on _bakedTrailLifeTime and _bakedTrailShrinkSpeed from this script.
             go.GetComponent<BakeTrailShrinker>()._shrinkDelay = _bakedTrailLifeTime;
             go.GetComponent<BakeTrailShrinker>()._shrinkSpeed = _bakedTrailShrinkSpeed;
