@@ -187,6 +187,10 @@ public class ConstellationDrawer : MonoBehaviour
             
         currantConstlation = constellation[turnNum][activeStarIndex].GetComponent<twinkle>().star;
         currantConstlation.GetComponent<MeshRenderer>().material.SetVector("_Color", controllingAvatarColour);
+
+
+        endPointPart.transform.LookAt(avatars[activeAvartarIndex].hip.position);
+        endPointPart.GetChild(0).GetComponent<ParticleSystem>().startColor = new Color(controllingAvatarColour.r, controllingAvatarColour.g, controllingAvatarColour.b, 1);
     }
 
     private Vector3 ConnectDir(Vector3 posToNextStar, Vector3 drawDriection)
