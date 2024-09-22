@@ -148,6 +148,8 @@ public class DataSubscription : MonoBehaviour
         effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
         effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
         effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        effects[8].SetVector4("_startColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
+        effects[8].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
 
 
         //distance calc 
