@@ -1,6 +1,7 @@
 using Klak.Spout;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 using UnityEngine.UI;
 //using static UnityEngine.InputManagerEntry;
@@ -55,6 +56,8 @@ public class SceneSwitch : MonoBehaviour
 
     private float finalTimer;
 
+    private bool allExcpetTextTurnedOff = false;
+
 
 
 
@@ -105,7 +108,7 @@ public class SceneSwitch : MonoBehaviour
             if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
             if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
             if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
-            if(Value == 13) { finalTimer = 20f; /*data.effects[0].gameObject.SetActive(false) ; data.effects[1].gameObject.SetActive(false);*/ TurnOnVisualGroup(13); }    
+            if(Value == 13) { finalTimer = 20f; /*data.effects[0].gameObject.SetActive(false) ; data.effects[1].gameObject.SetActive(false);*/ TurnOnVisualGroup(13); allExcpetTextTurnedOff = false; }    
         }
         
         );
@@ -141,6 +144,10 @@ public class SceneSwitch : MonoBehaviour
             }
             foreach(var vfx in data.effects) {
                 if (vfx.isActiveAndEnabled) { vfx.SetFloat("_fadeRate", /*Mathf.Max((finalTimer/20),0)*/finalTimer / 20); }
+            }
+            if(finalTimer < -4f && !allExcpetTextTurnedOff) {
+                TurnOffVisualGroupsExcept(13);
+                allExcpetTextTurnedOff = true;
             }
         }
     }

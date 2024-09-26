@@ -13,17 +13,7 @@ MonoBehaviour:
   m_Name: VFXUI
   m_EditorClassIdentifier: 
   groupInfos: []
-  stickyNoteInfos:
-  - title: Spiral
-    position:
-      serializedVersion: 2
-      x: 1949
-      y: 1296
-      width: 244
-      height: 100
-    contents: 
-    theme: Classic
-    textSize: Small
+  stickyNoteInfos: []
   categories: []
   uiBounds:
     serializedVersion: 2
@@ -2154,7 +2144,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.12
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: min
@@ -3278,7 +3268,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.13
+      m_SerializableObject: -1.25
     m_Space: 2147483647
   m_Property:
     name: min
@@ -3312,7 +3302,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.97
+      m_SerializableObject: 1.68
     m_Space: 2147483647
   m_Property:
     name: max
@@ -7024,7 +7014,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 10
+      m_SerializableObject: 85
     m_Space: 2147483647
   m_Property:
     name: b
