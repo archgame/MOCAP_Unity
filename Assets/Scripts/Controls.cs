@@ -68,9 +68,13 @@ public class Controls : MonoBehaviour
     //reset Position
     public GameObject[] parentObjs;
 
-
+    //legacy
     public bool sensor0Toggle;
     public bool sensor1Toggle;
+
+
+    public Toggle ava0Toggle;
+    public Toggle ava1Toggle;
 
 
 
@@ -80,8 +84,7 @@ public class Controls : MonoBehaviour
     private void Start()
     {
 
-        sensor0Toggle = true;
-        sensor1Toggle = true;
+
 
         //get CharManager
         chars = GameObject.Find("_CHARACTERS");
@@ -188,6 +191,9 @@ public class Controls : MonoBehaviour
         foreach (TrailRenderer trail in TrailRenderers) {
             trail.enabled = false;
         }
+
+        ava0Toggle.onValueChanged.AddListener(OnAva0ToggleValueChanged);
+        ava1Toggle.onValueChanged.AddListener(OnAva1ToggleValueChanged);
 
     }
 
@@ -303,6 +309,10 @@ public class Controls : MonoBehaviour
         //toggle body renderer on and off
         //if (Input.GetKeyDown(KeyCode.B) && BodyRenderer != null) { BodyRenderer.enabled = !BodyRenderer.enabled; }
 
+
+
+
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1) && charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null) {
             SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
             //bool notCurrent = !skins[0].enabled;
@@ -316,7 +326,7 @@ public class Controls : MonoBehaviour
             foreach (var skin in skins) { skin.enabled = sensor1Toggle; }
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = sensor1Toggle; }
         }
-
+        */
 
         //bake trail renderer as mesh
         if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
@@ -386,6 +396,27 @@ public class Controls : MonoBehaviour
             system.enableEmission = !system.enableEmission;
         }
     }*/
+
+    public void OnAva0ToggleValueChanged(bool toggleState)
+    {
+        if (charManager.Char0Avatars[(charManager.Char0Index + 2) % 3] != null) {
+            SkinnedMeshRenderer[] skins = charManager.Char0Avatars[(charManager.Char0Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            //bool notCurrent = !skins[0].enabled;
+            //toggleState = !toggleState;
+            foreach (var skin in skins) { skin.enabled = toggleState; }
+            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR").transform)) sensor.GetComponent<MeshRenderer>().enabled = toggleState; }
+        }
+    }
+
+    public void OnAva1ToggleValueChanged(bool toggleState)
+    {
+        if (charManager.Char1Avatars[(charManager.Char1Index + 2) % 3] != null) {
+            SkinnedMeshRenderer[] skins = charManager.Char1Avatars[(charManager.Char1Index + 2) % 3].GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (var skin in skins) { skin.enabled = toggleState; }
+            foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = toggleState; }
+        }
+    }
+
 
     private void cameraSwitch()
     {

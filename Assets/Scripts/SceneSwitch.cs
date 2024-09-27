@@ -58,7 +58,24 @@ public class SceneSwitch : MonoBehaviour
 
     private bool allExcpetTextTurnedOff = false;
 
-
+    private enum Scenes
+    {
+        Shared_World = 0, 
+        Shared_World_Front = 1, 
+        Constellation = 2, 
+        Avatar= 3, 
+        Trace = 4, 
+        Moon = 5, 
+        Circular_1 = 6, 
+        Swirl = 7,
+        Galaxy_Full = 8, 
+        Finale = 9,
+        Spiral = 10,
+        Bake = 11,
+        Circular_2 = 12,
+        Build_Galaxy = 13, 
+        Halo = 14
+    }
 
 
     // Start is called before the first frame update
@@ -100,22 +117,22 @@ public class SceneSwitch : MonoBehaviour
             mainControl.DeleteBakeTrailRenderersByAvatar(0);
             mainControl.DeleteBakeTrailRenderersByAvatar(1);
             SwitchScene(Value);
-            if (Value < 7) { CD.resetDrawing(); cams[1].transform.position = camDefaultPos; cams[0].transform.position = camDefaultPos; }
-            if (Value == 7) { cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
-            if (Value > 7) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
-            if(Value == 1 || Value == 2 || Value==8) { cams[1].transform.position = camLowPos; cams[0].transform.position = camLowPos; }
-            if (Value == 5 || Value == 4) { data.gridStretchTime = 2f; }
-            if (Value == 4) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
-            if (Value == 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
-            if (Value != 3) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
-            if(Value == 13) { finalTimer = 20f; /*data.effects[0].gameObject.SetActive(false) ; data.effects[1].gameObject.SetActive(false);*/ TurnOnVisualGroup(13); allExcpetTextTurnedOff = false; }    
+            if (Value < (int)Scenes.Constellation) { CD.resetDrawing(); cams[1].transform.position = camDefaultPos; cams[0].transform.position = camDefaultPos; }
+            if (Value == (int)Scenes.Constellation) { cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
+            if (Value > (int)Scenes.Constellation) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
+            if(Value == (int)Scenes.Trace || Value == (int)Scenes.Bake || Value== (int)Scenes.Build_Galaxy) { cams[1].transform.position = camLowPos; cams[0].transform.position = camLowPos; }
+            if (Value == (int)Scenes.Circular_1 || Value == (int)Scenes.Circular_2) { data.gridStretchTime = 2f; }
+            if (Value == (int)Scenes.Circular_1) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
+            if (Value == (int)Scenes.Shared_World) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layer2Only); } }
+            if (Value != (int)Scenes.Shared_World) { foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layerDefault) ; } foreach (var meshes in char1) { SimpleChildrenLayerChange(meshes, layerDefault); } }
+
         }
         
         );
         BakeRateInput.onValueChanged.AddListener(Value =>
         {
             CancelInvoke();
-            if (sceneSwitch.value == 2) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
+            if (sceneSwitch.value == (int)Scenes.Bake) { InvokeRepeating("CallBakeTrail", 0f, float.Parse(Value)); }
         });
         allScenes = new Toggle[][] { Scene0Avatar, Scene1Trace, Scene2Bake, Scene3SharedWorld, Scene4Circular, Scene5Alien,
         Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull,SceneFinale, Scene13SharedWorld2 };
@@ -130,13 +147,13 @@ public class SceneSwitch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 15; }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 15; }
         if (sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
-        if (sceneSwitch.value != 13) {
+        if (sceneSwitch.value != (int)Scenes.Finale) {
             foreach (var vfx in data.effects) {
                 if (vfx.isActiveAndEnabled) { vfx.SetFloat("_fadeRate", 1); }
             }
         }
         //final scene
-        if (sceneSwitch.value == 13) {
+        if (sceneSwitch.value == (int)Scenes.Finale) {
             finalTimer -= Time.deltaTime;
             if (finalTimer > 0f) {
                 cams[0].transform.Translate(0, Time.deltaTime / 20f * 10f, 0f, Space.World);
@@ -145,7 +162,7 @@ public class SceneSwitch : MonoBehaviour
             foreach(var vfx in data.effects) {
                 if (vfx.isActiveAndEnabled) { vfx.SetFloat("_fadeRate", /*Mathf.Max((finalTimer/20),0)*/finalTimer / 20); }
             }
-            if(finalTimer < -4f && !allExcpetTextTurnedOff) {
+            if(finalTimer < -2f && !allExcpetTextTurnedOff) {
                 TurnOffVisualGroupsExcept(13);
                 allExcpetTextTurnedOff = true;
             }
@@ -156,45 +173,47 @@ public class SceneSwitch : MonoBehaviour
     {
         switch (i) {
             //Avatar
-            case 0:
+            case (int)Scenes.Avatar:
                 TurnOnCamera(0,3); TurnOffVisualGroupsExcept(0); TurnOnVisualGroup(0); break;
             //Trace
-            case 1:
+            case (int)Scenes.Trace:
                 TurnOnCamera(0,3); TurnOffVisualGroupsExcept(2); TurnOnVisualGroup(2); break;
             //Bake 
-            case 2:
+            case (int)Scenes.Bake:
                 TurnOnCamera(0,3); TurnOffVisualGroupsExcept(1, 2); TurnOnVisualGroup(2); InvokeRepeating("CallBakeTrail", 0f, 10f); break;
             //SharedWorld
-            case 3:
+            case (int)Scenes.Shared_World:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(3); TurnOnVisualGroup(3); break;
             //Circle Grid
-            case 4:
+            case (int)Scenes.Circular_1:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(4); TurnOnVisualGroup(4); break;
             //Circle Grid
-            case 5:
+            case (int)Scenes.Circular_2:
                 TurnOnCamera(2,3); TurnOffVisualGroupsExcept(4, 5); TurnOnVisualGroup(5); break;
             //Moon 2
-            case 6:
+            case (int)Scenes.Moon:
                 TurnOnCamera(4,5); TurnOffVisualGroupsExcept(6); TurnOnVisualGroup(6); break;
             //Constellation
-            case 7:
+            case (int)Scenes.Constellation:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(7); CD.resetDrawing(); TurnOnVisualGroup(7); break;
             //Build the Sky
-            case 8:
+            case (int)Scenes.Build_Galaxy:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(8); TurnOnVisualGroup(8); break;
             //Spiral
-            case 9:
+            case (int)Scenes.Spiral:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(9); TurnOnVisualGroup(9); break;
             //Halo
-            case 10:
+            case (int)Scenes.Halo:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(10); TurnOnVisualGroup(10); break;
             //Swirl
-            case 11:
+            case (int)Scenes.Swirl:
                 TurnOnCamera(0,1); TurnOffVisualGroupsExcept(11); TurnOnVisualGroup(11); break;
             //Combined Galaxy
-            case 12:
+            case (int)Scenes.Galaxy_Full:
                 TurnOnCamera(0, 1); TurnOffVisualGroupsExcept(8, 9, 10, 11); TurnOnVisualGroup(12); break;
-            case 14:
+            case (int)Scenes.Finale:
+                finalTimer = 20f; /*data.effects[0].gameObject.SetActive(false) ; data.effects[1].gameObject.SetActive(false);*/ TurnOnVisualGroup(13); allExcpetTextTurnedOff = false; break;
+            case (int)Scenes.Shared_World_Front:
                 TurnOnCamera(2, 3); TurnOffVisualGroupsExcept(14); TurnOnVisualGroup(14); break;
 
             //Defult

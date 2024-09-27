@@ -6494,7 +6494,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":-15.0,"y":-0.10000000149011612,"z":-15.0}'
+      m_SerializableObject: '{"x":-10.0,"y":-0.10000000149011612,"z":-10.0}'
     m_Space: 2147483647
   m_Property:
     name: newRangeMin
@@ -6630,7 +6630,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":15.0,"y":0.10000000149011612,"z":15.0}'
+      m_SerializableObject: '{"x":10.0,"y":0.10000000149011612,"z":10.0}'
     m_Space: 2147483647
   m_Property:
     name: newRangeMax
