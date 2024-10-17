@@ -10290,7 +10290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477428854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.72212744, y: -1.2, z: 0.31199175}
+  m_LocalPosition: {x: 0.72212744, y: -0.7, z: 0.31199175}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14263,6 +14263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd872332b48e6b42bc2562a654d6c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  postProcessVolume: {fileID: 2053070917}
   cams:
   - {fileID: 430370517}
   - {fileID: 1275180117}
@@ -14316,9 +14317,10 @@ MonoBehaviour:
   - {fileID: 122710772}
   - {fileID: 1096862694}
   - {fileID: 1701001953}
-  SceneFinale:
-  - {fileID: 1387975105}
+  SceneFinaleZoom: []
+  SceneFinaleText:
   - {fileID: 1701001953}
+  - {fileID: 1387975105}
   Scene13SharedWorld2:
   - {fileID: 1114616269}
   control: {fileID: 237206978}
@@ -14400,7 +14402,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Galaxy Full
       m_Image: {fileID: 0}
-    - m_Text: Finale
+    - m_Text: FinaleZoom
+      m_Image: {fileID: 0}
+    - m_Text: FinaleText
       m_Image: {fileID: 0}
     - m_Text: Spiral
       m_Image: {fileID: 0}
