@@ -64,6 +64,8 @@ public class SceneSwitch : MonoBehaviour
 
     private bool allExcpetTextTurnedOff = false;
 
+
+
     private enum Scenes
     {
         Shared_World = 0, 
@@ -114,7 +116,7 @@ public class SceneSwitch : MonoBehaviour
 
         //layer
         int layerDefault = LayerMask.NameToLayer("Default");
-        int layer1Only = LayerMask.NameToLayer("Camera 1 Only"); 
+        int layer1Only = LayerMask.NameToLayer("Camera 1 Only");
         int layer2Only = LayerMask.NameToLayer("Camera 2 Only");
 
         data = GameObject.Find("DataSubscribers").GetComponent<DataSubscription>();
@@ -156,13 +158,22 @@ public class SceneSwitch : MonoBehaviour
         Scene6Moon, Scene7Constellation, Scene8BuildGalaxy, Scene9Sprial, Scene10Halo, Scene11Swirl, Scene12GalaxyFull,SceneFinaleZoom, SceneFinaleText,Scene13SharedWorld2 };
         mainControl = control.GetComponent<Controls>();
         CD = LineDraw.GetComponent<ConstellationDrawer>();
-        SwitchScene(0);
+
+        SwitchScene((int)Scenes.Shared_World);
+
+        if (sceneSwitch.value == (int)Scenes.Shared_World) {
+            foreach (var meshes in char0) { SimpleChildrenLayerChange(meshes, layer1Only); }
+            foreach (var meshes in char1) {
+                SimpleChildrenLayerChange(meshes, layer2Only);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         activeIndex = sceneSwitch.value;
+
         if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 16; }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 16; }
         if (sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
