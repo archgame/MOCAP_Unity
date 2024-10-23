@@ -590,5 +590,22 @@ public class Controls : MonoBehaviour
             headTailColor[i] = Color.black;
         }
     }
-    
+
+    public void resetTrailsAvatar0()
+    {
+        foreach (TrailRenderer trail in avatar0Trails) {
+            trail.Clear();
+        }
+    }
+
+    //Resets trail for player 2
+    public void resetTrailsAvatar1()
+    {
+        foreach (TrailRenderer trail in avatar1Trails) {
+            trail.Clear();
+        }
+    }
+
 }
+
+
