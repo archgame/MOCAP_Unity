@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using System;
 using Unity.Mathematics;
+using static DataSubscription;
 
 public class DataSubscription : MonoBehaviour
 {
@@ -58,6 +59,7 @@ public class DataSubscription : MonoBehaviour
         public float speed;
         public Vector3 rotOmega;
         public float deltaYlastFrame;
+        public float signedDeltaYlastFrame;
         public float rotationSpeed;
         public BodyRigs(GameObject rig)
         {
@@ -172,12 +174,22 @@ public class DataSubscription : MonoBehaviour
         a = math.remap(0f, 500f, 0.8f, 6f, a);
         b = math.remap(0f, 500f, 0.8f, 6f, b);
 
+        if (avatar0.hip.signedDeltaYlastFrame >= 0) {
+            effects[2].SetFloat("directionA", 1f);
+        }
+        else { effects[2].SetFloat("directionA", -1f); }
+
+        if (avatar1.hip.signedDeltaYlastFrame >= 0) {
+            effects[2].SetFloat("directionB", 1f);
+        }
+        else { effects[2].SetFloat("directionB", -1f); }
+
         effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.8f, a ));
         effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.8f, b ));
 
 
-        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.8f, a));
-        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.8f, b));
+        //effects[2].SetFloat("attractForceStrength", Mathf.Max(0.8f, a));
+        //effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.8f, b));
 
 
         if (grids[2].activeInHierarchy && grids[3].activeInHierarchy) {
@@ -259,6 +271,7 @@ public class DataSubscription : MonoBehaviour
         {
             bodyRig.rotation = bodyRig.rig.transform.eulerAngles ;
             bodyRig.rotOmega = (bodyRig.rotation - bodyRig.lastRotation) / Time.deltaTime;
+            bodyRig.signedDeltaYlastFrame = (bodyRig.rotation.y - bodyRig.lastRotation.y);
             bodyRig.deltaYlastFrame = Mathf.Abs(bodyRig.rotation.y - bodyRig.lastRotation.y);
             //Debug.Log("Delta Y is " + bodyRig.deltaYlastFrame);
             if (bodyRig.deltaYlastFrame >=200f) {
