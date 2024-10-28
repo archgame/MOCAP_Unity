@@ -72,7 +72,7 @@ public class Controls : MonoBehaviour
     public bool sensor0Toggle;
     public bool sensor1Toggle;
 
-
+    public Toggle masterToggle;
     public Toggle ava0Toggle;
     public Toggle ava1Toggle;
 
@@ -192,6 +192,7 @@ public class Controls : MonoBehaviour
             trail.enabled = false;
         }
 
+        masterToggle.onValueChanged.AddListener(OnMasterToggleValueChanged);
         ava0Toggle.onValueChanged.AddListener(OnAva0ToggleValueChanged);
         ava1Toggle.onValueChanged.AddListener(OnAva1ToggleValueChanged);
 
@@ -332,8 +333,8 @@ public class Controls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
 
         //delete drawing
-        if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
-
+        //if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
+        if (Input.GetKeyDown(KeyCode.X)) { resetTrailsAvatar0(); resetTrailsAvatar1(); }
         //toggle trail renderer and particle systems
         //if (Input.GetKeyDown(KeyCode.O)) { ToggleTrailRendererParticleSystem(avatar0Trails); }
         //if (Input.GetKeyDown(KeyCode.P)) { ToggleTrailRendererParticleSystem(avatar1Trails); }
@@ -415,6 +416,12 @@ public class Controls : MonoBehaviour
             foreach (var skin in skins) { skin.enabled = toggleState; }
             foreach (var sensor in sensors) { if (sensor.transform.IsChildOf(GameObject.Find("Ch36_nonPBR (1)").transform)) sensor.GetComponent<MeshRenderer>().enabled = toggleState; }
         }
+    }
+
+    private void OnMasterToggleValueChanged(bool value)
+    {
+        OnAva0ToggleValueChanged(value);  // Call the first function
+        OnAva1ToggleValueChanged(value);  // Call the second function
     }
 
 
