@@ -144,14 +144,14 @@ public class DataSubscription : MonoBehaviour
         effects[5].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime);
         effects[6].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
 
-        effects[0].SetVector4("BurstColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[1].SetVector4("BurstColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        effects[3].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        effects[8].SetVector4("_startColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[8].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+        effects[0].SetVector4("BurstColor", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+        effects[1].SetVector4("BurstColor", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+        effects[3].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+        effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+        effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+        effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+        effects[8].SetVector4("_startColor", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+        effects[8].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
 
 
         //distance calc 
@@ -184,6 +184,19 @@ public class DataSubscription : MonoBehaviour
         }
         else { effects[2].SetFloat("directionB", -1f); }
 
+
+
+                if (avatar0.hip.signedDeltaYlastFrame >= 0) {
+            effects[5].SetFloat("direction", 1f);
+        }
+        else { effects[5].SetFloat("direction", -1f); }
+
+        if (avatar1.hip.signedDeltaYlastFrame >= 0) {
+            effects[6].SetFloat("direction", 1f);
+        }
+        else { effects[6].SetFloat("direction", -1f); }
+
+
         effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.8f, a ));
         effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.8f, b ));
 
@@ -193,8 +206,8 @@ public class DataSubscription : MonoBehaviour
 
 
         if (grids[2].activeInHierarchy && grids[3].activeInHierarchy) {
-            grids[2].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-            grids[3].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
+            grids[2].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+            grids[3].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
         }
 
         if (grids[4].activeInHierarchy && grids[5].activeInHierarchy) {
