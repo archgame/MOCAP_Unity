@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1180841072394359332}
   - component: {fileID: 3785517949140938067}
   - component: {fileID: 3589721383889076797}
+  - component: {fileID: 8169471799674777814}
   m_Layer: 0
   m_Name: Trail
   m_TagString: Untagged
@@ -76,7 +77,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 32
+  m_Time: 6
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.9639741
@@ -4921,3 +4922,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8169471799674777814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980609243536159272}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d236e5d433d44974ab9c9c443b03f6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPicker: {fileID: 0}
+  endPicker: {fileID: 0}
+  Color1: {r: 1, g: 0.953251, b: 0, a: 1}
+  Color2: {r: 0, g: 0.34011602, b: 1, a: 1}
+  SetColorOnStart: 1

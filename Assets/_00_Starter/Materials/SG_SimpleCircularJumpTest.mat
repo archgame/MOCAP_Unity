@@ -62,7 +62,8 @@ Material:
     - _handDistBf: 0.5
     - _jumpCount0: 36
     - _jumpCount1: 36
-    - _spacing: 1
+    - _jumpCount2: 0
+    - _spacing: 0.03125
     m_Colors:
     - Color_8fe623cb9f294d2abaee3db8b3bebcb9: {r: 0, g: 0.59169054, b: 1, a: 0}
     - Color_ab200907260848c7a863d05e1b30a7b7: {r: 1, g: 0, b: 0.041718483, a: 0}
@@ -70,8 +71,12 @@ Material:
     - Color_ec970acb2a3c48ba8f886a7746afb2ca: {r: 0.745283, g: 0.32694018, b: 0.32694018, a: 0}
     - _ava0GridColor: {r: 1, g: 0, b: 0.09013939, a: 0}
     - _ava1GridColor: {r: 0, g: 0.2535498, b: 1, a: 0}
+    - _ava1GridColor_1: {r: 0.4618224, g: 0.6039216, b: 0, a: 0}
+    - _ava2GridColor: {r: 0.5259562, g: 0.6037736, b: 0.27055886, a: 0}
     - _gradientOut0: {r: 0, g: 0, b: 0, a: 0}
     - _gradientOut1: {r: 0, g: 0, b: 0, a: 0}
+    - _gradientOut2: {r: 0, g: 0, b: 0, a: 0}
     - _targetALocation: {r: 6, g: 8, b: 0, a: 0}
     - _targetBLocation: {r: 6, g: 8, b: 3, a: 0}
+    - _targetCLocation: {r: 6, g: 8, b: 3, a: 0}
   m_BuildTextureStacks: []

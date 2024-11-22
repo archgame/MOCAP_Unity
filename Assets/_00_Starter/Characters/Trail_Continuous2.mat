@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Trail_Continuous1
+  m_Name: Trail_Continuous2
   m_Shader: {fileID: -6465566751694194690, guid: 0b7f22dcc05388e48a3ec6dc9967501c, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []

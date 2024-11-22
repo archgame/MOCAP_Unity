@@ -7,6 +7,7 @@ public class CameraLookAt : MonoBehaviour
     GameObject host;
     public GameObject hip0;
     public GameObject hip1;
+    public GameObject hip2;
     public Camera cam;
     public Camera buddyCam;
 
@@ -20,7 +21,7 @@ public class CameraLookAt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        host.transform.position = (hip0.transform.position + hip1.transform.position) / 2f;
+        host.transform.position = (hip0.transform.position + hip1.transform.position + hip2.transform.position) / 3f;
         host.transform.position = new Vector3(host.transform.position.x, 1.2f, host.transform.position.z);
         if (auto) {
             cam.transform.LookAt(host.transform);

@@ -33,7 +33,7 @@ public class ConstellationDrawer : MonoBehaviour
     public bool isDrawActive;
     private int activeAvartarIndex;
     public int starNum=5;
-    private DataSubscription.Avatar[] avatars;
+    private AvatarsData.Avatar[] avatars;
 
 
     private LineRenderer[] lineRenderers;
@@ -50,14 +50,12 @@ public class ConstellationDrawer : MonoBehaviour
 
     private bool isCoroutine;
 
-    [SerializeField]
-    private DataSubscription data;
     // Start is called before the first frame update
     void Start()
     {
         isCoroutine = false;
         isDrawActive = false;
-        avatars = new DataSubscription.Avatar[2] { data.avatar0, data.avatar1 };
+        avatars = new AvatarsData.Avatar[3] { AvatarsData.avatar0, AvatarsData.avatar1, AvatarsData.avatar2 };
         allConstellation = new GameObject();
         allConstellation.name = "All Constellations";
         allConstellation.transform.parent = gameObject.transform;
@@ -251,7 +249,7 @@ public class ConstellationDrawer : MonoBehaviour
                 return; }
             //constellation[activeStarIndex].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             //instanceRadarWithScale(activeStarIndex, 6f);
-            activeAvartarIndex = activeAvartarIndex == 0 ? 1 : 0;
+            activeAvartarIndex = (activeAvartarIndex + 1) % 3;
             Debug.Log("activeAvatarIndex is now " + activeAvartarIndex);
             //Debug.Log("activeStarIndex is now " + activeStarIndex);
             constellation[turnNum][activeStarIndex].SetActive(true);

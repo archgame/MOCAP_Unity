@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 using System;
-using Unity.Mathematics;
 
-public class DataSubscription : MonoBehaviour
+
+public class AvatarsData : MonoBehaviour
 {
+    
     public class Avatar
     {
         public int avatarIndex;
@@ -67,17 +68,17 @@ public class DataSubscription : MonoBehaviour
         }
     }
 
-
     //declare avatars, avatar[]= {head, hip, left hand, right hand, left foot, right foot}
     public GameObject[] avat0;
     public GameObject[] avat1;
-    public Avatar avatar0;
-    public Avatar avatar1;
+    public GameObject[] avat2;
+    public static Avatar avatar0;
+    public static Avatar avatar1;
+    public static Avatar avatar2;
     /*public BodyRigs[] avat0Rigs ;
     public BodyRigs[] avat1Rigs ;*/
 
     //declare vfx
-    public VisualEffect[] effects;
     public GameObject[] grids;
     [SerializeField] private Vector2[] handDistV2;
     [SerializeField] private Material[] mtl;
@@ -86,28 +87,25 @@ public class DataSubscription : MonoBehaviour
     public float[] dist;
 
     public bool isAlienMorph;
-    public float gridStretchTime;
+    public static float gridStretchTime;
 
+    [SerializeField] private float jumpHeight;
 
-    //declare character
-    private GameObject chars;
-    private CharacterManager charManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        jumpHeight = 0.15f;
         isAlienMorph = false;
         gridStretchTime = 2f;
         //Construct  the Avatar Class 
         avatar0 = new Avatar(0, new BodyRigs(avat0[0]), new BodyRigs(avat0[1]), new BodyRigs(avat0[2]), new BodyRigs(avat0[3]), new BodyRigs(avat0[4]), new BodyRigs(avat0[5]));
         avatar1 = new Avatar(1, new BodyRigs(avat1[0]), new BodyRigs(avat1[1]), new BodyRigs(avat1[2]), new BodyRigs(avat1[3]), new BodyRigs(avat1[4]), new BodyRigs(avat1[5]));
-
+        avatar2 = new Avatar(2, new BodyRigs(avat2[0]), new BodyRigs(avat2[1]), new BodyRigs(avat2[2]), new BodyRigs(avat2[3]), new BodyRigs(avat2[4]), new BodyRigs(avat2[5]));
 
         mtl[0] = grids[0].GetComponent<MeshRenderer>().material;
         mtl[1] = grids[1].GetComponent<MeshRenderer>().material;
 
-        chars = GameObject.Find("_CHARACTERS");
-        charManager = chars.GetComponent<CharacterManager>();
 
 
     }
@@ -119,105 +117,39 @@ public class DataSubscription : MonoBehaviour
         //velocity calc
         RigsVelocity(avatar0);
         RigsVelocity(avatar1);
+        RigsVelocity(avatar2);
 
         //rotation speed calc
         RigsRotation(avatar0);
         RigsRotation(avatar1);
+        RigsRotation(avatar2);
+
 
         //jumping defition
         isFootHigherThanCalf(avatar0);
         isFootHigherThanCalf(avatar1);
+        isFootHigherThanCalf(avatar2);
+
 
         //Spin def
         isSpinning(avatar0);
         isSpinning(avatar1);
+        isSpinning(avatar2);
 
-        //TrailStar initial speed
-        effects[3].SetVector3("VelocityA", avatar0.rightHand.velocity);
-        effects[4].SetVector3("VelocityA", avatar1.rightHand.velocity);
-        effects[5].SetVector3("VelocityA", avatar0.rightHand.velocity);
-        effects[6].SetVector3("VelocityA", avatar1.rightHand.velocity);
-        effects[3].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime );
-        effects[4].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
-        effects[5].SetVector3("_Increment", avatar0.rightHand.velocity * Time.deltaTime);
-        effects[6].SetVector3("_Increment", avatar1.rightHand.velocity * Time.deltaTime);
-
-        effects[0].SetVector4("BurstColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[1].SetVector4("BurstColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        effects[3].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[4].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        effects[5].SetVector4("_endColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-        effects[6].SetVector4("_endColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
 
 
         //distance calc 
         dist[0] = Distance(avat0[2], avat0[3]);
         dist[1] = Distance(avat0[2], avat1[2]);
         //subscribtions
-        effects[0].SetFloat("handHipDist", dist[0]);
-        effects[1].SetFloat("handHipDist", dist[1]);
-        mtl[0].SetFloat("_handDistAf", dist[0]);
-        mtl[0].SetFloat("_handDistBf", dist[1]);
-        handDistV2[0] = new Vector2(dist[0], dist[0]);
-        handDistV2[1] = new Vector2(dist[1], dist[1]);
-        mtl[1].SetVector("_handDistA", handDistV2[0]);
-        mtl[1].SetVector("_handDistB", handDistV2[1]);
-
-
-        //set swirl strength to work with speed
-        float a = math.min(avatar0.hip.rotationSpeed, 500f);
-        float b = math.min(avatar1.hip.rotationSpeed, 500f);
-        a = math.remap(0f, 500f, 0.8f, 6f, a);
-        b = math.remap(0f, 500f, 0.8f, 6f, b);
-
-        effects[2].SetFloat("swirlForceStrength", Mathf.Max(0.8f, a ));
-        effects[2].SetFloat("swirlForceStrengthB", Mathf.Max(0.8f, b ));
-
-
-        effects[2].SetFloat("attractForceStrength", Mathf.Max(0.8f, a));
-        effects[2].SetFloat("attractForceStrengthB", Mathf.Max(0.8f, b));
-
-
-        if (grids[2].activeInHierarchy && grids[3].activeInHierarchy) {
-            grids[2].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-            grids[3].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        }
-
-        if (grids[4].activeInHierarchy && grids[5].activeInHierarchy) {
-            grids[4].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char0ColorIndex + 4) % 5]);
-            grids[5].GetComponent<MeshRenderer>().material.SetColor("_centerColor", charManager.colors[(charManager.Char1ColorIndex + 4) % 5]);
-        }
-
-
-
-        //set jump with size
-        if (!isAlienMorph) {
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
-            if (Distance(avatar0.hip.rig, avatar1.hip.rig) <= 3f) {
-                float spacing = Mathf.Repeat(Time.time, 0.9f) + 0.1f;
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
-            } else {
-            grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);
-        }
-        } else if(isAlienMorph) {
-
-            if (gridStretchTime >= 0f) {
-                float spacing = Mathf.Repeat(Time.time, 0.9f) + 0.1f;
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
-                gridStretchTime -= Time.deltaTime;
-            }
-            else {
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetVector("_targetALocation", Vector3.zero);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetVector("_targetBLocation", Vector3.zero);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", 1f);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", 1f);
-                grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);
-
-            }
-
-        }
-       
+        //effects[0].SetFloat("handHipDist", dist[0]);
+        //effects[1].SetFloat("handHipDist", dist[1]);
+        //mtl[0].SetFloat("_handDistAf", dist[0]);
+        //mtl[0].SetFloat("_handDistBf", dist[1]);
+        //handDistV2[0] = new Vector2(dist[0], dist[0]);
+        //handDistV2[1] = new Vector2(dist[1], dist[1]);
+        //mtl[1].SetVector("_handDistA", handDistV2[0]);
+        //mtl[1].SetVector("_handDistB", handDistV2[1]);
 
     }
 
@@ -285,7 +217,7 @@ public class DataSubscription : MonoBehaviour
     }
 
 
-    public float Distance(GameObject a, GameObject b)
+    public static float Distance(GameObject a, GameObject b)
     {
         float distance = Vector3.Distance(a.transform.position, b.transform.position);
         return distance;
@@ -294,7 +226,7 @@ public class DataSubscription : MonoBehaviour
     
     private void isFootHigherThanCalf(Avatar avat)
     {
-        if (avat.leftFoot.rig.transform.position.y >= 0.15f && avat.rightFoot.rig.transform.position.y >= 0.15f) {
+        if (avat.leftFoot.rig.transform.position.y >= jumpHeight && avat.rightFoot.rig.transform.position.y >= jumpHeight) {
             avat.isJump = true;
         }
         else avat.isJump = false;

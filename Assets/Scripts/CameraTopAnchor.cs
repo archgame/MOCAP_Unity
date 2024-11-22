@@ -7,6 +7,7 @@ public class CameraTopAnchor : MonoBehaviour
     GameObject host;
     public GameObject hip0;
     public GameObject hip1;
+    public GameObject hip2;
     public Camera cam;
 
     public bool auto;
@@ -19,7 +20,7 @@ public class CameraTopAnchor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        host.transform.position = (hip0.transform.position + hip1.transform.position) / 2f;
+        host.transform.position = (hip0.transform.position + hip1.transform.position + hip2.transform.position) / 3f;
         Vector3 anchor = new Vector3(host.transform.position.x, cam.transform.position.y, host.transform.position.z);
 
         if (auto) {
