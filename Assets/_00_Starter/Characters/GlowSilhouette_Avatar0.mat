@@ -93,6 +93,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Vector1_5ceba00dd2fc4ad08c57a97cd5dd2351: 1
+    - _Alpha: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,6 +105,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Float: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

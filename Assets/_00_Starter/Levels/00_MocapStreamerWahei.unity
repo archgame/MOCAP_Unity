@@ -5066,7 +5066,7 @@ MonoBehaviour:
   address: 127.0.0.1
   port: 7002
   socketType: 1
-  actorID: 0
+  actorID: 1
   connectToAxis: 1
   useNewRig: 1
   enableHipMove: 1
@@ -14492,6 +14492,7 @@ MonoBehaviour:
   - {fileID: 822646229}
   - {fileID: 710463932}
   blackMtl: {fileID: 2100000, guid: 6b6c826fab4594b4ea528d8363c8dc37, type: 2}
+  chm: {fileID: 1129106347}
 --- !u!114 &784109976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19897,7 +19898,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1152844583
 Transform:
@@ -35196,7 +35197,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1980001614
 GameObject:

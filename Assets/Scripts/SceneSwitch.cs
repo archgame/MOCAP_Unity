@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using System.ComponentModel.Design;
 //using static UnityEngine.InputManagerEntry;
 
 public class SceneSwitch : MonoBehaviour
@@ -64,6 +65,8 @@ public class SceneSwitch : MonoBehaviour
 
     private bool allExcpetTextTurnedOff = false;
 
+    public CharacterManager chm;
+
 
 
     private enum Scenes
@@ -90,7 +93,8 @@ public class SceneSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        chm.Char0Mat.SetFloat("_Alpha", 1);
+        chm.Char1Mat.SetFloat("_Alpha", 1);
 
         skins = FindObjectsOfType<SkinnedMeshRenderer>();
         skinMtls = new Material[skins.Length];
@@ -192,14 +196,36 @@ public class SceneSwitch : MonoBehaviour
         }
         if (sceneSwitch.value == (int)Scenes.FinaleText) {
             fadeRate -= Time.deltaTime;
+            Color senColor0 = chm.Sensor0Mat.color;
+            Color senColor1 = chm.Sensor1Mat.color;
+            senColor0.a = 0;
+            senColor1.a = 0;
+            chm.Sensor0Mat.color = senColor0;
+            chm.Sensor1Mat.color = senColor1;
             foreach (var vfx in data.effects) {
-                if (vfx.isActiveAndEnabled) { vfx.SetFloat("_fadeRate", /*Mathf.Max((finalTimer/20),0)*/fadeRate / 10); }
+                if (vfx.isActiveAndEnabled) { 
+                    vfx.SetFloat("_fadeRate", /*Mathf.Max((finalTimer/20),0)*/fadeRate / 10); 
+                    chm.Char0Mat.SetFloat("_Alpha", fadeRate/10);
+                    chm.Char1Mat.SetFloat("_Alpha", fadeRate / 10);
+                }
             }
             if (fadeRate < -2f && !allExcpetTextTurnedOff) {
                 TurnOffVisualGroupsExcept(14);
                 allExcpetTextTurnedOff = true;
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Color senColor0 = chm.Sensor0Mat.color;
+        Color senColor1 = chm.Sensor1Mat.color;
+        senColor0.a = 100;
+        senColor1.a = 100;
+        chm.Sensor0Mat.color = senColor0;
+        chm.Sensor1Mat.color = senColor1;
+        chm.Char0Mat.SetFloat("_Alpha", 1);
+        chm.Char1Mat.SetFloat("_Alpha", 1);
     }
 
     public void SwitchScene(int i)
