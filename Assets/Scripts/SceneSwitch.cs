@@ -82,11 +82,12 @@ public class SceneSwitch : MonoBehaviour
         Galaxy_Full = 8, 
         FinaleZoom = 9,
         FinaleText = 10,
-        Spiral = 11,
-        Bake = 12,
-        Circular_2 = 13,
-        Build_Galaxy = 14, 
-        Halo = 15
+        FinaleTextFade = 11,
+        Spiral = 12,
+        Bake = 13,
+        Circular_2 = 14,
+        Build_Galaxy = 15, 
+        Halo = 16
     }
 
 
@@ -143,7 +144,7 @@ public class SceneSwitch : MonoBehaviour
 
             if (Value < (int)Scenes.Constellation) { CD.resetDrawing(); cams[1].transform.position = camDefaultPos; cams[0].transform.position = camDefaultPos; }
             if (Value == (int)Scenes.Constellation) { cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
-            if (Value > (int)Scenes.Constellation && Value != (int)Scenes.FinaleText) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
+            if (Value > (int)Scenes.Constellation && Value != (int)Scenes.FinaleText && Value != (int)Scenes.FinaleTextFade) { CD.resetDrawing(); cams[1].transform.position = camHighPos; cams[0].transform.position = camHighPos; }
             if(Value == (int)Scenes.Trace || Value == (int)Scenes.Bake || Value== (int)Scenes.Build_Galaxy) { cams[1].transform.position = camLowPos; cams[0].transform.position = camLowPos; }
             if (Value == (int)Scenes.Circular_1 || Value == (int)Scenes.Circular_2) { data.gridStretchTime = 2f; }
             if (Value == (int)Scenes.Circular_1) { data.avatar0.jumpCount = 1; data.avatar1.jumpCount = 1; }
@@ -178,10 +179,10 @@ public class SceneSwitch : MonoBehaviour
     {
         activeIndex = sceneSwitch.value;
 
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 16; }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 16; }
+        if (Input.GetKeyDown(KeyCode.RightArrow)) { activeIndex++; activeIndex %= 17; }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) { activeIndex--; activeIndex %= 17; }
         if (sceneSwitch.value != activeIndex) { sceneSwitch.value = activeIndex; }
-        if (sceneSwitch.value != (int)Scenes.FinaleZoom) {
+        if (sceneSwitch.value != (int)Scenes.FinaleZoom && sceneSwitch.value != (int)Scenes.FinaleTextFade && sceneSwitch.value != (int)Scenes.FinaleText) {
             foreach (var vfx in data.effects) {
                 if (vfx.isActiveAndEnabled) { vfx.SetFloat("_fadeRate", 1); }
             }
@@ -213,6 +214,9 @@ public class SceneSwitch : MonoBehaviour
                 TurnOffVisualGroupsExcept(14);
                 allExcpetTextTurnedOff = true;
             }
+        }
+        if (sceneSwitch.value == (int)Scenes.FinaleTextFade) {
+            data.effects[8].SetFloat("_Alpha", Mathf.Clamp01(data.effects[8].GetFloat("_Alpha") - Time.deltaTime / 5f));
         }
     }
 
@@ -275,6 +279,9 @@ public class SceneSwitch : MonoBehaviour
 
             case (int)Scenes.FinaleText:
                 fadeRate = 10f;  allExcpetTextTurnedOff = false; TurnOnVisualGroup(14); break;
+            case (int)Scenes.FinaleTextFade:
+                Debug.Log("Text Fade Now");
+                fadeRate = -10f; TurnOnVisualGroup(14); break;
 
             case (int)Scenes.Shared_World_Front:
                 TurnOnCamera(2, 3); TurnOffVisualGroupsExcept(15); TurnOnVisualGroup(15); break;

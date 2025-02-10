@@ -14478,6 +14478,9 @@ MonoBehaviour:
   SceneFinaleText:
   - {fileID: 1701001953}
   - {fileID: 1387975105}
+  SceneFinaleTextFade:
+  - {fileID: 1701001953}
+  - {fileID: 1387975105}
   Scene13SharedWorld2:
   - {fileID: 1114616269}
   control: {fileID: 237206978}
@@ -14563,6 +14566,8 @@ MonoBehaviour:
     - m_Text: FinaleZoom
       m_Image: {fileID: 0}
     - m_Text: FinaleText
+      m_Image: {fileID: 0}
+    - m_Text: FinaleTextFade
       m_Image: {fileID: 0}
     - m_Text: Spiral
       m_Image: {fileID: 0}
