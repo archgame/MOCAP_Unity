@@ -29,15 +29,15 @@ public class ConstellationDrawer : MonoBehaviour
     private int maxTurn=15;
     private int boomNum;
 
-    private GameObject[] lineHolder;
+    private GameObject[][] lineHolder;
 
     public bool isDrawActive;
-    private int activeAvartarIndex;
+    public int activeAvartarIndex;
     public int starNum=5;
     private DataSubscription.Avatar[] avatars;
 
 
-    public LineRenderer[] lineRenderers;
+    public LineRenderer[][] lineRenderers;
     public Material lineMaterial;
     //public Material lineMaterial1;
     public Material starMaterial;
@@ -68,21 +68,25 @@ public class ConstellationDrawer : MonoBehaviour
         allConstellation = new GameObject();
         allConstellation.name = "All Constellations";
         allConstellation.transform.parent = gameObject.transform;
-        lineHolder = new GameObject[maxTurn];
-        lineRenderers = new LineRenderer[maxTurn];
+        lineHolder = new GameObject[maxTurn][];
+        lineRenderers = new LineRenderer[maxTurn][];
         for (int i = 0; i < maxTurn; i++) {
-            lineHolder[i] = new GameObject();
-            lineHolder[i].name = "LineHolder" + i;
-            lineHolder[i].transform.parent = gameObject.transform;
-            lineRenderers[i] = lineHolder[i].AddComponent<LineRenderer>();
-            lineRenderers[i].SetPosition(0, Vector3.zero);
-            lineRenderers[i].SetPosition(1, Vector3.zero);
-            lineRenderers[i].startWidth = 0.25f;
-            lineRenderers[i].endWidth = 0.5f;
-            //var lineMaterial = i%2 == 0? lineMaterial0: lineMaterial1;
-            lineRenderers[i].material = lineMaterial;
-            lineRenderers[i].textureMode = LineTextureMode.Tile;
-            lineRenderers[i].enabled = false;
+            lineHolder[i] = new GameObject[starNum];
+            lineRenderers[i] = new LineRenderer[starNum];
+            for (int j = 0; j < starNum; j++) {
+                lineHolder[i][j] = new GameObject();
+                lineHolder[i][j].name = "LineHolder" + i + ", " + j;
+                lineHolder[i][j].transform.parent = gameObject.transform;
+                lineRenderers[i][j] = lineHolder[i][j].AddComponent<LineRenderer>();
+                lineRenderers[i][j].SetPosition(0, Vector3.zero);
+                lineRenderers[i][j].SetPosition(1, Vector3.zero);
+                lineRenderers[i][j].startWidth = 0.25f;
+                lineRenderers[i][j].endWidth = 0.5f;
+                //var lineMaterial = i%2 == 0? lineMaterial0: lineMaterial1;
+                lineRenderers[i][j].material = lineMaterial;
+                lineRenderers[i][j].textureMode = LineTextureMode.Tile;
+                lineRenderers[i][j].enabled = false;
+            }
         }
         /*lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.SetPosition(0, Vector3.zero);
@@ -124,26 +128,42 @@ public class ConstellationDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < lineRenderers.Length; i++) {
-            if (i % 2 == 0) {
-                Material lineMat = lineRenderers[i].material;
-                lineMat.SetColor("_color", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
-            }
-            else {
-                Material lineMat = lineRenderers[i].material;
-                lineMat.SetColor("_color", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
-            }
-        }
-
         if (isDrawActive && activeStarIndex != constellation[turnNum].Length) {
-            lineRenderers[turnNum].enabled = true;
-            lineRenderers[turnNum].material.SetFloat("_alpha", 1f);
+            for (int i = 0; i < maxTurn; i++) {
+                for (int j = 0; j < starNum; j++) {
+                    if (j % 2 != 0) {
+                        Material lineMat = lineRenderers[i][j].material;
+                        lineMat.SetColor("_color", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+                    }
+                    else {
+                        Material lineMat = lineRenderers[i][j].material;
+                        lineMat.SetColor("_color", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+                    }
+                }
+            }
+            for (int i = 0; i < maxTurn; i++) {
+                for (int j = 0; j < starNum; j++) {
+                    if (j == 0) {
+                        continue;
+                    }
+                    if (j % 2 != 0) {
+                        Material starMat = constellation[i][j].GetComponent<twinkle>().star.GetComponent<MeshRenderer>().material;
+                        starMat.SetColor("_Color", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+                    }
+                    else {
+                        Material starMat = constellation[i][j].GetComponent<twinkle>().star.GetComponent<MeshRenderer>().material;
+                        starMat.SetColor("_Color", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+                    }
+                }
+            }
+            lineRenderers[turnNum][activeStarIndex].enabled = true;
+            lineRenderers[turnNum][activeStarIndex].material.SetFloat("_alpha", 1f);
 
             if (Sparkle.enabled == false) { Sparkle.enabled = true; Sparkle.Play(); }
 
 
             Sparkle.SetTexture("texture", trans);
-            Vector3 currentPos = lineRenderers[turnNum].GetPosition(lineRenderers[turnNum].positionCount - 1);
+            Vector3 currentPos = lineRenderers[turnNum][activeStarIndex].GetPosition(lineRenderers[turnNum][activeStarIndex].positionCount - 1);
             Sparkle.SetVector3("spawnPosition", currentPos);
             Vector3 nextStarPos = constellation[turnNum][activeStarIndex].transform.position;
             Vector3 currentPosToStar = nextStarPos - currentPos;
@@ -158,7 +178,7 @@ public class ConstellationDrawer : MonoBehaviour
             //magnifier;
             //Debug.Log(string.Format("{0},{1},{2}", drawVector.x, drawVector.y, drawVector.z));
             drawVector = new Vector3(drawVector.x, 0, drawVector.z);
-            DrawLine(lineRenderers[turnNum], drawVector, constellation[turnNum][0].transform.position);
+            DrawLine(lineRenderers[turnNum][activeStarIndex], drawVector, constellation[turnNum][0].transform.position);
             IncreIndex(currentPos, nextStarPos);
 
         }
@@ -168,7 +188,7 @@ public class ConstellationDrawer : MonoBehaviour
             }*/
             if (boomNum == turnNum && activeStarIndex != 1) { starBoom.SendEvent("Wave"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
             alp = alp <= 0.1f ? 0.1f : alp - (Time.deltaTime / 5f);
-            lineRenderers[turnNum].material.SetFloat("_alpha", alp);
+            lineRenderers[turnNum][activeStarIndex-1].material.SetFloat("_alpha", alp);
             //lineMaterial.SetFloat("_alpha", alp);
             if (!isCoroutine) {
                 StartCoroutine(AutoAnotherRounds());
@@ -232,7 +252,7 @@ public class ConstellationDrawer : MonoBehaviour
 
                 //constellation[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 constellation[j][i] = Instantiate(starSpike);
-                constellation[j][i].transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+                constellation[j][i].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
                 constellation[j][i].GetComponent<twinkle>().period = 1f;
                 //constellation[i].GetComponent<MeshRenderer>().material = starMaterial;
                 constellation[j][i].transform.position = starList[j][i];
@@ -242,7 +262,7 @@ public class ConstellationDrawer : MonoBehaviour
             }
             constellation[j][0].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             constellation[j][0].GetComponent<twinkle>().period = 0.3f;
-            constellation[j][1].transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+            constellation[j][1].transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             constellation[j][1].GetComponent<twinkle>().period = 1f;
         }
 
@@ -253,7 +273,7 @@ public class ConstellationDrawer : MonoBehaviour
     {
         currentP.y = 0f;
         endP.y = 0f;
-        if (Vector3.Distance(currentP, endP) <= 1.2f || Input.GetKeyDown(KeyCode.N)) {
+        if (Vector3.Distance(currentP, endP) <= 0.8f || Input.GetKeyDown(KeyCode.N)) {
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>().period = 0.3f;
             constellation[turnNum][activeStarIndex].GetComponent<twinkle>()._scale = true;
             Debug.Log("Twinkle force switched");
@@ -297,12 +317,14 @@ public class ConstellationDrawer : MonoBehaviour
         turnNum = 0;
         boomNum = 0;
         activeStarIndex = 1;
-        foreach (var rend in lineRenderers) {
-            rend.material.SetFloat("_alpha", 1);
-            rend.enabled = false;
-            rend.positionCount = 2;
-            rend.SetPosition(0, Vector3.zero);
-            rend.SetPosition(1, Vector3.zero);
+        foreach (var rends in lineRenderers) {
+            foreach (var rend in rends) {
+                rend.material.SetFloat("_alpha", 1);
+                rend.enabled = false;
+                rend.positionCount = 2;
+                rend.SetPosition(0, Vector3.zero);
+                rend.SetPosition(1, Vector3.zero);
+            }
         }
         GenerateConstellation(starNum);
         for (int i = 0; i < constellation.Length; i++) {
@@ -318,9 +340,11 @@ public class ConstellationDrawer : MonoBehaviour
     public void stopDrawing()
     {
         isDrawActive = false;
-        foreach (var rend in lineRenderers) {
-            rend.material.SetFloat("_alpha", 0.1f);
-            Sparkle.enabled = false;
+        foreach (var rends in lineRenderers) {
+            foreach (var rend in rends) {
+                rend.material.SetFloat("_alpha", 0.1f);
+                Sparkle.enabled = false;
+            }
         }
         foreach (var stars in constellation[turnNum]) {
             stars.GetComponent<twinkle>().spike.SetActive(false);

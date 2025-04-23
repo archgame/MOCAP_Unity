@@ -33,7 +33,6 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        lineRenderers = conDrawer.lineRenderers;
 
         NextChar(0);
         NextChar(1);

@@ -10,6 +10,7 @@ public class twinkle : MonoBehaviour
     public float scaleTimer;
     public float period;
     public bool _scale;
+    public float power;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,16 +50,16 @@ public class twinkle : MonoBehaviour
 
     public void starShine()
     {
-        float power = pingPongTwo(-2f, 2f, 1f);
+        power = pingPongTwo(0.2f, 0.7f, 0.5f);
         star.GetComponent<MeshRenderer>().material.SetFloat("Vector1_e80ff47c9e534fdeb215fa99a5d9fba8", power);
     }
 
     public float pingPongTwo(float a, float b, float T)
     {
-        float d = (a + b) / 2;
-        float range = d - a;
-        float data = Mathf.PingPong(Time.time * T, range)+d;
-        return data;
+        float min = Mathf.Min(a, b);
+        float max = Mathf.Max(a, b);
+        float range = max - min;
+        return Mathf.PingPong(Time.time * T, range) + min;
     }
 
 }
