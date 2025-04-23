@@ -14478,9 +14478,6 @@ MonoBehaviour:
   SceneFinaleText:
   - {fileID: 1701001953}
   - {fileID: 1387975105}
-  SceneFinaleTextFade:
-  - {fileID: 1701001953}
-  - {fileID: 1387975105}
   Scene13SharedWorld2:
   - {fileID: 1114616269}
   control: {fileID: 237206978}
@@ -15222,6 +15219,7 @@ MonoBehaviour:
   - 0
   isAlienMorph: 0
   gridStretchTime: 0
+  speedSlider: {fileID: 1140218735}
 --- !u!1 &811943611
 GameObject:
   m_ObjectHideFlags: 0
@@ -19482,6 +19480,7 @@ MonoBehaviour:
   - {r: 0, g: 1.2596959, b: 1.2596959, a: 0}
   - {r: 1.2596959, g: 1.2596959, b: 1.2596959, a: 0}
   Renderer: {fileID: 2137325018}
+  conDrawer: {fileID: 2122569248}
 --- !u!1 &1129188609
 GameObject:
   m_ObjectHideFlags: 0
@@ -19729,9 +19728,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1510238913}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 2
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -37917,6 +37916,7 @@ MonoBehaviour:
   maxTurn: 15
   isDrawActive: 0
   starNum: 3
+  lineRenderers: []
   lineMaterial: {fileID: 2100000, guid: 32388c9e1f55e2e428638f2cbc72d5cd, type: 2}
   starMaterial: {fileID: 2100000, guid: d9cf4c5ce0c238b4f8c8c32dde5eb6f3, type: 2}
   Sparkle: {fileID: 1863845008}

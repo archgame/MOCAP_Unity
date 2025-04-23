@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 using UnityEngine.VFX;
@@ -36,8 +37,9 @@ public class ConstellationDrawer : MonoBehaviour
     private DataSubscription.Avatar[] avatars;
 
 
-    private LineRenderer[] lineRenderers;
+    public LineRenderer[] lineRenderers;
     public Material lineMaterial;
+    //public Material lineMaterial1;
     public Material starMaterial;
 
 
@@ -52,9 +54,14 @@ public class ConstellationDrawer : MonoBehaviour
 
     [SerializeField]
     private DataSubscription data;
+
+    private CharacterManager charManager;
     // Start is called before the first frame update
     void Start()
     {
+        var chars = GameObject.Find("_CHARACTERS");
+        charManager = chars.GetComponent<CharacterManager>();
+
         isCoroutine = false;
         isDrawActive = false;
         avatars = new DataSubscription.Avatar[2] { data.avatar0, data.avatar1 };
@@ -72,6 +79,7 @@ public class ConstellationDrawer : MonoBehaviour
             lineRenderers[i].SetPosition(1, Vector3.zero);
             lineRenderers[i].startWidth = 0.25f;
             lineRenderers[i].endWidth = 0.5f;
+            //var lineMaterial = i%2 == 0? lineMaterial0: lineMaterial1;
             lineRenderers[i].material = lineMaterial;
             lineRenderers[i].textureMode = LineTextureMode.Tile;
             lineRenderers[i].enabled = false;
@@ -116,11 +124,22 @@ public class ConstellationDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < lineRenderers.Length; i++) {
+            if (i % 2 == 0) {
+                Material lineMat = lineRenderers[i].material;
+                lineMat.SetColor("_color", charManager.colors[(charManager.Char0ColorIndex + 5) % 6]);
+            }
+            else {
+                Material lineMat = lineRenderers[i].material;
+                lineMat.SetColor("_color", charManager.colors[(charManager.Char1ColorIndex + 5) % 6]);
+            }
+        }
+
         if (isDrawActive && activeStarIndex != constellation[turnNum].Length) {
             lineRenderers[turnNum].enabled = true;
             lineRenderers[turnNum].material.SetFloat("_alpha", 1f);
 
-            if(Sparkle.enabled == false) { Sparkle.enabled = true; Sparkle.Play(); }
+            if (Sparkle.enabled == false) { Sparkle.enabled = true; Sparkle.Play(); }
 
 
             Sparkle.SetTexture("texture", trans);
@@ -131,31 +150,31 @@ public class ConstellationDrawer : MonoBehaviour
 
             Vector3 moveDirection = avatars[activeAvartarIndex].leftHand.velocity;
             //if(moveDirection == Vector3.zero) { moveDirection = currentPosToStar; }
-            
+
             Vector3 connectDir = ConnectDir(currentPosToStar, moveDirection);
             float magnifier = Unity.Mathematics.math.remap(0, 53, 0f, 2f, Unity.Mathematics.math.min(avatars[activeAvartarIndex].leftHand.speed, 53));
             magnifier = Mathf.Max(magnifier, 0f);
             Vector3 drawVector = connectDir * magnifier;
             //magnifier;
             //Debug.Log(string.Format("{0},{1},{2}", drawVector.x, drawVector.y, drawVector.z));
-            drawVector = new Vector3 (drawVector.x, 0, drawVector.z);
+            drawVector = new Vector3(drawVector.x, 0, drawVector.z);
             DrawLine(lineRenderers[turnNum], drawVector, constellation[turnNum][0].transform.position);
             IncreIndex(currentPos, nextStarPos);
-            
+
         }
-        if(!isDrawActive && activeStarIndex == constellation[turnNum].Length) {
+        if (!isDrawActive && activeStarIndex == constellation[turnNum].Length) {
             /*foreach (var vfx in galaxy) {
                 vfx.playRate = 1f;
             }*/
-            if (boomNum == turnNum && activeStarIndex!= 1) { starBoom.SendEvent("Wave"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
-            alp = alp<=0.1f?  0.1f : alp - (Time.deltaTime/5f);
+            if (boomNum == turnNum && activeStarIndex != 1) { starBoom.SendEvent("Wave"); boomNum++; Debug.Log("boomNum is now " + boomNum); }
+            alp = alp <= 0.1f ? 0.1f : alp - (Time.deltaTime / 5f);
             lineRenderers[turnNum].material.SetFloat("_alpha", alp);
             //lineMaterial.SetFloat("_alpha", alp);
             if (!isCoroutine) {
                 StartCoroutine(AutoAnotherRounds());
             }
-        }
 
+            }
     }
 
     private Vector3 ConnectDir(Vector3 posToNextStar, Vector3 drawDriection)

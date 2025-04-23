@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using System;
 using Unity.Mathematics;
+using UnityEngine.UI;
 using static DataSubscription;
 
 public class DataSubscription : MonoBehaviour
@@ -94,6 +95,9 @@ public class DataSubscription : MonoBehaviour
     //declare character
     private GameObject chars;
     private CharacterManager charManager;
+
+    public Slider speedSlider; // Reference to the UI Slider
+    private float speedFactor = 1.0f; // Default speed
 
     // Start is called before the first frame update
     void Start()
@@ -218,11 +222,15 @@ public class DataSubscription : MonoBehaviour
 
 
         //set jump with size
+
+        if (speedSlider != null) {
+            speedFactor = speedSlider.value; // Get the slider value
+        }
         if (!isAlienMorph) {
             grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount0", avatar0.jumpCount);
             grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_jumpCount1", avatar1.jumpCount);
             if (Distance(avatar0.hip.rig, avatar1.hip.rig) <= 3f) {
-                float spacing = Mathf.Repeat(Time.time, 0.9f) + 0.1f;
+                float spacing = Mathf.Repeat(Time.time * speedFactor, 0.9f) + 0.1f;
                 grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", spacing);
             } else {
             grids[0].GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_spacing", 1f);

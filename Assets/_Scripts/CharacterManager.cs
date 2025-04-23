@@ -27,11 +27,14 @@ public class CharacterManager : MonoBehaviour
     public Color[] colors;
 
     public MeshRenderer Renderer;
-
+    public ConstellationDrawer conDrawer;
+    private LineRenderer[] lineRenderers;
 
     // Start is called before the first frame update
     private void Start()
     {
+        lineRenderers = conDrawer.lineRenderers;
+
         NextChar(0);
         NextChar(1);
 
@@ -52,18 +55,15 @@ public class CharacterManager : MonoBehaviour
         //get the character to act on
         GameObject[] avatars = Char0Avatars;
         int index = Char0Index;
-        if (avatarIndex == 1)
-        {
+        if (avatarIndex == 1) {
             avatars = Char1Avatars;
             index = Char1Index;
         }
 
         //update all the avatars
-        for (int i = 0; i < avatars.Length; i++)
-        {
+        for (int i = 0; i < avatars.Length; i++) {
             var go = avatars[i];
-            if (i == index)
-            {
+            if (i == index) {
                 SetSkinnedMeshChildren(go, true);
                 continue;
             }
@@ -73,12 +73,10 @@ public class CharacterManager : MonoBehaviour
         //update global variable
         index++; //get the next index for the next avatar
         if (index >= avatars.Length) { index = 0; } //reset index if we are at the last avatar
-        if (avatarIndex == 1)
-        {
+        if (avatarIndex == 1) {
             Char1Index = index;
         }
-        else
-        {
+        else {
             Char0Index = index;
         }
     }
@@ -91,8 +89,7 @@ public class CharacterManager : MonoBehaviour
         Material trace = Trace0Mat;
         Material flare = Flare0Mat;
         int index = Char0ColorIndex;
-        if (avatarIndex == 1)
-        {
+        if (avatarIndex == 1) {
             mat = Char1Mat;
             sensor = Sensor1Mat;
             trace = Trace1Mat;
@@ -125,29 +122,31 @@ public class CharacterManager : MonoBehaviour
                 foreach (TrailRenderer trail in mainControl.avatar0Trails) {
                     trail.material.SetColor("_startColor", color);
                 }
+
+                
             }
             else if (avatarIndex == 1) {
                 foreach (TrailRenderer trail in mainControl.avatar1Trails) {
                     trail.material.SetColor("_startColor", color);
                 }
-            }
-            //trail color control + galaxy color end
-        }
 
-        //update global variable
-        index++; //get the next index for the next avatar
-        if (index >= colors.Length) { index = 0; } //reset index if we are at the last avatar
-        if (avatarIndex == 1) { Char1ColorIndex = index; }
-        else { Char0ColorIndex = index; }
+                
+                //trail color control + galaxy color end
+            }
+
+            //update global variable
+            index++; //get the next index for the next avatar
+            if (index >= colors.Length) { index = 0; } //reset index if we are at the last avatar
+            if (avatarIndex == 1) { Char1ColorIndex = index; }
+            else { Char0ColorIndex = index; }
+        }
     }
 
     public void SetSkinnedMeshChildren(GameObject go, bool set)
     {
-        foreach (Transform child in go.transform)
-        {
+        foreach (Transform child in go.transform) {
             var skins = child.GetComponentsInChildren<SkinnedMeshRenderer>(true);
-            foreach (var skin in skins)
-            {
+            foreach (var skin in skins) {
                 skin.enabled = set;
             }
         }
