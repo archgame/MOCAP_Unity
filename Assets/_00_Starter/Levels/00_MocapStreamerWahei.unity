@@ -37915,8 +37915,8 @@ MonoBehaviour:
   starBoom: {fileID: 1432811790}
   maxTurn: 15
   isDrawActive: 0
+  activeAvartarIndex: 0
   starNum: 3
-  lineRenderers: []
   lineMaterial: {fileID: 2100000, guid: 32388c9e1f55e2e428638f2cbc72d5cd, type: 2}
   starMaterial: {fileID: 2100000, guid: d9cf4c5ce0c238b4f8c8c32dde5eb6f3, type: 2}
   Sparkle: {fileID: 1863845008}

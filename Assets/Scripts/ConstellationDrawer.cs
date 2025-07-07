@@ -129,7 +129,7 @@ public class ConstellationDrawer : MonoBehaviour
     void Update()
     {
         if (isDrawActive && activeStarIndex != constellation[turnNum].Length) {
-            for (int i = 0; i < maxTurn; i++) {
+            for (int i = 2; i < maxTurn; i++) {
                 for (int j = 0; j < starNum; j++) {
                     if (j % 2 != 0) {
                         Material lineMat = lineRenderers[i][j].material;
@@ -141,7 +141,7 @@ public class ConstellationDrawer : MonoBehaviour
                     }
                 }
             }
-            for (int i = 0; i < maxTurn; i++) {
+            for (int i = 2; i < maxTurn; i++) {
                 for (int j = 0; j < starNum; j++) {
                     if (j == 0) {
                         continue;
