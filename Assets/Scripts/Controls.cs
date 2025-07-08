@@ -17,13 +17,15 @@ public class Controls : MonoBehaviour
     public Dropdown dropDown;
     public Dropdown traceLineType;
     public InputField thresholdInput;
+    public InputField trailLifeInput;
     public Toggle[] galaxyTog;  
     //trailToMeshTogg;
 
     //trailine material
     public Material[] trailLineMat;
 
-    public float TrailRenderTime = 2.0f;
+    public float TrailRenderTime = 4.0f;
+    public float TrailLifeTime = 8f;
 
     public TrailRenderer[] TrailRenderers;
     public List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
@@ -84,7 +86,7 @@ public class Controls : MonoBehaviour
     private void Start()
     {
 
-
+        TrailRenderTime = 4.0f;
 
         //get CharManager
         chars = GameObject.Find("_CHARACTERS");
@@ -109,6 +111,10 @@ public class Controls : MonoBehaviour
             else if (Value == 1) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[1]; } }
             else if (Value == 2) { foreach (var trail in TrailRenderers) { trail.material = trailLineMat[2]; } }
         });
+        trailLifeInput.onValueChanged.AddListener(Value => {
+            TrailLifeTime = float.Parse(Value);
+            Debug.Log($"Trail life time is {TrailLifeTime}");
+        });
 
         //set trail color gradients
         /*
@@ -119,7 +125,7 @@ public class Controls : MonoBehaviour
         */
 
         //set trail color with Button
-        foreach(var trail in TrailRenderers) {
+        foreach (var trail in TrailRenderers) {
             trail.material.SetColor("_startColor", Color.white);
             trail.material.SetColor("_endColor", Color.white);
         }
@@ -196,6 +202,10 @@ public class Controls : MonoBehaviour
         ava0Toggle.onValueChanged.AddListener(OnAva0ToggleValueChanged);
         ava1Toggle.onValueChanged.AddListener(OnAva1ToggleValueChanged);
 
+
+        foreach (TrailRenderer trail in TrailRenderers) {
+            trail.time = TrailRenderTime;
+        }
     }
 
     private float _timeIncrement = 0.01f;
@@ -523,7 +533,7 @@ public class Controls : MonoBehaviour
             //add to parent
             go.transform.TransformPoint(hips[avaIndex].transform.position);
             go.transform.parent = parent[avaIndex].transform;
-
+            Destroy(go, TrailLifeTime);
         }
     }
 
@@ -545,21 +555,20 @@ public class Controls : MonoBehaviour
     private void translateBakedTrail(GameObject trailParent, GameObject target, float spd)
     {
         foreach (Transform child in trailParent.transform) {
-            /*if (Vector3.Distance(child.GetComponent<Renderer>().transform.position, target.transform.position) <= 3f) {
-                Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
-                Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, .1f), UnityEngine.Random.Range(0f, .1f));
-                child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
-                float intensity = Mathf.PingPong(Time.time, 4f);
-                intensity = 2f - intensity;
-                child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
+            Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
+            Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+            child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
+            float intensity = Mathf.PingPong(Time.time, 4f);
+            intensity = 2f - intensity;
+            child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
+
+            var scale = child.localScale;
+            
+            if(scale.magnitude > 0.75f) {
+                scale -= (Time.deltaTime / 14f) * Vector3.one;
+                child.localScale = scale;
             }
-            else {*/
-                Vector3 direction = target.transform.position - child.GetComponent<Renderer>().bounds.center;
-                Vector3 randomForce = new Vector3(UnityEngine.Random.Range(0f, 3f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
-                child.GetComponent<Renderer>().transform.Translate((spd * Time.deltaTime * direction.normalized));
-                float intensity = Mathf.PingPong(Time.time, 4f);
-                intensity = 2f - intensity;
-                child.GetComponent<Renderer>().transform.Translate(Vector3.left * intensity * Time.deltaTime);
+            
         }
             //Debug.DrawLine(child.transform.position , target.transform.position, Color.white, 2f);
     }

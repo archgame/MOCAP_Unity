@@ -100,6 +100,8 @@ public class DataSubscription : MonoBehaviour
     private float speedFactor = 1.0f; // Default speed
 
     // Start is called before the first frame update
+    public bool superPower = false;
+    private float[] spInitDist = new float[2];
     void Start()
     {
         isAlienMorph = false;
@@ -161,6 +163,11 @@ public class DataSubscription : MonoBehaviour
         //distance calc 
         dist[0] = Distance(avat0[2], avat0[3]);
         dist[1] = Distance(avat0[2], avat1[2]);
+        //
+        float[] pastDist = new float[2];
+        pastDist[0] = Vector3.Distance(avatar0.leftHand.lastPosition, avatar0.rightHand.lastPosition);
+        pastDist[1] = Vector3.Distance(avatar1.leftHand.lastPosition, avatar1.rightHand.lastPosition);
+
         //subscribtions
         effects[0].SetFloat("handHipDist", dist[0]);
         effects[1].SetFloat("handHipDist", dist[1]);
@@ -251,6 +258,29 @@ public class DataSubscription : MonoBehaviour
 
             }
 
+        }
+        
+        if (Input.GetKeyDown(KeyCode.V)) { 
+            superPower = !superPower;
+            spInitDist[0] = dist[0];
+            spInitDist[1] = dist[1];
+        }
+        if (superPower) {
+            Debug.Log("Superpower On");
+            var factor = 1f;
+            var deltaScale0 = factor* (pastDist[0] - dist[0]) / spInitDist[0];
+            var deltaScale1 = factor*(pastDist[1] - dist[1]) / spInitDist[1];
+           
+            var scale0 = effects[3].transform.localScale;
+            var scale1 = effects[4].transform.localScale;
+            scale0 = scale0 - deltaScale0 * Vector3.one;
+            scale1 = scale1 - deltaScale1 * Vector3.one;
+            effects[5].transform.localScale = scale0;
+            effects[6].transform.localScale = scale1;
+            var translate0 = avatar0.leftHand.velocity * Time.deltaTime * factor;
+            var translate1 = avatar1.leftHand.velocity * Time.deltaTime * factor;
+            effects[5].transform.Translate(translate0);
+            effects[6].transform.Translate(translate1);
         }
        
 
