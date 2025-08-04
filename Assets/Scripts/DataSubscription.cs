@@ -6,6 +6,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine.UI;
 using static DataSubscription;
+using UnityEngine.UIElements;
 
 public class DataSubscription : MonoBehaviour
 {
@@ -96,12 +97,13 @@ public class DataSubscription : MonoBehaviour
     private GameObject chars;
     private CharacterManager charManager;
 
-    public Slider speedSlider; // Reference to the UI Slider
+    public UnityEngine.UIElements.Slider speedSlider; // Reference to the UI Slider
     private float speedFactor = 1.0f; // Default speed
 
     // Start is called before the first frame update
     public bool superPower = false;
     private float[] spInitDist = new float[2];
+    private Vector3[] lastVelo = new Vector3[2];
     void Start()
     {
         isAlienMorph = false;
@@ -264,25 +266,30 @@ public class DataSubscription : MonoBehaviour
             superPower = !superPower;
             spInitDist[0] = dist[0];
             spInitDist[1] = dist[1];
+            if (!superPower) {
+                effects[0].SetVector3("_Acceleration", Vector3.zero);
+                effects[1].SetVector3("_Acceleration", Vector3.zero);
+                effects[3].SetVector3("_Acceleration", Vector3.zero);
+                effects[4].SetVector3("_Acceleration", Vector3.zero);
+                effects[5].SetVector3("_Acceleration", Vector3.zero);
+                effects[6].SetVector3("_Acceleration", Vector3.zero);
+            }
         }
         if (superPower) {
             Debug.Log("Superpower On");
-            var factor = 1f;
-            var deltaScale0 = factor* (pastDist[0] - dist[0]) / spInitDist[0];
-            var deltaScale1 = factor*(pastDist[1] - dist[1]) / spInitDist[1];
-           
-            var scale0 = effects[3].transform.localScale;
-            var scale1 = effects[4].transform.localScale;
-            scale0 = scale0 - deltaScale0 * Vector3.one;
-            scale1 = scale1 - deltaScale1 * Vector3.one;
-            effects[5].transform.localScale = scale0;
-            effects[6].transform.localScale = scale1;
+            var factor = 5f;
             var translate0 = avatar0.leftHand.velocity * Time.deltaTime * factor;
             var translate1 = avatar1.leftHand.velocity * Time.deltaTime * factor;
-            effects[5].transform.Translate(translate0);
-            effects[6].transform.Translate(translate1);
+            //effects[5].transform.Translate(translate0);
+            //effects[6].transform.Translate(translate1);
+            effects[0].SetVector3("_Acceleration", translate0);
+            effects[1].SetVector3("_Acceleration", translate1);
+            effects[3].SetVector3("_Acceleration", translate0);
+            effects[4].SetVector3("_Acceleration", translate1);
+            effects[5].SetVector3("_Acceleration", translate0);
+            effects[6].SetVector3("_Acceleration", translate1);
         }
-       
+
 
     }
 

@@ -26,6 +26,7 @@ public class Controls : MonoBehaviour
 
     public float TrailRenderTime = 4.0f;
     public float TrailLifeTime = 8f;
+    private bool isTrailBaked=false;
 
     public TrailRenderer[] TrailRenderers;
     public List<TrailRenderer> avatar0Trails = new List<TrailRenderer>();
@@ -340,7 +341,13 @@ public class Controls : MonoBehaviour
         */
 
         //bake trail renderer as mesh
-        if (Input.GetKeyDown(KeyCode.Space)) { BakeTrailRenderersByAvatar(avatar0Trails, 0); BakeTrailRenderersByAvatar(avatar1Trails, 1); }
+        if (Input.GetKeyDown(KeyCode.Space)) { 
+            BakeTrailRenderersByAvatar(avatar0Trails, 0); 
+            BakeTrailRenderersByAvatar(avatar1Trails, 1);
+            if (!isTrailBaked) {
+                StartCoroutine(DisableAndEnableTrails());
+            }
+        }
 
         //delete drawing
         //if (Input.GetKeyDown(KeyCode.X)) { DeleteBakeTrailRenderersByAvatar(0); DeleteBakeTrailRenderersByAvatar(1); }
@@ -542,8 +549,33 @@ public class Controls : MonoBehaviour
     {
         BakeTrailRenderersByAvatar(avatar0Trails, 0);
         BakeTrailRenderersByAvatar(avatar1Trails, 1);
+        foreach (var trail in TrailRenderers) {
+            trail.enabled = false;
+        }
+        //if (!isTrailBaked) {
+        //    StartCoroutine(DisableAndEnableTrails());
+        //}
     }
 
+    IEnumerator DisableAndEnableTrails()
+    {
+        isTrailBaked = true;
+        List<TrailRenderer> activeTrail = new List<TrailRenderer>();
+        // Disable trails
+        foreach (var trail in TrailRenderers) {
+            if (trail.enabled) {
+                trail.enabled = false;
+                activeTrail.Add(trail);
+            }
+
+        }
+        yield return new WaitForSeconds(TrailLifeTime+1f);
+        // Re-enable trails
+        foreach (var trail in activeTrail) {
+            trail.enabled = true;
+        }
+        isTrailBaked = false;
+    }
     public void DeleteBakeTrailRenderersByAvatar(int avatarIndex)
     {
         //delete any existing children
